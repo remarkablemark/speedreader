@@ -10,6 +10,7 @@
 ### Session 2026-02-14
 
 - Q: Should the core session flow be user enters/pastes text, then words are shown one at a time at the selected speed? → A: Yes - user inputs text, then single words flash sequentially at chosen speed.
+- Q: If the user refreshes or reopens the app during an active session, what should happen? → A: Always reset to a new session start.
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -77,7 +78,7 @@ As a reader, I can see progress during and after a session so I can understand c
 - Reader enters text that is extremely short (1 word) or very long (for example, several thousand words).
 - Reader sets speed to minimum or maximum allowed value.
 - Reader changes speed repeatedly while playback is active.
-- Reader refreshes or closes the app during an active session and later returns.
+- Reader refreshes or closes the app during an active session and later returns (session resets to start).
 - Reader uses only keyboard navigation without pointer interaction.
 
 ## Requirements _(mandatory)_
@@ -100,6 +101,7 @@ As a reader, I can see progress during and after a session so I can understand c
 - **FR-008**: System MUST validate session input and prevent session start when no readable text is present.
 - **FR-009**: System MUST preserve the reader's most recently selected reading speed for subsequent sessions on the same device.
 - **FR-010**: System MUST ensure all primary controls are accessible via keyboard and exposed with clear accessible labels.
+- **FR-011**: System MUST reset an in-progress session to the beginning when the app is refreshed or reopened.
 
 ### Key Entities _(include if feature involves data)_
 

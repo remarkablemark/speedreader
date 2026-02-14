@@ -5,6 +5,12 @@
 **Status**: Draft  
 **Input**: User description: "speed reading app"
 
+## Clarifications
+
+### Session 2026-02-14
+
+- Q: Should the core session flow be user enters/pastes text, then words are shown one at a time at the selected speed? → A: Yes - user inputs text, then single words flash sequentially at chosen speed.
+
 ## User Scenarios & Testing _(mandatory)_
 
 <!--
@@ -20,9 +26,9 @@
   - Demonstrated to users independently
 -->
 
-### User Story 1 - Read Text in Timed Chunks (Priority: P1)
+### User Story 1 - Read Text in Single-Word Flashes (Priority: P1)
 
-As a reader, I can start a reading session where text is shown in a paced sequence so I can read faster without manually scanning lines.
+As a reader, I can start a reading session where text is shown as single-word flashes in a paced sequence so I can read faster without manually scanning lines.
 
 **Why this priority**: The core value of a speed reading app is controlled paced display. Without this, the product does not deliver its primary benefit.
 
@@ -30,7 +36,7 @@ As a reader, I can start a reading session where text is shown in a paced sequen
 
 **Acceptance Scenarios**:
 
-1. **Given** a reader has entered valid text and a reading speed, **When** they start a session, **Then** the app displays words in sequence at that speed.
+1. **Given** a reader has entered valid text and a reading speed, **When** they start a session, **Then** the app displays single words in sequence at that speed.
 2. **Given** a session is running, **When** the reader pauses and then resumes, **Then** playback continues from the same word position.
 
 ---
@@ -87,7 +93,7 @@ As a reader, I can see progress during and after a session so I can understand c
 - **FR-001**: System MUST allow a reader to provide source text for a speed reading session.
 - **FR-002**: System MUST parse provided text into an ordered sequence of readable words.
 - **FR-003**: System MUST allow the reader to start, pause, resume, and restart a reading session.
-- **FR-004**: System MUST display words one at a time in reading order according to the currently selected speed.
+- **FR-004**: System MUST display single words one at a time in reading order as visual flashes according to the currently selected speed.
 - **FR-005**: System MUST allow the reader to set a reading speed within a bounded range before and during a session.
 - **FR-006**: System MUST display current progress during a session as words-read versus total words and as a percentage.
 - **FR-007**: System MUST provide a completion summary when the final word is reached.

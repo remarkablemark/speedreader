@@ -1,9 +1,11 @@
-# speedreader
+# Speed Reader
 
 [![build](https://github.com/remarkablemark/speedreader/actions/workflows/build.yml/badge.svg)](https://github.com/remarkablemark/speedreader/actions/workflows/build.yml)
 [![test](https://github.com/remarkablemark/speedreader/actions/workflows/test.yml/badge.svg)](https://github.com/remarkablemark/speedreader/actions/workflows/test.yml)
 
-Vite React Tailwind Template
+👀 Speed speeding app:
+
+- [Speed Reader](https://remarkablemark.org/speedreader/)
 
 ## Install
 

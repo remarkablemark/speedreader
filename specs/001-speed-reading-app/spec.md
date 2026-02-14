@@ -14,6 +14,7 @@
 - Q: What default speed should be preselected for a first-time user before any saved preference exists? → A: 250 WPM.
 - Q: What speed range should users be allowed to choose, and how should it be controlled in the UI? → A: Slider from 100-1000 WPM.
 - Q: What maximum text size should be accepted per session? → A: No explicit limit.
+- Q: What base word size should the flash-word display use? → A: 48px base size, scale down on small screens.
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -108,6 +109,7 @@ As a reader, I can see progress during and after a session so I can understand c
 - **FR-012**: System MUST preselect 250 WPM as the default speed for first-time users when no saved preference exists.
 - **FR-013**: System MUST provide a slider-based speed control with selectable values from 100 to 1000 WPM.
 - **FR-014**: System MUST not enforce a fixed maximum word-count limit for session text input.
+- **FR-015**: System MUST display flashed words at a 48px base text size and scale down on small screens to maintain readability without layout breakage.
 
 ### Key Entities _(include if feature involves data)_
 
@@ -120,6 +122,7 @@ As a reader, I can see progress during and after a session so I can understand c
 - The initial release supports a single reader on a single device context without account management.
 - Input text is supplied manually (typed or pasted) for MVP scope.
 - Speed selection uses a slider constrained to 100-1000 WPM.
+- Flash-word display uses a 48px base size with responsive downscaling on smaller viewports.
 
 ## Success Criteria _(mandatory)_
 

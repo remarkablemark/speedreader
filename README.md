@@ -2,6 +2,7 @@
 
 [![build](https://github.com/remarkablemark/speedreader/actions/workflows/build.yml/badge.svg)](https://github.com/remarkablemark/speedreader/actions/workflows/build.yml)
 [![test](https://github.com/remarkablemark/speedreader/actions/workflows/test.yml/badge.svg)](https://github.com/remarkablemark/speedreader/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/remarkablemark/speedreader/graph/badge.svg?token=TRsPJGWN5E)](https://codecov.io/gh/remarkablemark/speedreader)
 
 👀 Speed speeding app:
 

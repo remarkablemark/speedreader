@@ -17,6 +17,7 @@
 - Q: What base word size should the flash-word display use? → A: 48px base size, scale down on small screens.
 - Q: Which keyboard shortcuts should be the default controls? → A: Space play/pause, R restart, Up/Down adjust WPM by 10, Home/End set min/max speed.
 - Q: How should the app layout adapt on small screens? → A: Keep one-row controls and shrink layout to fit.
+- Q: How should the user move between setup (text input) and reading (word display) modes? → A: Explicit buttons: Start Reading and Edit Text.
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -114,6 +115,7 @@ As a reader, I can see progress during and after a session so I can understand c
 - **FR-015**: System MUST display flashed words at a 48px base text size and scale down on small screens to maintain readability without layout breakage.
 - **FR-016**: System MUST support keyboard shortcuts where Space toggles play/pause, R restarts the session, Up/Down adjust speed by 10 WPM, and Home/End set speed to configured minimum/maximum.
 - **FR-017**: System MUST keep controls in a single row on small screens and scale control presentation to fit without horizontal overflow.
+- **FR-018**: System MUST provide explicit mode-transition controls: a **Start Reading** action to move from text input to reading display and an **Edit Text** action to return to input mode.
 
 ### Key Entities _(include if feature involves data)_
 

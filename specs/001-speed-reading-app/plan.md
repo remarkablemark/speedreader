@@ -17,7 +17,7 @@ Deliver a deterministic single-page speed reading experience where users paste t
 **Testing**: Vitest 4 + Testing Library (`@testing-library/react`, `user-event`)  
 **Target Platform**: Modern desktop/mobile browsers via Vite SPA
 **Project Type**: Single-project web frontend (`src/`)
-**Performance Goals**: Deterministic word advancement cadence at selected WPM with timer drift constrained to non-user-noticeable bounds for single-session playback; controls respond immediately to pause/resume/speed changes
+**Performance Goals**: Deterministic word advancement cadence at selected WPM with timer drift constrained to <= 75ms per tick and <= 1000ms cumulative drift over any 500-word run under stable tab conditions; controls respond immediately to pause/resume/speed changes
 **Constraints**: WPM range fixed to 100-1000 with slider + keyboard shortcuts; no maximum input length enforcement; refresh/reopen resets active sessions; controls remain single-row on small screens
 **Scale/Scope**: Single reader, single-device context, one active in-memory session at a time, expected text sizes from 1 word to several thousand words
 

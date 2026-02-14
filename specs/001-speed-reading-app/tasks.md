@@ -29,6 +29,8 @@ Tests are included because this feature changes core behavior, has deterministic
 - [ ] T007 [P] Implement finite reading-session reducer (`idle/running/paused/completed`) in src/components/App/sessionReducer.ts
 - [ ] T008 [P] Implement keyboard shortcut interpretation utilities (Space/R/Up/Down/Home/End) in src/components/App/keyboardShortcuts.ts
 - [ ] T009 Integrate reducer, timer scheduling, and cleanup into a session hook in src/components/App/useReadingSession.ts
+- [ ] T029 Implement large-input-safe tokenization guardrails (no fixed max-word cap, linear processing) in src/components/App/tokenizeContent.ts
+- [ ] T030 [P] Add regression tests for 1-word and very-large text tokenization/playback readiness in src/components/App/tokenizeContent.test.ts
 
 **Checkpoint**: Foundation ready for independent user-story delivery.
 
@@ -105,6 +107,8 @@ Tests are included because this feature changes core behavior, has deterministic
 - [ ] T026 [P] Enforce single-row control bar and flash-word responsive scaling at small breakpoints in src/components/App/App.tsx and src/index.css
 - [ ] T027 [P] Add refresh/reopen reset regression coverage for app bootstrap behavior in src/main.test.tsx
 - [ ] T028 Run and fix quality gates (`npm run lint`, `npm run lint:tsc`, `npm run test:ci`) via targeted updates in src/components/App/App.tsx and src/components/App/App.test.tsx
+- [ ] T031 Define manual validation protocol for SC-001..SC-004 (timed first-run start, interruption rate, comprehension check, repeat-session check) in specs/001-speed-reading-app/quickstart.md
+- [ ] T032 [P] Add test-id/observable hooks needed for SC validation (start latency marker, session completion marker, restart marker) in src/components/App/App.tsx
 
 ---
 

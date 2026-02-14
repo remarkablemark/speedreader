@@ -14,7 +14,7 @@ Tests are included because this feature changes core behavior, has deterministic
 - [ ] T001 Replace starter counter UI with speed-reader page scaffold in src/components/App/App.tsx
 - [ ] T002 Create shared reader constants and interfaces in src/components/App/readerConfig.ts and src/components/App/readerTypes.ts
 - [ ] T003 [P] Add responsive typography/control utility classes for reader layout in src/index.css
-- [ ] T004 [P] Add deterministic fixture text samples for playback tests in src/components/App/fixtures/sessionText.ts
+- [ ] T004 [P] Add deterministic fixture text samples for playback tests in `src/components/App/__fixtures__/sessionText.ts`
 
 ---
 

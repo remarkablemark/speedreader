@@ -15,6 +15,7 @@
 - Q: What speed range should users be allowed to choose, and how should it be controlled in the UI? → A: Slider from 100-1000 WPM.
 - Q: What maximum text size should be accepted per session? → A: No explicit limit.
 - Q: What base word size should the flash-word display use? → A: 48px base size, scale down on small screens.
+- Q: Which keyboard shortcuts should be the default controls? → A: Space play/pause, R restart, Up/Down adjust WPM by 10, Home/End set min/max speed.
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -91,7 +92,7 @@ As a reader, I can see progress during and after a session so I can understand c
 
 - **Comprehension Outcome**: The app MUST provide a default reading pace of 250 WPM for comprehension-first onboarding and allow readers to reduce speed at any time to maintain understanding.
 - **Deterministic Behavior**: Given identical input text, selected speed, and control actions (start/pause/resume/adjust speed), the word order, progress updates, and completion state MUST be reproducible.
-- **Accessibility Coverage**: All core actions (input text, start, pause, resume, restart, speed adjustment) MUST be operable by keyboard, use semantic controls with accessible names, and remain usable on small and large viewports.
+- **Accessibility Coverage**: All core actions (input text, start, pause, resume, restart, speed adjustment) MUST be operable by keyboard, use semantic controls with accessible names, and remain usable on small and large viewports, including support for the default shortcut set.
 
 ### Functional Requirements
 
@@ -110,6 +111,7 @@ As a reader, I can see progress during and after a session so I can understand c
 - **FR-013**: System MUST provide a slider-based speed control with selectable values from 100 to 1000 WPM.
 - **FR-014**: System MUST not enforce a fixed maximum word-count limit for session text input.
 - **FR-015**: System MUST display flashed words at a 48px base text size and scale down on small screens to maintain readability without layout breakage.
+- **FR-016**: System MUST support keyboard shortcuts where Space toggles play/pause, R restarts the session, Up/Down adjust speed by 10 WPM, and Home/End set speed to configured minimum/maximum.
 
 ### Key Entities _(include if feature involves data)_
 

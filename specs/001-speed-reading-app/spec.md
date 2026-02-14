@@ -16,6 +16,7 @@
 - Q: What maximum text size should be accepted per session? → A: No explicit limit.
 - Q: What base word size should the flash-word display use? → A: 48px base size, scale down on small screens.
 - Q: Which keyboard shortcuts should be the default controls? → A: Space play/pause, R restart, Up/Down adjust WPM by 10, Home/End set min/max speed.
+- Q: How should the app layout adapt on small screens? → A: Keep one-row controls and shrink layout to fit.
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -112,6 +113,7 @@ As a reader, I can see progress during and after a session so I can understand c
 - **FR-014**: System MUST not enforce a fixed maximum word-count limit for session text input.
 - **FR-015**: System MUST display flashed words at a 48px base text size and scale down on small screens to maintain readability without layout breakage.
 - **FR-016**: System MUST support keyboard shortcuts where Space toggles play/pause, R restarts the session, Up/Down adjust speed by 10 WPM, and Home/End set speed to configured minimum/maximum.
+- **FR-017**: System MUST keep controls in a single row on small screens and scale control presentation to fit without horizontal overflow.
 
 ### Key Entities _(include if feature involves data)_
 
@@ -125,6 +127,7 @@ As a reader, I can see progress during and after a session so I can understand c
 - Input text is supplied manually (typed or pasted) for MVP scope.
 - Speed selection uses a slider constrained to 100-1000 WPM.
 - Flash-word display uses a 48px base size with responsive downscaling on smaller viewports.
+- On small screens, controls remain in a single row with scaled-down presentation.
 
 ## Success Criteria _(mandatory)_
 

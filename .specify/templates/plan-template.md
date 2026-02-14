@@ -31,7 +31,11 @@
 
 _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
-[Gates determined based on constitution file]
+- [ ] Reader comprehension impact is defined and measurable for the feature.
+- [ ] Deterministic behavior is specified for timing/state transitions and has regression guardrails.
+- [ ] Accessibility requirements cover keyboard navigation, semantics, focus, and responsive parity.
+- [ ] Test strategy includes regression coverage and required quality gates (`lint`, `lint:tsc`, `test:ci`).
+- [ ] Scope is minimal and dependency changes are justified.
 
 ## Project Structure
 

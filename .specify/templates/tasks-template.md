@@ -7,7 +7,8 @@ description: 'Task list template for feature implementation'
 **Input**: Design documents from `/specs/[###-feature-name]/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: Include test tasks for behavior changes and bug fixes. Tests may be omitted only for
+documentation-only or non-functional chores, and the omission MUST be justified in tasks.md.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -50,6 +51,7 @@ description: 'Task list template for feature implementation'
 - [ ] T001 Create project structure per implementation plan
 - [ ] T002 Initialize [language] project with [framework] dependencies
 - [ ] T003 [P] Configure linting and formatting tools
+- [ ] T00A [P] Establish accessibility and responsive test checklist for feature scope
 
 ---
 
@@ -152,9 +154,11 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX [P] Documentation updates in docs/
 - [ ] TXXX Code cleanup and refactoring
 - [ ] TXXX Performance optimization across all stories
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
+- [ ] TXXX [P] Accessibility verification across keyboard, semantics, and responsive breakpoints
+- [ ] TXXX [P] Additional regression tests in tests/unit/ (and/or integration) for changed behavior
 - [ ] TXXX Security hardening
 - [ ] TXXX Run quickstart.md validation
+- [ ] TXXX Execute quality gates: `npm run lint`, `npm run lint:tsc`, `npm run test:ci`
 
 ---
 
@@ -244,7 +248,8 @@ With multiple developers:
 - [P] tasks = different files, no dependencies
 - [Story] label maps task to specific user story for traceability
 - Each user story should be independently completable and testable
-- Verify tests fail before implementing
+- Verify tests fail before implementing behavior changes
+- Document justification for any omitted tests
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence

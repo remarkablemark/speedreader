@@ -82,6 +82,12 @@
   Fill them out with the right functional requirements.
 -->
 
+### Constitution Alignment _(mandatory)_
+
+- **Comprehension Outcome**: Define how this feature preserves or improves reader comprehension.
+- **Deterministic Behavior**: Define timing/state expectations that MUST be reproducible.
+- **Accessibility Coverage**: Define keyboard, semantic, and responsive accessibility requirements.
+
 ### Functional Requirements
 
 - **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]

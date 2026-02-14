@@ -11,6 +11,7 @@
 
 - Q: Should the core session flow be user enters/pastes text, then words are shown one at a time at the selected speed? → A: Yes - user inputs text, then single words flash sequentially at chosen speed.
 - Q: If the user refreshes or reopens the app during an active session, what should happen? → A: Always reset to a new session start.
+- Q: What default speed should be preselected for a first-time user before any saved preference exists? → A: 250 WPM.
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -85,7 +86,7 @@ As a reader, I can see progress during and after a session so I can understand c
 
 ### Constitution Alignment _(mandatory)_
 
-- **Comprehension Outcome**: The app MUST provide a default reading pace intended for comprehension-first onboarding and allow readers to reduce speed at any time to maintain understanding.
+- **Comprehension Outcome**: The app MUST provide a default reading pace of 250 WPM for comprehension-first onboarding and allow readers to reduce speed at any time to maintain understanding.
 - **Deterministic Behavior**: Given identical input text, selected speed, and control actions (start/pause/resume/adjust speed), the word order, progress updates, and completion state MUST be reproducible.
 - **Accessibility Coverage**: All core actions (input text, start, pause, resume, restart, speed adjustment) MUST be operable by keyboard, use semantic controls with accessible names, and remain usable on small and large viewports.
 
@@ -102,6 +103,7 @@ As a reader, I can see progress during and after a session so I can understand c
 - **FR-009**: System MUST preserve the reader's most recently selected reading speed for subsequent sessions on the same device.
 - **FR-010**: System MUST ensure all primary controls are accessible via keyboard and exposed with clear accessible labels.
 - **FR-011**: System MUST reset an in-progress session to the beginning when the app is refreshed or reopened.
+- **FR-012**: System MUST preselect 250 WPM as the default speed for first-time users when no saved preference exists.
 
 ### Key Entities _(include if feature involves data)_
 

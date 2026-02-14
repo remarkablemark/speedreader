@@ -12,6 +12,7 @@
 - Q: Should the core session flow be user enters/pastes text, then words are shown one at a time at the selected speed? → A: Yes - user inputs text, then single words flash sequentially at chosen speed.
 - Q: If the user refreshes or reopens the app during an active session, what should happen? → A: Always reset to a new session start.
 - Q: What default speed should be preselected for a first-time user before any saved preference exists? → A: 250 WPM.
+- Q: What speed range should users be allowed to choose, and how should it be controlled in the UI? → A: Slider from 100-1000 WPM.
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -104,6 +105,7 @@ As a reader, I can see progress during and after a session so I can understand c
 - **FR-010**: System MUST ensure all primary controls are accessible via keyboard and exposed with clear accessible labels.
 - **FR-011**: System MUST reset an in-progress session to the beginning when the app is refreshed or reopened.
 - **FR-012**: System MUST preselect 250 WPM as the default speed for first-time users when no saved preference exists.
+- **FR-013**: System MUST provide a slider-based speed control with selectable values from 100 to 1000 WPM.
 
 ### Key Entities _(include if feature involves data)_
 
@@ -115,7 +117,7 @@ As a reader, I can see progress during and after a session so I can understand c
 
 - The initial release supports a single reader on a single device context without account management.
 - Input text is supplied manually (typed or pasted) for MVP scope.
-- A bounded speed range is provided to prevent unusable or unsafe pacing extremes.
+- Speed selection uses a slider constrained to 100-1000 WPM.
 
 ## Success Criteria _(mandatory)_
 

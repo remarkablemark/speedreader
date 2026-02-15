@@ -98,10 +98,7 @@ src/
 │   └── index.ts
 └── ...
 
-test/
-├── components/
-│   └── [component-specific integration tests]
-└── setupFiles.ts
+# Tests are colocated with components (see component folders above)
 ```
 
 **Structure Decision**: Single React web application with component-based architecture. Each extracted component follows the established project pattern with individual folders containing component file, types, tests, and barrel exports. Component-specific utilities are colocated, while shared types are centralized in src/types/.

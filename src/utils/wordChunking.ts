@@ -6,7 +6,6 @@ import { MAX_WORD_COUNT } from './storage';
 /**
  * Punctuation detection helpers
  */
-const PUNCTUATION_MARKS = /[.,;:!?]/;
 const END_PUNCTUATION_MARKS = /[.!?;:]$/;
 
 /**
@@ -14,13 +13,6 @@ const END_PUNCTUATION_MARKS = /[.!?;:]$/;
  */
 function hasEndPunctuation(word: string): boolean {
   return END_PUNCTUATION_MARKS.test(word);
-}
-
-/**
- * Check if word contains any punctuation
- */
-function hasPunctuation(word: string): boolean {
-  return PUNCTUATION_MARKS.test(word);
 }
 
 /**
@@ -38,37 +30,16 @@ export function generateWordChunks(
   }
 
   const chunks: WordChunk[] = [];
-  let currentChunkWords: string[] = [];
-  let startIndex = 0;
 
-  for (let i = 0; i < words.length; i++) {
-    const word = words[i];
-    currentChunkWords.push(word);
-
-    // Priority 1: Always respect word count requirement
-    const reachedWordCount = currentChunkWords.length >= wordsPerChunk;
-
-    // Priority 2: Break on strong punctuation (periods, question marks, etc.)
-    const hasStrongPunctuation = hasEndPunctuation(word);
-
-    // Priority 3: If this is the last word, always break
-    const isLastWord = i === words.length - 1;
-
-    // Determine if we should break at this point
-    const shouldBreak = reachedWordCount || hasStrongPunctuation || isLastWord;
-
-    if (shouldBreak) {
-      chunks.push({
-        text: currentChunkWords.join(' '),
-        words: [...currentChunkWords],
-        startIndex,
-        endIndex: i,
-        hasPunctuation: currentChunkWords.some((w) => hasPunctuation(w)),
-      });
-
-      currentChunkWords = [];
-      startIndex = i + 1;
-    }
+  for (let i = 0; i < words.length; i += wordsPerChunk) {
+    const chunkWords = words.slice(i, i + wordsPerChunk);
+    chunks.push({
+      text: chunkWords.join(' '),
+      words: chunkWords,
+      startIndex: i,
+      endIndex: Math.min(i + wordsPerChunk - 1, words.length - 1),
+      hasPunctuation: chunkWords.some((w) => hasEndPunctuation(w)),
+    });
   }
 
   return chunks;

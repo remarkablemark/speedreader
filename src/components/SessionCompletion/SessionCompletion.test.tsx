@@ -1,0 +1,94 @@
+import { render, screen } from '@testing-library/react';
+import { describe, expect, test } from 'vitest';
+
+import { SessionCompletion } from './SessionCompletion';
+import type { SessionCompletionProps } from './SessionCompletion.types';
+
+describe('SessionCompletion', () => {
+  const defaultProps: SessionCompletionProps = {
+    wordsRead: 100,
+    elapsedMs: 24000,
+  };
+
+  test('renders completion message with heading', () => {
+    render(<SessionCompletion {...defaultProps} />);
+
+    const heading = screen.getByRole('heading', { level: 2 });
+    expect(heading).toBeInTheDocument();
+    expect(heading).toHaveTextContent('Session complete');
+  });
+
+  test('displays word count correctly', () => {
+    render(<SessionCompletion {...defaultProps} />);
+
+    expect(screen.getByText(/You read 100 words/)).toBeInTheDocument();
+  });
+
+  test('displays elapsed time correctly', () => {
+    render(<SessionCompletion {...defaultProps} />);
+
+    expect(screen.getByText(/in 24000 ms/)).toBeInTheDocument();
+  });
+
+  test('displays full completion message', () => {
+    render(<SessionCompletion {...defaultProps} />);
+
+    const message = screen.getByText(/You read 100 words in 24000 ms/);
+    expect(message).toBeInTheDocument();
+  });
+
+  test('handles zero values gracefully', () => {
+    const zeroProps: SessionCompletionProps = {
+      wordsRead: 0,
+      elapsedMs: 0,
+    };
+
+    render(<SessionCompletion {...zeroProps} />);
+
+    expect(screen.getByText(/You read 0 words in 0 ms/)).toBeInTheDocument();
+  });
+
+  test('has proper styling classes', () => {
+    render(<SessionCompletion {...defaultProps} />);
+
+    const container = screen.getByText(/Session complete/).parentElement;
+    expect(container).toHaveClass(
+      'rounded-md',
+      'border',
+      'border-emerald-200',
+      'bg-emerald-50',
+      'p-4',
+      'text-sm',
+      'text-emerald-900',
+    );
+  });
+
+  test('uses semantic h2 heading', () => {
+    render(<SessionCompletion {...defaultProps} />);
+
+    const heading = screen.getByRole('heading', { level: 2 });
+    expect(heading).toBeInTheDocument();
+    expect(heading).toHaveClass('font-semibold');
+  });
+
+  test('formats message with different values', () => {
+    const props: SessionCompletionProps = {
+      wordsRead: 250,
+      elapsedMs: 60000,
+    };
+
+    render(<SessionCompletion {...props} />);
+
+    expect(
+      screen.getByText(/You read 250 words in 60000 ms/),
+    ).toBeInTheDocument();
+  });
+
+  test('wraps content in proper container structure', () => {
+    render(<SessionCompletion {...defaultProps} />);
+
+    const container = screen.getByRole('heading', { level: 2 }).parentElement;
+    expect(container).toBeInTheDocument();
+    expect(container).toHaveClass('rounded-md', 'border-emerald-200');
+  });
+});

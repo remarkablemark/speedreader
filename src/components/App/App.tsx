@@ -1,13 +1,18 @@
-import { type ChangeEvent, useId, useState } from 'react';
+import { useState } from 'react';
+import { ControlPanel } from 'src/components/ControlPanel';
+import { ReadingDisplay } from 'src/components/ReadingDisplay';
+import { SessionDetails } from 'src/components/SessionDetails';
+import {
+  hasReadableText,
+  TextInput,
+  tokenizeContent,
+} from 'src/components/TextInput';
 
-import { ReadingDisplay } from '../ReadingDisplay';
-import { hasReadableText, TextInput, tokenizeContent } from '../TextInput';
-import { READER_MAX_WPM, READER_MIN_WPM } from './readerConfig';
+import { SessionCompletion } from '../SessionCompletion';
 import { useReadingSession } from './useReadingSession';
 
 export default function App() {
   const [rawText, setRawText] = useState('');
-  const speedInputId = useId();
 
   const {
     currentWordIndex,
@@ -31,8 +36,6 @@ export default function App() {
   const { words } = tokenizeContent(rawText);
   const isInputValid = hasReadableText(rawText);
   const isSetupMode = status === 'idle';
-  const isRunning = status === 'running';
-  const isPaused = status === 'paused';
   const isCompleted = status === 'completed';
   const hasSessionWords = sessionWordCount > 0;
   const currentWord = hasSessionWords ? (words[currentWordIndex] ?? '') : '';
@@ -45,10 +48,6 @@ export default function App() {
 
     const { totalWords } = tokenizeContent(text);
     startReading(totalWords);
-  };
-
-  const handleWpmChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSelectedWpm(Number.parseInt(event.target.value, 10));
   };
 
   return (
@@ -79,107 +78,32 @@ export default function App() {
           />
         )}
 
-        <div
-          className="flex w-full items-end justify-center gap-2 overflow-x-auto pb-1 max-[480px]:gap-[0.4rem]"
-          role="group"
-          aria-label="Reading controls"
-        >
-          <div className="min-w-44 shrink-0">
-            <label
-              className="block text-xs font-medium text-slate-700"
-              htmlFor={speedInputId}
-            >
-              Speed ({selectedWpm} WPM)
-            </label>
-            <input
-              id={speedInputId}
-              min={READER_MIN_WPM}
-              max={READER_MAX_WPM}
-              step={1}
-              type="range"
-              value={selectedWpm}
-              onChange={handleWpmChange}
-              aria-valuemin={READER_MIN_WPM}
-              aria-valuemax={READER_MAX_WPM}
-              aria-valuenow={selectedWpm}
-            />
-          </div>
-
-          {isSetupMode ? (
-            <button
-              className="inline-flex shrink-0 items-center justify-center rounded-md border border-sky-600 bg-sky-600 px-3 py-2 text-sm font-medium text-white transition hover:border-sky-700 hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
-              disabled={!isInputValid}
-              onClick={() => {
-                handleStartReading(rawText);
-              }}
-              type="button"
-            >
-              Start Reading
-            </button>
-          ) : (
-            <>
-              {isRunning ? (
-                <button
-                  className="inline-flex shrink-0 items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
-                  onClick={pauseReading}
-                  type="button"
-                >
-                  Pause
-                </button>
-              ) : null}
-              {isPaused ? (
-                <button
-                  className="inline-flex shrink-0 items-center justify-center rounded-md border border-sky-600 bg-sky-600 px-3 py-2 text-sm font-medium text-white transition hover:border-sky-700 hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
-                  onClick={resumeReading}
-                  type="button"
-                >
-                  Resume
-                </button>
-              ) : null}
-              <button
-                className="inline-flex shrink-0 items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
-                onClick={restartReading}
-                type="button"
-              >
-                Restart
-              </button>
-              <button
-                className="inline-flex shrink-0 items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
-                onClick={editText}
-                type="button"
-              >
-                Edit Text
-              </button>
-            </>
-          )}
-        </div>
+        <ControlPanel
+          selectedWpm={selectedWpm}
+          onSpeedChange={setSelectedWpm}
+          onStartReading={() => {
+            handleStartReading(rawText);
+          }}
+          onPauseReading={pauseReading}
+          onResumeReading={resumeReading}
+          onRestartReading={restartReading}
+          onEditText={editText}
+          isInputValid={isInputValid}
+          status={status}
+        />
 
         {!isSetupMode ? (
-          <details className="m-0">
-            <summary className="mx-auto list-item w-fit cursor-pointer text-sm text-slate-400">
-              Session details
-            </summary>
-            <div className="mt-2 space-y-2" aria-live="polite">
-              <p>
-                Progress: <strong>{wordsRead}</strong> /{' '}
-                <strong>{sessionWordCount}</strong> ({' '}
-                {Math.round(progressPercent)}%)
-              </p>
-              <p>
-                Tempo: <strong>{selectedWpm} WPM</strong> (
-                {Math.round(msPerWord)} ms/word)
-              </p>
-            </div>
-          </details>
+          <SessionDetails
+            wordsRead={wordsRead}
+            totalWords={sessionWordCount}
+            progressPercent={progressPercent}
+            selectedWpm={selectedWpm}
+            msPerWord={msPerWord}
+          />
         ) : null}
 
         {isCompleted ? (
-          <div className="rounded-md border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
-            <h2 className="font-semibold">Session complete</h2>
-            <p>
-              You read {wordsRead} words in {Math.round(elapsedMs)} ms.
-            </p>
-          </div>
+          <SessionCompletion wordsRead={wordsRead} elapsedMs={elapsedMs} />
         ) : null}
 
         <div

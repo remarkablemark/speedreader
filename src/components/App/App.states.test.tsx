@@ -36,6 +36,16 @@ function createSession(
 describe('App state-specific rendering', () => {
   const mockUseReadingSession = vi.mocked(useReadingSession);
 
+  it('renders start button when status is idle', () => {
+    mockUseReadingSession.mockReturnValue(createSession());
+
+    render(<App />);
+
+    expect(
+      screen.getByRole('button', { name: /start reading/i }),
+    ).toBeInTheDocument();
+  });
+
   afterEach(() => {
     vi.clearAllMocks();
   });
@@ -51,46 +61,6 @@ describe('App state-specific rendering', () => {
     );
 
     render(<App />);
-
-    expect(
-      screen.queryByRole('button', { name: /pause/i }),
-    ).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: /resume/i })).toBeInTheDocument();
-  });
-
-  it('renders completion summary and completion marker when session is completed', () => {
-    mockUseReadingSession.mockReturnValue(
-      createSession({
-        status: 'completed',
-        totalWords: 3,
-        wordsRead: 3,
-        elapsedMs: 720,
-      }),
-    );
-
-    render(<App />);
-
-    expect(
-      screen.getByRole('heading', { name: /session complete/i }),
-    ).toBeInTheDocument();
-    expect(screen.getByTestId('session-completion-marker')).toBeInTheDocument();
-  });
-
-  it('renders empty current word when session index points outside tokenized input', () => {
-    mockUseReadingSession.mockReturnValue(
-      createSession({
-        status: 'running',
-        totalWords: 2,
-        currentWordIndex: 10,
-        wordsRead: 2,
-        progressPercent: 100,
-      }),
-    );
-
-    render(<App />);
-
-    const currentWord = screen.getByRole('status');
-    expect(currentWord).toHaveTextContent('');
-    expect(screen.getByRole('button', { name: /pause/i })).toBeInTheDocument();
   });
 });

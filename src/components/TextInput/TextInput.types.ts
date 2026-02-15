@@ -21,7 +21,7 @@ export interface TextInputProps {
 
   /**
    * Whether the input is disabled
-   * @default false
+   * @defaultValue false
    */
   disabled?: boolean;
 }

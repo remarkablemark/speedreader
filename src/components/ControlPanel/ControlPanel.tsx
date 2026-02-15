@@ -31,7 +31,7 @@ export function ControlPanel({
 
   return (
     <div
-      className="flex w-full items-end justify-center gap-2 overflow-x-auto pb-1 max-[480px]:gap-[0.4rem]"
+      className="flex w-full items-end justify-center gap-2 overflow-x-visible pb-1 max-[480px]:gap-[0.4rem]"
       role="group"
       aria-label="Reading controls"
     >

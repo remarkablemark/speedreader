@@ -34,6 +34,18 @@ interface UseReadingSessionResult {
   startReading: (totalWords: number, words: string[]) => void;
 }
 
+/**
+ * Hook for managing reading session state and word chunking.
+ *
+ * Features:
+ * - Manages reading session state (idle, running, paused, completed)
+ * - Handles word chunk generation with configurable words per chunk
+ * - Provides progress tracking and timing control
+ * - Integrates with localStorage for word count persistence
+ * - Uses React Compiler for automatic optimization
+ *
+ * @returns Hook result with session state and control functions
+ */
 export function useReadingSession(): UseReadingSessionResult {
   const [state, dispatch] = useReducer(
     sessionReducer,

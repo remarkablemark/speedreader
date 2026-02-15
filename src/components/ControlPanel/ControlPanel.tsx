@@ -5,8 +5,13 @@ import { READER_MAX_WPM, READER_MIN_WPM } from '../App/readerConfig';
 import type { ControlPanelProps } from './ControlPanel.types';
 
 /**
- * ControlPanel component containing speed slider and action buttons.
- * Handles state-dependent button visibility and speed control.
+ * ControlPanel component containing speed slider, word count dropdown, and action buttons.
+ *
+ * Features:
+ * - Speed slider for WPM control (100-1000 range)
+ * - Word count dropdown for configuring words per chunk (1-5)
+ * - State-dependent button visibility (Read/Pause/Play/Restart/Edit Text)
+ * - Proper accessibility with semantic HTML and ARIA attributes
  */
 export function ControlPanel({
   selectedWpm,

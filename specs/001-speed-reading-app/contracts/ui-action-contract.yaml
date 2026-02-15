@@ -1,0 +1,157 @@
+contractType: frontend-ui-action-contract
+contractVersion: 1.0.0
+feature: 001-speed-reading-app
+description: |
+  Frontend-only behavior contract for the speed reading app.
+  This file defines deterministic UI actions, state transitions,
+  validation, and observable outcomes without implying backend endpoints.
+
+constants:
+  defaultWpm: 250
+  minWpm: 100
+  maxWpm: 1000
+  keyboardSpeedStep: 10
+  baseFlashFontPx: 48
+
+stateModel:
+  states:
+    - idle
+    - running
+    - paused
+    - completed
+  invariants:
+    - words are displayed in original parsed order
+    - progressPercent is between 0 and 100 inclusive
+    - selectedWpm is always clamped to minWpm..maxWpm
+    - refresh/reopen always resets to idle at session start
+
+actions:
+  - id: parseContent
+    trigger: user edits text input
+    input:
+      rawText: string
+    validation:
+      - rawText.trim().length > 0 for start eligibility
+    output:
+      words: string[]
+      totalWords: number
+    errors:
+      - code: EMPTY_TEXT
+        when: rawText is empty or whitespace-only
+
+  - id: startReading
+    trigger: user activates "Start Reading"
+    fromState: idle
+    preconditions:
+      - parsed content is valid
+      - selectedWpm in range 100..1000
+    transition:
+      toState: running
+      effects:
+        - currentWordIndex = 0
+        - wordsRead = 0
+        - msPerWord = 60000 / selectedWpm
+
+  - id: pauseReading
+    trigger: user clicks Pause or presses Space while running
+    fromState: running
+    transition:
+      toState: paused
+      effects:
+        - currentWordIndex retained
+        - timer halted
+
+  - id: resumeReading
+    trigger: user clicks Resume or presses Space while paused
+    fromState: paused
+    transition:
+      toState: running
+      effects:
+        - currentWordIndex retained
+        - timer resumed using current selectedWpm
+
+  - id: restartReading
+    trigger: user clicks Restart or presses R
+    fromState:
+      - running
+      - paused
+      - completed
+    transition:
+      toState: running
+      effects:
+        - currentWordIndex = 0
+        - wordsRead = 0
+        - selectedWpm retained
+
+  - id: changeSpeed
+    trigger:
+      - slider change
+      - ArrowUp / ArrowDown shortcut
+      - Home / End shortcut
+    fromState:
+      - idle
+      - running
+      - paused
+      - completed
+    input:
+      selectedWpm: number
+    validation:
+      - clamp to 100..1000
+    transition:
+      toState: unchanged
+      effects:
+        - msPerWord recalculated for next tick
+        - preferredWpm persisted in localStorage
+
+  - id: completeReading
+    trigger: final word displayed
+    fromState: running
+    transition:
+      toState: completed
+      effects:
+        - completionSummary visible
+        - completionSummary includes wordsRead and elapsedMs
+
+  - id: editText
+    trigger: user activates "Edit Text"
+    fromState:
+      - running
+      - paused
+      - completed
+    transition:
+      toState: idle
+      effects:
+        - setup mode visible
+        - reading mode hidden
+
+keyboardShortcuts:
+  space: toggle play/pause
+  r: restart
+  arrowUp: +10 WPM (clamped)
+  arrowDown: -10 WPM (clamped)
+  home: set minWpm
+  end: set maxWpm
+
+persistence:
+  localStorage:
+    key: speedreader.preferredWpm
+    onInit:
+      - if missing, use defaultWpm 250
+      - if invalid, fall back to 250 and overwrite on next valid update
+    storedFields:
+      - preferredWpm
+
+uiObservability:
+  progress:
+    shows:
+      - wordsRead
+      - totalWords
+      - progressPercent
+  completionSummary:
+    shows:
+      - wordsRead
+      - elapsedMs
+  responsive:
+    requirements:
+      - controls remain single row on small screens
+      - flash word uses 48px base size and scales down on small screens

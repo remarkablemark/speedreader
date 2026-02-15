@@ -23,11 +23,18 @@ function createSession(
     status: 'idle' as const,
     totalWords: 0,
     wordsRead: 0,
+    // Multiple words display
+    currentChunkIndex: 0,
+    totalChunks: 0,
+    wordsPerChunk: 1,
+    currentChunk: null,
+    chunks: [],
     editText: vi.fn(),
     pauseReading: vi.fn(),
     restartReading: vi.fn(),
     resumeReading: vi.fn(),
     setSelectedWpm: vi.fn(),
+    setWordsPerChunk: vi.fn(),
     startReading: vi.fn(),
     ...overrides,
   };

@@ -1,6 +1,9 @@
 import { useEffect, useReducer } from 'react';
 import type { ReadingSessionStatus } from 'src/types/readerTypes';
 
+import { storageAPI } from '../../utils/storage';
+import { generateWordChunks } from '../../utils/wordChunking';
+import type { WordChunk } from '../ReadingDisplay/WordChunk.types.ts';
 import { persistPreferredWpm, readPreferredWpm } from './readerPreferences';
 import { createInitialSessionState, sessionReducer } from './sessionReducer';
 
@@ -15,11 +18,19 @@ interface UseReadingSessionResult {
   status: ReadingSessionStatus;
   totalWords: number;
   wordsRead: number;
+  // Multiple words display
+  currentChunkIndex: number;
+  totalChunks: number;
+  wordsPerChunk: number;
+  currentChunk: WordChunk | null;
+  chunks: WordChunk[];
+  // Actions
   editText: () => void;
   pauseReading: () => void;
   restartReading: () => void;
   resumeReading: () => void;
   setSelectedWpm: (value: number) => void;
+  setWordsPerChunk: (value: number) => void;
   startReading: (totalWords: number) => void;
 }
 
@@ -29,6 +40,27 @@ export function useReadingSession(): UseReadingSessionResult {
     readPreferredWpm(),
     createInitialSessionState,
   );
+
+  // Load saved word count preference
+  const wordsPerChunk = storageAPI.getWordCount();
+
+  // Calculate chunks directly - React Compiler will optimize
+  let chunks: WordChunk[] = [];
+  if (state.totalWords > 0 && state.wordsPerChunk > 0) {
+    // Create a simple word array for demonstration
+    const wordArray = Array.from(
+      { length: state.totalWords },
+      (_, i) => `word${String(i + 1)}`,
+    );
+    chunks = generateWordChunks(wordArray, state.wordsPerChunk);
+  }
+
+  const currentChunk = chunks[state.currentChunkIndex] ?? null;
+
+  // Update chunk state in reducer when chunks change
+  useEffect(() => {
+    dispatch({ type: 'updateChunkState', totalChunks: chunks.length });
+  }, [chunks.length]);
 
   const msPerWord = 60000 / state.selectedWpm;
   const wordsRead =
@@ -46,8 +78,21 @@ export function useReadingSession(): UseReadingSessionResult {
     });
   };
 
+  const setWordsPerChunk = (value: number) => {
+    storageAPI.setWordCount(value);
+    dispatch({ type: 'setWordsPerChunk', wordsPerChunk: value });
+  };
+
   const startReading = (totalWords: number) => {
+    // Create word array for the content
+    const wordArray = Array.from(
+      { length: totalWords },
+      (_, i) => `word${String(i + 1)}`,
+    );
+    const newChunks = generateWordChunks(wordArray, wordsPerChunk);
+
     dispatch({ type: 'start', totalWords });
+    dispatch({ type: 'updateChunkState', totalChunks: newChunks.length });
   };
 
   const pauseReading = () => {
@@ -95,7 +140,15 @@ export function useReadingSession(): UseReadingSessionResult {
     wordsRead,
     progressPercent,
     restartCount: state.restartCount,
+    // Multiple words display
+    currentChunkIndex: state.currentChunkIndex,
+    totalChunks: state.totalChunks,
+    wordsPerChunk: state.wordsPerChunk,
+    currentChunk,
+    chunks,
+    // Actions
     setSelectedWpm,
+    setWordsPerChunk,
     startReading,
     pauseReading,
     resumeReading,

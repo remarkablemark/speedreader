@@ -25,6 +25,10 @@ describe('sessionReducer', () => {
       startCount: 0,
       restartCount: 0,
       totalWords: 0,
+      // Multiple words display defaults
+      currentChunkIndex: 0,
+      totalChunks: 0,
+      wordsPerChunk: 1,
     });
   });
 

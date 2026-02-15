@@ -18,7 +18,10 @@ export type SessionReducerAction =
   | { type: 'advance' }
   | { type: 'editText' }
   | { type: 'resetElapsed' }
-  | { type: 'addElapsed'; durationMs: number };
+  | { type: 'addElapsed'; durationMs: number }
+  // Multiple words display actions
+  | { type: 'setWordsPerChunk'; wordsPerChunk: number }
+  | { type: 'updateChunkState'; totalChunks: number };
 
 export function createInitialSessionState(
   selectedWpm: number,
@@ -31,6 +34,10 @@ export function createInitialSessionState(
     startCount: 0,
     restartCount: 0,
     totalWords: 0,
+    // Multiple words display defaults
+    currentChunkIndex: 0,
+    totalChunks: 0,
+    wordsPerChunk: 1,
   };
 }
 
@@ -140,6 +147,28 @@ export function sessionReducer(
       return {
         ...state,
         elapsedMs: state.elapsedMs + action.durationMs,
+      };
+    }
+
+    // Multiple words display actions
+    case 'setWordsPerChunk': {
+      return {
+        ...state,
+        wordsPerChunk: action.wordsPerChunk,
+        // Reset chunk index when word count changes
+        currentChunkIndex: Math.floor(
+          state.currentWordIndex / action.wordsPerChunk,
+        ),
+      };
+    }
+
+    case 'updateChunkState': {
+      return {
+        ...state,
+        totalChunks: action.totalChunks,
+        currentChunkIndex: Math.floor(
+          state.currentWordIndex / state.wordsPerChunk,
+        ),
       };
     }
 

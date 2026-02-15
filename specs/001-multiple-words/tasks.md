@@ -64,9 +64,9 @@ This feature extends the speed reader application to display multiple words simu
 
 ### UI Components
 
-- [ ] T019 [US1] Update ReadingDisplay component for multi-word support in src/components/ReadingDisplay/ReadingDisplay.tsx
-- [ ] T020 [US1] Add text wrapping styles for multiple words in ReadingDisplay component
-- [ ] T021 [P] [US1] Update ReadingDisplay types in src/components/ReadingDisplay/ReadingDisplay.types.ts
+- [x] T019 [US1] Update ReadingDisplay component for multi-word support in src/components/ReadingDisplay/ReadingDisplay.tsx
+- [x] T020 [US1] Add text wrapping styles for multiple words in ReadingDisplay component
+- [x] T021 [P] [US1] Update ReadingDisplay types in src/components/ReadingDisplay/ReadingDisplay.types.ts
 
 ### Integration
 

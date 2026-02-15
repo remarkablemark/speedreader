@@ -23,6 +23,9 @@ export default function App() {
     status,
     totalWords,
     wordsRead,
+    // Multiple words display
+    currentChunk,
+    wordsPerChunk,
     editText,
     pauseReading,
     restartReading,
@@ -70,6 +73,8 @@ export default function App() {
         ) : (
           <ReadingDisplay
             currentWord={currentWord}
+            currentChunk={currentChunk}
+            wordsPerChunk={wordsPerChunk}
             hasWords={hasSessionWords}
           />
         )}

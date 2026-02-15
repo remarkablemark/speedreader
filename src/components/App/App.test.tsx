@@ -317,7 +317,7 @@ describe('App component', () => {
 
       // Should show progress with word count
       expect(screen.getByText(/Progress:/)).toBeInTheDocument();
-      expect(screen.getByText('5')).toBeInTheDocument(); // total words
+      expect(screen.getByText('5', { selector: 'strong' })).toBeInTheDocument(); // total words
     });
 
     it('displays correct tempo information', async () => {

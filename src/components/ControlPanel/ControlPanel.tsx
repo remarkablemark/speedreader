@@ -40,11 +40,11 @@ export function ControlPanel({
 
   return (
     <div
-      className="flex w-full items-end justify-center gap-2 overflow-x-visible pb-1 max-[480px]:gap-[0.4rem]"
+      className="flex w-full items-end justify-center gap-4 overflow-x-visible pb-1 sm:gap-6"
       role="group"
       aria-label="Reading controls"
     >
-      <div className="min-w-44 shrink-0">
+      <div className="shrink-0">
         <label
           className="block text-xs font-medium text-slate-700"
           htmlFor={speedInputId}
@@ -65,7 +65,7 @@ export function ControlPanel({
         />
       </div>
 
-      <div className="min-w-32 shrink-0">
+      <div className="shrink-0">
         <label
           className="block text-xs font-medium text-slate-700"
           htmlFor={wordCountInputId}
@@ -78,11 +78,11 @@ export function ControlPanel({
           onChange={handleWordsPerChunkChange}
           className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-900 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none sm:text-sm"
         >
-          <option value={1}>1 word</option>
-          <option value={2}>2 words</option>
-          <option value={3}>3 words</option>
-          <option value={4}>4 words</option>
-          <option value={5}>5 words</option>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
         </select>
       </div>
 

@@ -30,7 +30,7 @@
 - Q: How should timing be calculated when displaying multiple words per chunk? → A: Same total time per chunk regardless of word count
 - Q: Where should the word count dropdown be positioned relative to the WPM slider? → A: After the WPM slider (WPM first, then word count)
 - Q: How should users toggle between single word and multiple words display modes? → A: No separate modes - unified display controlled by word count dropdown (1-5 words)
-- Q: What label text should be displayed for the word count dropdown? → A: "Word Count"
+- Q: What label text should be displayed for the word count dropdown? → A: "Word Count" with numeric options (1, 2, 3, 4, 5)
 - Q: How should text wrapping be implemented for overflowing word chunks? → A: Wrap text within fixed display area (multi-line)
 - Q: Should the word count selection be saved and restored between sessions? → A: Yes, save to localStorage with key "speedreader.wordCount"
 - Q: How should the Session Details component be updated to reflect multiple words display? → A: Simplified to show only basic progress and tempo, removing chunk-specific information for cleaner UI
@@ -120,7 +120,7 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 ### Functional Requirements
 
 - **FR-001**: System MUST provide a unified display mode where users can select word count (1-5 words) via dropdown to control how many words appear simultaneously
-- **FR-002**: System MUST provide a dropdown/select menu labeled "Word Count" positioned after the WPM slider for configuring words per chunk (1-5 words)
+- **FR-002**: System MUST provide a dropdown/select menu labeled "Word Count" positioned after the WPM slider for configuring words per chunk with numeric options (1, 2, 3, 4, 5)
 - **FR-009**: System MUST default to 1 word per chunk when display is first enabled
 - **FR-010**: System MUST save word count selection to localStorage with key "speedreader.wordCount" and restore on page load
 - **FR-011**: System MUST display progress information in Session Details showing words read and total words

@@ -221,7 +221,7 @@ describe('ControlPanel', () => {
     const controlsGroup = screen.getByRole('group', {
       name: 'Reading controls',
     });
-    expect(controlsGroup).toHaveClass('max-[480px]:gap-[0.4rem]');
+    expect(controlsGroup).toHaveClass('gap-4', 'sm:gap-6');
   });
 
   test('renders conditional buttons correctly for all states', () => {
@@ -315,10 +315,10 @@ describe('ControlPanel', () => {
   test('renders all word count options', () => {
     render(<ControlPanel {...defaultProps} />);
 
-    expect(screen.getByRole('option', { name: '1 word' })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: '2 words' })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: '3 words' })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: '4 words' })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: '5 words' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '1' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '2' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '3' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '4' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '5' })).toBeInTheDocument();
   });
 });

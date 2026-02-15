@@ -128,7 +128,7 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 - **FR-001**: System MUST provide a unified display mode where users can select word count (1-5 words) via dropdown to control how many words appear simultaneously
 - **FR-002**: System MUST provide a dropdown/select menu labeled "Word Count" positioned after the WPM slider for configuring words per chunk with numeric options (1, 2, 3, 4, 5), proper semantic HTML accessibility, native keyboard navigation, and adequate screen reader announcements
 - **FR-009**: System MUST default to 1 word per chunk when display is first enabled
-- **FR-010**: System MUST save word count selection to localStorage with key "speedreader.wordCount" and restore on page load
+- **FR-010**: System MUST save word count selection to localStorage with key "speedreader.wordCount" immediately upon change and restore on page load
 - **FR-011**: System MUST display progress information in Session Details showing words read and total words
 - **FR-012**: System MUST recalculate progress based on current position in text when word count changes during a session
 - **FR-003**: System MUST group words by simple sequential splitting based on user word count preference, with no complex natural language processing

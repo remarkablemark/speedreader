@@ -11,10 +11,10 @@ Tests are included because this feature changes core behavior, has deterministic
 
 **Purpose**: Replace starter scaffold and establish feature-level structure.
 
-- [ ] T001 Replace starter counter UI with speed-reader page scaffold in src/components/App/App.tsx
-- [ ] T002 Create shared reader constants and interfaces in src/components/App/readerConfig.ts and src/components/App/readerTypes.ts
-- [ ] T003 [P] Add responsive typography/control utility classes for reader layout in src/index.css
-- [ ] T004 [P] Add deterministic fixture text samples for playback tests in `src/components/App/__fixtures__/sessionText.ts`
+- [x] T001 Replace starter counter UI with speed-reader page scaffold in src/components/App/App.tsx
+- [x] T002 Create shared reader constants and interfaces in src/components/App/readerConfig.ts and src/components/App/readerTypes.ts
+- [x] T003 [P] Add responsive typography/control utility classes for reader layout in src/index.css
+- [x] T004 [P] Add deterministic fixture text samples for playback tests in `src/components/App/__fixtures__/sessionText.ts`
 
 ---
 
@@ -24,13 +24,13 @@ Tests are included because this feature changes core behavior, has deterministic
 
 **⚠️ CRITICAL**: No user story implementation begins until this phase is complete.
 
-- [ ] T005 Implement whitespace tokenizer and empty-input validation in src/components/App/tokenizeContent.ts
-- [ ] T006 [P] Implement WPM clamp/default/persistence helpers for `speedreader.preferredWpm` in src/components/App/readerPreferences.ts
-- [ ] T007 [P] Implement finite reading-session reducer (`idle/running/paused/completed`) in src/components/App/sessionReducer.ts
-- [ ] T008 [P] Implement keyboard shortcut interpretation utilities (Space/R/Up/Down/Home/End) in src/components/App/keyboardShortcuts.ts
-- [ ] T009 Integrate reducer, timer scheduling, and cleanup into a session hook in src/components/App/useReadingSession.ts
-- [ ] T010 Implement large-input-safe tokenization guardrails (no fixed max-word cap, linear processing) in src/components/App/tokenizeContent.ts
-- [ ] T011 [P] Add regression tests for 1-word and very-large text tokenization/playback readiness in src/components/App/tokenizeContent.test.ts
+- [x] T005 Implement whitespace tokenizer and empty-input validation in src/components/App/tokenizeContent.ts
+- [x] T006 [P] Implement WPM clamp/default/persistence helpers for `speedreader.preferredWpm` in src/components/App/readerPreferences.ts
+- [x] T007 [P] Implement finite reading-session reducer (`idle/running/paused/completed`) in src/components/App/sessionReducer.ts
+- [x] T008 [P] Implement keyboard shortcut interpretation utilities (Space/R/Up/Down/Home/End) in src/components/App/keyboardShortcuts.ts
+- [x] T009 Integrate reducer, timer scheduling, and cleanup into a session hook in src/components/App/useReadingSession.ts
+- [x] T010 Implement large-input-safe tokenization guardrails (no fixed max-word cap, linear processing) in src/components/App/tokenizeContent.ts
+- [x] T011 [P] Add regression tests for 1-word and very-large text tokenization/playback readiness in src/components/App/tokenizeContent.test.ts
 
 **Checkpoint**: Foundation ready for independent user-story delivery.
 
@@ -44,15 +44,15 @@ Tests are included because this feature changes core behavior, has deterministic
 
 ### Tests for User Story 1
 
-- [ ] T012 [P] [US1] Add reducer transition tests for start/pause/resume/restart/edit in src/components/App/sessionReducer.test.ts
-- [ ] T013 [P] [US1] Add fake-timer playback integration test for deterministic word advancement in src/components/App/App.test.tsx
+- [x] T012 [P] [US1] Add reducer transition tests for start/pause/resume/restart/edit in src/components/App/sessionReducer.test.ts
+- [x] T013 [P] [US1] Add fake-timer playback integration test for deterministic word advancement in src/components/App/App.test.tsx
 
 ### Implementation for User Story 1
 
-- [ ] T014 [US1] Implement setup-mode textarea, validation message, and Start Reading enable/disable rules in src/components/App/App.tsx
-- [ ] T015 [US1] Implement deterministic per-word timer tick progression and pause/resume behavior in src/components/App/useReadingSession.ts
-- [ ] T016 [US1] Render reading-mode flash-word viewport with accessible status announcements in src/components/App/App.tsx
-- [ ] T017 [US1] Implement explicit Edit Text transition from reading states back to idle setup mode in src/components/App/App.tsx
+- [x] T014 [US1] Implement setup-mode textarea, validation message, and Start Reading enable/disable rules in src/components/App/App.tsx
+- [x] T015 [US1] Implement deterministic per-word timer tick progression and pause/resume behavior in src/components/App/useReadingSession.ts
+- [x] T016 [US1] Render reading-mode flash-word viewport with accessible status announcements in src/components/App/App.tsx
+- [x] T017 [US1] Implement explicit Edit Text transition from reading states back to idle setup mode in src/components/App/App.tsx
 
 **Checkpoint**: User Story 1 is independently functional and testable (MVP).
 
@@ -66,14 +66,14 @@ Tests are included because this feature changes core behavior, has deterministic
 
 ### Tests for User Story 2
 
-- [ ] T018 [P] [US2] Add preference utility tests for default 250, clamping, and localStorage persistence in src/components/App/readerPreferences.test.ts
-- [ ] T019 [P] [US2] Add keyboard shortcut integration tests for Space/R/Arrow/Home/End behavior in src/components/App/App.test.tsx
+- [x] T018 [P] [US2] Add preference utility tests for default 250, clamping, and localStorage persistence in src/components/App/readerPreferences.test.ts
+- [x] T019 [P] [US2] Add keyboard shortcut integration tests for Space/R/Arrow/Home/End behavior in src/components/App/App.test.tsx
 
 ### Implementation for User Story 2
 
-- [ ] T020 [US2] Implement slider-based speed control (100-1000) with visible current WPM indicator in src/components/App/App.tsx
-- [ ] T021 [US2] Apply live speed-change recalculation (`msPerWord = 60000 / wpm`) and persistence in src/components/App/useReadingSession.ts
-- [ ] T022 [US2] Register and cleanup global keyboard handlers with shortcut-to-action wiring in src/components/App/useReadingSession.ts
+- [x] T020 [US2] Implement slider-based speed control (100-1000) with visible current WPM indicator in src/components/App/App.tsx
+- [x] T021 [US2] Apply live speed-change recalculation (`msPerWord = 60000 / wpm`) and persistence in src/components/App/useReadingSession.ts
+- [x] T022 [US2] Register and cleanup global keyboard handlers with shortcut-to-action wiring in src/components/App/useReadingSession.ts
 
 **Checkpoint**: User Stories 1 and 2 operate independently and together.
 
@@ -87,13 +87,13 @@ Tests are included because this feature changes core behavior, has deterministic
 
 ### Tests for User Story 3
 
-- [ ] T023 [P] [US3] Add integration tests for progress counters, percentage updates, and completion summary in src/components/App/App.test.tsx
+- [x] T023 [P] [US3] Add integration tests for progress counters, percentage updates, and completion summary in src/components/App/App.test.tsx
 
 ### Implementation for User Story 3
 
-- [ ] T024 [US3] Implement derived progress/selectors (`wordsRead`, `totalWords`, `progressPercent`, `elapsedMs`) in src/components/App/useReadingSession.ts
-- [ ] T025 [US3] Render live progress UI (`wordsRead/total` and percentage) in reading mode in src/components/App/App.tsx
-- [ ] T026 [US3] Render completion summary and completed-state restart path in src/components/App/App.tsx
+- [x] T024 [US3] Implement derived progress/selectors (`wordsRead`, `totalWords`, `progressPercent`, `elapsedMs`) in src/components/App/useReadingSession.ts
+- [x] T025 [US3] Render live progress UI (`wordsRead/total` and percentage) in reading mode in src/components/App/App.tsx
+- [x] T026 [US3] Render completion summary and completed-state restart path in src/components/App/App.tsx
 
 **Checkpoint**: All user stories are independently functional.
 
@@ -103,12 +103,12 @@ Tests are included because this feature changes core behavior, has deterministic
 
 **Purpose**: Harden quality, accessibility, and responsive behavior across all stories.
 
-- [ ] T027 [P] Add accessibility regression assertions for labels, roles, and keyboard-only operation in src/components/App/App.test.tsx
-- [ ] T028 [P] Enforce single-row control bar and flash-word responsive scaling at small breakpoints in src/components/App/App.tsx and src/index.css
-- [ ] T029 [P] Add refresh/reopen reset regression coverage for app bootstrap behavior in src/main.test.tsx
-- [ ] T030 Run and fix quality gates (`npm run lint`, `npm run lint:tsc`, `npm run test:ci`) via targeted updates in src/components/App/App.tsx and src/components/App/App.test.tsx
-- [ ] T031 Define manual validation protocol for SC-001..SC-004 (timed first-run start, interruption rate, comprehension check, repeat-session check) in specs/001-speed-reading-app/quickstart.md
-- [ ] T032 [P] Add test-id/observable hooks needed for SC validation (start latency marker, session completion marker, restart marker) in src/components/App/App.tsx
+- [x] T027 [P] Add accessibility regression assertions for labels, roles, and keyboard-only operation in src/components/App/App.test.tsx
+- [x] T028 [P] Enforce single-row control bar and flash-word responsive scaling at small breakpoints in src/components/App/App.tsx and src/index.css
+- [x] T029 [P] Add refresh/reopen reset regression coverage for app bootstrap behavior in src/main.test.tsx
+- [x] T030 Run and fix quality gates (`npm run lint`, `npm run lint:tsc`, `npm run test:ci`) via targeted updates in src/components/App/App.tsx and src/components/App/App.test.tsx
+- [x] T031 Define manual validation protocol for SC-001..SC-004 (timed first-run start, interruption rate, comprehension check, repeat-session check) in specs/001-speed-reading-app/quickstart.md
+- [x] T032 [P] Add test-id/observable hooks needed for SC validation (start latency marker, session completion marker, restart marker) in src/components/App/App.tsx
 
 ---
 

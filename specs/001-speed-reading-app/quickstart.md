@@ -51,3 +51,37 @@ npm run test:ci
 - Speed persistence and first-run default fallback.
 - Keyboard accessibility and shortcut coverage.
 - Responsive behavior for single-row controls and flash-word sizing.
+
+## Manual validation protocol (SC-001..SC-004)
+
+### SC-001: Timed first-run start latency
+
+1. Open a fresh browser profile (or clear site data).
+2. Start the app and paste `SESSION_TEXT.shortParagraph`-length content (about 10-20 words).
+3. Confirm the default speed shows **250 WPM** before starting.
+4. Click **Start Reading** and confirm the `data-testid="start-latency-marker"` is present and increments.
+5. Visually confirm the first word appears immediately after session start and then advances on cadence.
+
+### SC-002: Interruption tolerance (pause/resume/restart)
+
+1. Start a reading session with at least 8 words.
+2. Pause after 2-3 words and verify the displayed word remains stable while paused.
+3. Resume and verify progression continues from the same position.
+4. Trigger restart (button or `R`) and confirm reading restarts from word 1.
+5. Confirm the `data-testid="restart-marker"` value increments on each restart.
+
+### SC-003: Comprehension-check pacing control
+
+1. Start with medium text and set WPM to **200**.
+2. Confirm cadence is visibly slower than default.
+3. Increase speed with slider and `ArrowUp`; decrease with `ArrowDown`.
+4. Use `Home` and `End` to jump to min/max speeds and verify displayed WPM updates.
+5. Confirm changes apply on the next tick without resetting session position.
+
+### SC-004: Repeat-session completion behavior
+
+1. Run a short session to completion.
+2. Verify completion summary shows words read and elapsed milliseconds.
+3. Confirm `data-testid="session-completion-marker"` is present in completed state.
+4. Restart and complete a second run without page refresh.
+5. Click **Edit Text** and confirm setup mode returns and a new session can be started.

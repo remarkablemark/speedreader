@@ -116,8 +116,8 @@ This feature extends the speed reader application to display multiple words simu
 
 ### Testing and Quality
 
-- [ ] T042 [P] Add unit tests for word chunking utilities in test/utils/wordChunking.test.ts
-- [ ] T043 [P] Add unit tests for localStorage utilities in test/utils/storage.test.ts
+- [x] T042 [P] Add unit tests for word chunking utilities in test/utils/wordChunking.test.ts
+- [x] T043 [P] Add unit tests for localStorage utilities in test/utils/storage.test.ts
 - [ ] T044 [P] Add component tests for ControlPanel word count functionality
 - [ ] T045 [P] Add integration tests for complete multiple words flow
 

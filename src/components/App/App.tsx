@@ -177,28 +177,22 @@ export default function App() {
         </form>
 
         {!isSetupMode ? (
-          <div className="space-y-2 text-sm text-slate-700" aria-live="polite">
-            <p>
-              Progress: <strong>{wordsRead}</strong> /{' '}
-              <strong>{sessionWordCount}</strong> ({' '}
-              {Math.round(progressPercent)}%)
-            </p>
-            <p>
-              Tempo: <strong>{selectedWpm} WPM</strong> ({Math.round(msPerWord)}{' '}
-              ms/word)
-            </p>
-            <p>
-              Status:{' '}
-              <strong>
-                {status === 'running'
-                  ? 'Reading word ' +
-                    String(wordsRead) +
-                    ' of ' +
-                    String(sessionWordCount)
-                  : status}
-              </strong>
-            </p>
-          </div>
+          <details className="m-0">
+            <summary className="mx-auto list-item w-fit cursor-pointer text-sm text-slate-400">
+              Session details
+            </summary>
+            <div className="mt-2 space-y-2" aria-live="polite">
+              <p>
+                Progress: <strong>{wordsRead}</strong> /{' '}
+                <strong>{sessionWordCount}</strong> ({' '}
+                {Math.round(progressPercent)}%)
+              </p>
+              <p>
+                Tempo: <strong>{selectedWpm} WPM</strong> (
+                {Math.round(msPerWord)} ms/word)
+              </p>
+            </div>
+          </details>
         ) : null}
 
         {isCompleted ? (

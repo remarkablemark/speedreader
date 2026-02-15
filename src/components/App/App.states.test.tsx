@@ -65,7 +65,6 @@ describe('App state-specific rendering', () => {
       screen.queryByRole('button', { name: /pause/i }),
     ).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: /resume/i })).toBeInTheDocument();
-    expect(screen.getByText(/status:/i)).toHaveTextContent('paused');
   });
 
   it('renders completion summary and completion marker when session is completed', () => {
@@ -84,7 +83,6 @@ describe('App state-specific rendering', () => {
       screen.getByRole('heading', { name: /session complete/i }),
     ).toBeInTheDocument();
     expect(screen.getByTestId('session-completion-marker')).toBeInTheDocument();
-    expect(screen.getByText(/status:/i)).toHaveTextContent('completed');
   });
 
   it('renders empty current word when session index points outside tokenized input', () => {
@@ -103,8 +101,5 @@ describe('App state-specific rendering', () => {
     const currentWord = screen.getByRole('status');
     expect(currentWord).toHaveTextContent('');
     expect(screen.getByRole('button', { name: /pause/i })).toBeInTheDocument();
-    expect(screen.getByText(/status:/i)).toHaveTextContent(
-      'Reading word 2 of 2',
-    );
   });
 });

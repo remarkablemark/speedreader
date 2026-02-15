@@ -86,16 +86,16 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 ### Tests for User Story 2
 
-- [ ] T020 [P] [US2] Create ReadingDisplay component unit tests in src/components/ReadingDisplay/ReadingDisplay.test.tsx
-- [ ] T021 [P] [US2] Create ReadingDisplay component integration tests in src/components/App/App.test.tsx
+- [x] T020 [P] [US2] Create ReadingDisplay component unit tests in src/components/ReadingDisplay/ReadingDisplay.test.tsx
+- [x] T021 [P] [US2] Create ReadingDisplay component integration tests in src/components/App/App.test.tsx
 
 ### Implementation for User Story 2
 
-- [ ] T022 [P] [US2] Create ReadingDisplay component types in src/components/ReadingDisplay/ReadingDisplay.types.ts
-- [ ] T023 [US2] Implement ReadingDisplay component in src/components/ReadingDisplay/ReadingDisplay.tsx
-- [ ] T024 [US2] Create ReadingDisplay component barrel export in src/components/ReadingDisplay/index.ts
-- [ ] T025 [US2] Update App.tsx to import and use ReadingDisplay component
-- [ ] T026 [US2] Remove extracted reading display code from App.tsx
+- [x] T022 [P] [US2] Create ReadingDisplay component types in src/components/ReadingDisplay/ReadingDisplay.types.ts
+- [x] T023 [US2] Implement ReadingDisplay component in src/components/ReadingDisplay/ReadingDisplay.tsx
+- [x] T024 [US2] Create ReadingDisplay component barrel export in src/components/ReadingDisplay/index.ts
+- [x] T025 [US2] Update App.tsx to import and use ReadingDisplay component
+- [x] T026 [US2] Remove extracted reading display code from App.tsx
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 

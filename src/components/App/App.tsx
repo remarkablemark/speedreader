@@ -1,10 +1,6 @@
 import { type ChangeEvent, type SyntheticEvent, useId, useState } from 'react';
 
-import {
-  FLASH_WORD_BASE_FONT_PX,
-  READER_MAX_WPM,
-  READER_MIN_WPM,
-} from './readerConfig';
+import { READER_MAX_WPM, READER_MIN_WPM } from './readerConfig';
 import { hasReadableText, tokenizeContent } from './tokenizeContent';
 import { useReadingSession } from './useReadingSession';
 
@@ -71,7 +67,7 @@ export default function App() {
         </p>
       </header>
 
-      <section className="reader-panel">
+      <section className="space-y-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         <form className="space-y-4" onSubmit={handleStartReading}>
           {isSetupMode ? (
             <div className="space-y-2">
@@ -85,7 +81,7 @@ export default function App() {
                 id={textAreaId}
                 value={rawText}
                 onChange={handleTextChange}
-                className="reader-textarea"
+                className="min-h-56 w-full rounded-md border border-slate-300 bg-white p-3 text-sm text-slate-900 shadow-sm transition outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
                 placeholder="Paste text to begin your speed reading session."
                 rows={10}
               />
@@ -100,10 +96,7 @@ export default function App() {
               ) : null}
             </div>
           ) : (
-            <div
-              className="reader-flash-word"
-              style={{ fontSize: FLASH_WORD_BASE_FONT_PX }}
-            >
+            <div className="flex min-h-40 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-[48px] leading-[1.1] font-semibold tracking-wide text-slate-900 max-[480px]:min-h-[8.5rem] max-[480px]:text-[2rem]">
               <p aria-live="polite" aria-atomic="true" role="status">
                 {currentWord}
               </p>
@@ -111,7 +104,7 @@ export default function App() {
           )}
 
           <div
-            className="reader-control-bar"
+            className="flex w-full items-end gap-2 overflow-x-auto pb-1 max-[480px]:gap-[0.4rem]"
             role="group"
             aria-label="Reading controls"
           >
@@ -138,7 +131,7 @@ export default function App() {
 
             {isSetupMode ? (
               <button
-                className="reader-button reader-button-primary"
+                className="inline-flex shrink-0 items-center justify-center rounded-md border border-sky-600 bg-sky-600 px-3 py-2 text-sm font-medium text-white transition hover:border-sky-700 hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
                 disabled={!isInputValid}
                 type="submit"
               >
@@ -148,7 +141,7 @@ export default function App() {
               <>
                 {isRunning ? (
                   <button
-                    className="reader-button"
+                    className="inline-flex shrink-0 items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
                     onClick={pauseReading}
                     type="button"
                   >
@@ -157,7 +150,7 @@ export default function App() {
                 ) : null}
                 {isPaused ? (
                   <button
-                    className="reader-button reader-button-primary"
+                    className="inline-flex shrink-0 items-center justify-center rounded-md border border-sky-600 bg-sky-600 px-3 py-2 text-sm font-medium text-white transition hover:border-sky-700 hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
                     onClick={resumeReading}
                     type="button"
                   >
@@ -165,14 +158,14 @@ export default function App() {
                   </button>
                 ) : null}
                 <button
-                  className="reader-button"
+                  className="inline-flex shrink-0 items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
                   onClick={restartReading}
                   type="button"
                 >
                   Restart
                 </button>
                 <button
-                  className="reader-button"
+                  className="inline-flex shrink-0 items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
                   onClick={editText}
                   type="button"
                 >

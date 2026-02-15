@@ -102,24 +102,24 @@ This feature extends the speed reader application to display multiple words simu
 
 ### Accessibility
 
-- [ ] T040 [P] Add proper ARIA labels to Word Count dropdown in ControlPanel component
-- [ ] T041 [P] Implement keyboard navigation for Word Count dropdown
-- [ ] T042 [P] Add screen reader announcements for word count changes
-- [ ] T043 [P] Test accessibility with screen reader tools
+- [ ] T034 [P] Add proper ARIA labels to Word Count dropdown in ControlPanel component
+- [ ] T035 [P] Implement keyboard navigation for Word Count dropdown
+- [ ] T036 [P] Add screen reader announcements for word count changes
+- [ ] T037 [P] Test accessibility with screen reader tools
 
 ### Performance and Error Handling
 
-- [ ] T044 [P] Optimize chunk generation with memoization in useReadingSession hook
-- [ ] T045 [P] Implement error handling for localStorage failures
-- [ ] T046 [P] Add debounced localStorage saves for word count
-- [ ] T047 [P] Test performance with large texts (10,000+ words)
+- [ ] T038 [P] Optimize chunk generation with memoization in useReadingSession hook
+- [ ] T039 [P] Implement error handling for localStorage failures
+- [ ] T040 [P] Add debounced localStorage saves for word count
+- [ ] T041 [P] Test performance with large texts (10,000+ words)
 
 ### Testing and Quality
 
-- [ ] T048 [P] Add unit tests for word chunking utilities in test/utils/wordChunking.test.ts
-- [ ] T049 [P] Add unit tests for localStorage utilities in test/utils/storage.test.ts
-- [ ] T050 [P] Add component tests for ControlPanel word count functionality
-- [ ] T051 [P] Add integration tests for complete multiple words flow
+- [ ] T042 [P] Add unit tests for word chunking utilities in test/utils/wordChunking.test.ts
+- [ ] T043 [P] Add unit tests for localStorage utilities in test/utils/storage.test.ts
+- [ ] T044 [P] Add component tests for ControlPanel word count functionality
+- [ ] T045 [P] Add integration tests for complete multiple words flow
 
 ### Documentation and Cleanup
 
@@ -135,13 +135,12 @@ This feature extends the speed reader application to display multiple words simu
 ```
 US1 (Multiple Words Display) - No dependencies
 US2 (Configurable Word Count) - Depends on US1
-US3 (Smart Word Grouping) - Depends on US1
 ```
 
 ### Phase Dependencies
 
 ```
-Phase 1 (Setup) → Phase 2 (Foundational) → Phase 3 (US1) → Phase 4 (US2) & Phase 5 (US3) → Phase 6 (Polish)
+Phase 1 (Setup) → Phase 2 (Foundational) → Phase 3 (US1) → Phase 4 (US2) → Phase 5 (Polish)
 ```
 
 ## Parallel Execution Examples
@@ -188,8 +187,8 @@ Implement basic multiple words display with fixed 2-3 word chunks to validate co
 ### Incremental Delivery
 
 1. **Week 1**: Complete Phase 1-3 (Setup, Foundational, US1)
-2. **Week 2**: Complete Phase 4 (US2) and begin Phase 5 (US3)
-3. **Week 3**: Complete Phase 5-6 (US3, Polish, Testing)
+2. **Week 2**: Complete Phase 4 (US2) and begin Phase 5 (Polish)
+3. **Week 3**: Complete Phase 5 (Polish, Testing)
 
 ### Risk Mitigation
 

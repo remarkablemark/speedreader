@@ -1,4 +1,4 @@
-import type { WordChunk } from './wordChunk.types';
+import type { WordChunk } from 'src/types';
 
 export interface ReadingDisplayProps {
   currentWord: string;

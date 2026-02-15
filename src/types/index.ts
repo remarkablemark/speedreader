@@ -4,4 +4,5 @@ export type {
   ReadingSessionState,
   ReadingSessionStatus,
   TokenizedContent,
+  WordChunk,
 } from './readerTypes';

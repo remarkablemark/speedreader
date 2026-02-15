@@ -1,4 +1,4 @@
-import type { WordChunk } from 'src/components/ReadingDisplay/wordChunk.types.ts';
+import type { WordChunk } from 'src/types';
 
 import { MAX_WORD_COUNT } from './storage';
 

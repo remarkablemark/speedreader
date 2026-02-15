@@ -1,6 +1,6 @@
 const WHITESPACE_DELIMITER_PATTERN = /\s+/;
 
-import type { WordChunk } from 'src/components/ReadingDisplay/wordChunk.types.ts';
+import type { WordChunk } from 'src/types';
 
 export interface TokenizedContent {
   words: string[];

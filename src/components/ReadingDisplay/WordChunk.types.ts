@@ -15,9 +15,6 @@ export interface WordChunk {
 
   /** End index in original word array */
   endIndex: number;
-
-  /** Whether chunk contains punctuation */
-  hasPunctuation: boolean;
 }
 
 /**
@@ -52,7 +49,6 @@ export function isValidWordChunk(chunk: unknown): chunk is WordChunk {
     typeof wc.startIndex === 'number' &&
     typeof wc.endIndex === 'number' &&
     wc.startIndex >= 0 &&
-    wc.endIndex >= wc.startIndex &&
-    typeof wc.hasPunctuation === 'boolean'
+    wc.endIndex >= wc.startIndex
   );
 }

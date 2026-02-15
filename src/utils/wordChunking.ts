@@ -4,18 +4,6 @@ import type { TokenizedContent } from 'src/components/TextInput/TokenizedContent
 import { MAX_WORD_COUNT } from './storage';
 
 /**
- * Punctuation detection helpers
- */
-const END_PUNCTUATION_MARKS = /[.!?;:]$/;
-
-/**
- * Check if word contains end punctuation
- */
-function hasEndPunctuation(word: string): boolean {
-  return END_PUNCTUATION_MARKS.test(word);
-}
-
-/**
  * Generate word chunks from tokenized content
  * @param words - Array of individual words
  * @param wordsPerChunk - Number of words per chunk (1-5)
@@ -38,7 +26,6 @@ export function generateWordChunks(
       words: chunkWords,
       startIndex: i,
       endIndex: Math.min(i + wordsPerChunk - 1, words.length - 1),
-      hasPunctuation: chunkWords.some((w) => hasEndPunctuation(w)),
     });
   }
 

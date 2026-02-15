@@ -112,12 +112,12 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 - **FR-003**: System MUST group words by simple sequential splitting based on user word count preference, with no complex natural language processing
 - **FR-004**: System MUST maintain consistent timing between word chunks based on WPM setting, using same total time per chunk regardless of word count
 - **FR-005**: System MUST handle edge cases where remaining words are fewer than configured group size
-- **FR-006**: System MUST preserve punctuation and maintain logical word groupings
+- **FR-006**: System MUST preserve word order and maintain logical grouping
 - **FR-008**: System MUST display word chunks in a readable format with appropriate spacing, wrapping text within fixed display area when content overflows horizontally
 
 ### Key Entities _(include if feature involves data)_
 
-- **WordChunk**: Represents a group of 1-5 words to be displayed together, contains the text content and timing information
+- **WordChunk**: Represents a group of 1-5 words to be displayed together, contains the text content and position indices
 - **DisplaySettings**: Contains user preferences for words per chunk and grouping behavior
 - **TokenizedContent**: Extended to support word chunking in addition to individual word tokenization
 

@@ -134,7 +134,6 @@ export function createValidWordChunk(
     words,
     startIndex,
     endIndex,
-    hasPunctuation: words.some((word) => /[.,;:!?]/.test(word)),
   };
 
   const validation = validateWordChunk(chunk);

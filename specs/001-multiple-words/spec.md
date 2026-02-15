@@ -10,6 +10,7 @@
 ### Session 2025-02-15
 
 - Q: What type of UI control should be used for selecting the word count per chunk? → A: Dropdown/select menu with numbered options, min 1 and max 5 words
+- Q: What should be the default word count when users first enable multiple words display? → A: 1 word (same as current single-word mode)
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -100,6 +101,7 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 
 - **FR-001**: System MUST allow users to enable multiple words display mode
 - **FR-002**: System MUST allow users to configure the number of words displayed per chunk (1-5 words) via dropdown/select menu
+- **FR-009**: System MUST default to 1 word per chunk when multiple words display is first enabled
 - **FR-003**: System MUST group words based on natural language boundaries when possible
 - **FR-004**: System MUST maintain consistent timing between word chunks based on WPM setting
 - **FR-005**: System MUST handle edge cases where remaining words are fewer than configured group size

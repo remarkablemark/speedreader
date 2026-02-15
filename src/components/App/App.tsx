@@ -57,7 +57,7 @@ export default function App() {
   };
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-8 p-4 sm:p-6 md:p-10">
+    <main className="mx-auto flex min-h-screen w-full max-w-5xl min-w-80 flex-col gap-8 p-4 text-center sm:p-6 md:p-10">
       <header className="space-y-2">
         <h1 className="text-3xl font-semibold text-balance text-slate-900 sm:text-4xl">
           Speed Reader
@@ -104,7 +104,7 @@ export default function App() {
           )}
 
           <div
-            className="flex w-full items-end gap-2 overflow-x-auto pb-1 max-[480px]:gap-[0.4rem]"
+            className="flex w-full items-end justify-center gap-2 overflow-x-auto pb-1 max-[480px]:gap-[0.4rem]"
             role="group"
             aria-label="Reading controls"
           >

@@ -62,17 +62,17 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 ### Tests for User Story 1
 
-- [ ] T012 [P] [US1] Create TextInput component unit tests in src/components/TextInput/TextInput.test.tsx
-- [ ] T013 [P] [US1] Create TextInput component integration tests in src/components/App/App.test.tsx
+- [x] T012 [P] [US1] Create TextInput component unit tests in src/components/TextInput/TextInput.test.tsx
+- [x] T013 [P] [US1] Create TextInput component integration tests in src/components/App/App.test.tsx
 
 ### Implementation for User Story 1
 
-- [ ] T014 [P] [US1] Create TextInput component types in src/components/TextInput/TextInput.types.ts
-- [ ] T015 [P] [US1] Move tokenizeContent utility to src/components/TextInput/tokenizeContent.ts
-- [ ] T016 [US1] Implement TextInput component in src/components/TextInput/TextInput.tsx
-- [ ] T017 [US1] Create TextInput component barrel export in src/components/TextInput/index.ts
-- [ ] T018 [US1] Update App.tsx to import and use TextInput component
-- [ ] T019 [US1] Remove extracted text input code from App.tsx
+- [x] T014 [P] [US1] Create TextInput component types in src/components/TextInput/TextInput.types.ts
+- [x] T015 [P] [US1] Move tokenizeContent utility to src/components/TextInput/tokenizeContent.ts
+- [x] T016 [US1] Implement TextInput component in src/components/TextInput/TextInput.tsx
+- [x] T017 [US1] Create TextInput component barrel export in src/components/TextInput/index.ts
+- [x] T018 [US1] Update App.tsx to import and use TextInput component
+- [x] T019 [US1] Remove extracted text input code from App.tsx
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 

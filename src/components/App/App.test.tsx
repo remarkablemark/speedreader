@@ -20,6 +20,52 @@ describe('App component', () => {
     expect(button).toBeDisabled();
   });
 
+  describe('TextInput integration', () => {
+    it('enables start button when text is entered', async () => {
+      const user = userEvent.setup();
+      render(<App />);
+
+      const textarea = screen.getByLabelText(/session text/i);
+      const startButton = screen.getByRole('button', {
+        name: /start reading/i,
+      });
+
+      expect(startButton).toBeDisabled();
+
+      await user.type(textarea, 'Some valid text content');
+      expect(startButton).toBeEnabled();
+    });
+
+    it('shows validation error when submitting empty text', async () => {
+      const user = userEvent.setup();
+      render(<App />);
+
+      const submitButton = screen.getByTestId('submit-button');
+
+      await user.click(submitButton);
+
+      const errorMessage = screen.getByText(
+        /enter at least one word before starting/i,
+      );
+      expect(errorMessage).toBeInTheDocument();
+    });
+
+    it('submits form when valid text is entered', async () => {
+      const user = userEvent.setup();
+      render(<App />);
+
+      const textarea = screen.getByLabelText(/session text/i);
+      const submitButton = screen.getByTestId('submit-button');
+
+      await user.type(textarea, 'Valid text content');
+      await user.click(submitButton);
+
+      // Should transition to reading mode
+      expect(screen.queryByLabelText(/session text/i)).not.toBeInTheDocument();
+      expect(screen.getByRole('status')).toBeInTheDocument();
+    });
+  });
+
   it('enables start button after entering readable text', async () => {
     const user = userEvent.setup();
     render(<App />);
@@ -64,19 +110,13 @@ describe('App component', () => {
   it('keeps setup mode on submit when text is invalid', () => {
     render(<App />);
 
-    const startButton = screen.getByRole('button', { name: /start reading/i });
-    const form = startButton.closest('form');
+    const submitButton = screen.getByTestId('submit-button');
 
-    expect(form).not.toBeNull();
-    if (form === null) {
-      return;
-    }
-
-    fireEvent.submit(form);
+    fireEvent.click(submitButton);
 
     expect(screen.getByLabelText(/session text/i)).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /start reading/i }),
-    ).toBeDisabled();
+      screen.getByText(/enter at least one word before starting/i),
+    ).toBeInTheDocument();
   });
 });

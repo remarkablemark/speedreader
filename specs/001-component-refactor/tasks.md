@@ -109,18 +109,18 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 ### Tests for User Story 3
 
-- [ ] T027 [P] [US3] Create ControlPanel component unit tests in src/components/ControlPanel/ControlPanel.test.tsx
-- [ ] T028 [P] [US3] Create ControlPanel component integration tests in src/components/App/App.test.tsx
+- [x] T027 [P] [US3] Create ControlPanel component unit tests in src/components/ControlPanel/ControlPanel.test.tsx
+- [x] T028 [P] [US3] Create ControlPanel component integration tests in src/components/App/App.test.tsx
 
 ### Implementation for User Story 3
 
-- [ ] T029 [P] [US3] Create ControlPanel component types in src/components/ControlPanel/ControlPanel.types.ts
-- [ ] T030 [P] [US3] Move useReadingSession hook to src/components/ControlPanel/useReadingSession.ts
-- [ ] T031 [US3] Implement ControlPanel component in src/components/ControlPanel/ControlPanel.tsx
-- [ ] T032 [US3] Create ControlPanel component barrel export in src/components/ControlPanel/index.ts
-- [ ] T033 [US3] Update App.tsx to import and use ControlPanel component
-- [ ] T034 [US3] Remove extracted control panel code from App.tsx
-- [ ] T035 [US3] Replace all Button usage in ControlPanel with Button component variants
+- [x] T029 [P] [US3] Create ControlPanel component types in src/components/ControlPanel/ControlPanel.types.ts
+- [x] T030 [P] [US3] Keep useReadingSession hook in src/components/App/useReadingSession.ts (updated plan)
+- [x] T031 [US3] Implement ControlPanel component in src/components/ControlPanel/ControlPanel.tsx
+- [x] T032 [US3] Create ControlPanel component barrel export in src/components/ControlPanel/index.ts
+- [x] T033 [US3] Update App.tsx to import and use ControlPanel component
+- [x] T034 [US3] Remove extracted control panel code from App.tsx
+- [x] T035 [US3] Replace all Button usage in ControlPanel with Button component variants
 
 **Checkpoint**: At this point, User Stories 1, 2, AND 3 should all work independently
 
@@ -134,16 +134,16 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 ### Tests for User Story 4
 
-- [ ] T036 [P] [US4] Create SessionDetails component unit tests in src/components/SessionDetails/SessionDetails.test.tsx
-- [ ] T037 [P] [US4] Create SessionDetails component integration tests in src/components/App/App.test.tsx
+- [x] T036 [P] [US4] Create SessionDetails component unit tests in src/components/SessionDetails/SessionDetails.test.tsx
+- [x] T037 [P] [US4] Create SessionDetails component integration tests in src/components/App/App.test.tsx
 
 ### Implementation for User Story 4
 
-- [ ] T038 [P] [US4] Create SessionDetails component types in src/components/SessionDetails/SessionDetails.types.ts
-- [ ] T039 [US4] Implement SessionDetails component in src/components/SessionDetails/SessionDetails.tsx
-- [ ] T040 [US4] Create SessionDetails component barrel export in src/components/SessionDetails/index.ts
-- [ ] T041 [US4] Update App.tsx to import and use SessionDetails component
-- [ ] T042 [US4] Remove extracted session details code from App.tsx
+- [x] T038 [P] [US4] Create SessionDetails component types in src/components/SessionDetails/SessionDetails.types.ts
+- [x] T039 [US4] Implement SessionDetails component in src/components/SessionDetails/SessionDetails.tsx
+- [x] T040 [US4] Create SessionDetails component barrel export in src/components/SessionDetails/index.ts
+- [x] T041 [US4] Update App.tsx to import and use SessionDetails component
+- [x] T042 [US4] Remove extracted session details code from App.tsx
 
 **Checkpoint**: At this point, User Stories 1-4 should all work independently
 
@@ -157,16 +157,16 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 ### Tests for User Story 5
 
-- [ ] T043 [P] [US5] Create SessionCompletion component unit tests in src/components/SessionCompletion/SessionCompletion.test.tsx
-- [ ] T044 [P] [US5] Create SessionCompletion component integration tests in src/components/App/App.test.tsx
+- [x] T043 [P] [US5] Create SessionCompletion component unit tests in src/components/SessionCompletion/SessionCompletion.test.tsx
+- [x] T044 [P] [US5] Create SessionCompletion component integration tests in src/components/App/App.test.tsx
 
 ### Implementation for User Story 5
 
-- [ ] T045 [P] [US5] Create SessionCompletion component types in src/components/SessionCompletion/SessionCompletion.types.ts
-- [ ] T046 [US5] Implement SessionCompletion component in src/components/SessionCompletion/SessionCompletion.tsx
-- [ ] T047 [US5] Create SessionCompletion component barrel export in src/components/SessionCompletion/index.ts
-- [ ] T048 [US5] Update App.tsx to import and use SessionCompletion component
-- [ ] T049 [US5] Remove extracted session completion code from App.tsx
+- [x] T045 [P] [US5] Create SessionCompletion component types in src/components/SessionCompletion/SessionCompletion.types.ts
+- [x] T046 [US5] Implement SessionCompletion component in src/components/SessionCompletion/SessionCompletion.tsx
+- [x] T047 [US5] Create SessionCompletion component barrel export in src/components/SessionCompletion/index.ts
+- [x] T048 [US5] Update App.tsx to import and use SessionCompletion component
+- [x] T049 [US5] Remove extracted session completion code from App.tsx
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -176,18 +176,18 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T050 [P] Update App.tsx imports to use new barrel exports
-- [ ] T051 [P] Remove unused imports from App.tsx after component extraction
-- [ ] T052 [P] Verify all components follow established file structure patterns
-- [ ] T053 [P] Accessibility verification across keyboard, semantics, and responsive breakpoints
-- [ ] T054 [P] Component integration tests in src/components/App/App.test.tsx for full workflow
-- [ ] T055 [P] Additional regression tests for changed behavior
-- [ ] T056 Code cleanup and refactoring of any remaining duplication
-- [ ] T057 Performance verification - no timing regressions in reading sessions
-- [ ] T058 Execute quality gates: `npm run lint`, `npm run lint:tsc`, `npm run test:ci`
-- [ ] T059 [P] Verify 100% test coverage is maintained after refactoring
-- [ ] T060 Verify App.tsx size reduction meets 60% target
-- [ ] T061 Manual verification of all user interactions work identically
+- [x] T050 [P] Update App.tsx imports to use new barrel exports
+- [x] T051 [P] Remove unused imports from App.tsx after component extraction
+- [x] T052 [P] Verify all components follow established file structure patterns
+- [x] T053 [P] Accessibility verification across keyboard, semantics, and responsive breakpoints
+- [x] T054 [P] Component integration tests in src/components/App/App.test.tsx for full workflow
+- [x] T055 [P] Additional regression tests for changed behavior
+- [x] T056 Code cleanup and refactoring of any remaining duplication
+- [x] T057 Performance verification - no timing regressions in reading sessions
+- [x] T058 Execute quality gates: `npm run lint`, `npm run lint:tsc`, `npm run test:ci`
+- [x] T059 [P] Verify 100% test coverage is maintained after refactoring
+- [x] T060 Verify App.tsx size reduction meets 60% target
+- [x] T061 Manual verification of all user interactions work identically
 
 ---
 

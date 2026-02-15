@@ -98,7 +98,6 @@ interface SessionDetailsProps {
   wordsRead: number;
   totalWords: number;
   progressPercent: number;
-  selectedWpm: number;
   msPerWord: number;
 }
 ```
@@ -107,7 +106,7 @@ interface SessionDetailsProps {
 
 - Renders collapsible details with summary "Session details"
 - Displays progress as "X / Y (Z%)" format
-- Displays tempo as "WPM WPM (X ms/word)" format
+- Displays tempo as "X milliseconds/word" format
 - Uses aria-live="polite" for screen reader announcements
 - Rounds percentage and ms/word values for display
 

@@ -2,7 +2,6 @@ import type { DisplaySettings } from './DisplaySettings.types';
 import {
   createDisplaySettings,
   DEFAULT_DISPLAY_SETTINGS,
-  DisplaySettingsValidation,
   isValidDisplaySettings,
 } from './DisplaySettings.types';
 
@@ -83,19 +82,6 @@ export function validateDisplaySettings(settings: DisplaySettings): {
   if (!isValidDisplaySettings(settings)) {
     errors.push('Invalid DisplaySettings structure');
     return { isValid: false, errors, warnings };
-  }
-
-  // Check word count bounds
-  if (settings.wordsPerChunk < DisplaySettingsValidation.MIN_WORDS) {
-    errors.push(
-      `Words per chunk below minimum (${String(DisplaySettingsValidation.MIN_WORDS)})`,
-    );
-  }
-
-  if (settings.wordsPerChunk > DisplaySettingsValidation.MAX_WORDS) {
-    errors.push(
-      `Words per chunk above maximum (${String(DisplaySettingsValidation.MAX_WORDS)})`,
-    );
   }
 
   // Check mode consistency

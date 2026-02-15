@@ -16,6 +16,7 @@
 - Q: How should users toggle between single word and multiple words display modes? → A: No toggle mode
 - Q: What label text should be displayed for the word count dropdown? → A: "Word Count"
 - Q: How should text wrapping be implemented for overflowing word chunks? → A: Wrap text within fixed display area (multi-line)
+- Q: Should the word count selection be saved and restored between sessions? → A: Yes, save to localStorage with key "speedreader.wordCount"
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -107,6 +108,7 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 - **FR-001**: System MUST allow users to select word count from dropdown (1-5 words) where 1 word represents single word mode and 2+ words represents multiple words display
 - **FR-002**: System MUST allow users to configure the number of words displayed per chunk (1-5 words) via dropdown/select menu labeled "Word Count" positioned after the WPM slider
 - **FR-009**: System MUST default to 1 word per chunk when multiple words display is first enabled
+- **FR-010**: System MUST save word count selection to localStorage with key "speedreader.wordCount" and restore on page load
 - **FR-003**: System MUST group words based on natural language boundaries when possible
 - **FR-004**: System MUST maintain consistent timing between word chunks based on WPM setting, using same total time per chunk regardless of word count
 - **FR-005**: System MUST handle edge cases where remaining words are fewer than configured group size

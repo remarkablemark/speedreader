@@ -112,6 +112,27 @@ describe('progress', () => {
       expect(result.chunksRemaining).toBe(0);
       expect(result.estimatedTimeRemaining).toBe(0);
     });
+
+    test('handles edge case with zero total words', () => {
+      const result = calculateProgressMetrics(0, 0, 0, 0, 1);
+
+      expect(result).toEqual({
+        progressPercent: 0,
+        wordsRead: 0,
+        chunksRead: 0,
+        wordsRemaining: 0,
+        chunksRemaining: 0,
+        estimatedTimeRemaining: 0,
+      });
+    });
+
+    test('handles edge case with negative indices gracefully', () => {
+      const result = calculateProgressMetrics(-1, 10, -1, 5, 2);
+
+      expect(result.progressPercent).toBe(0);
+      expect(result.wordsRead).toBe(0);
+      expect(result.chunksRead).toBe(0);
+    });
   });
 
   describe('recalculateProgressOnWordCountChange', () => {
@@ -262,6 +283,11 @@ describe('progress', () => {
       const result = validateProgressParams(10000, 20000);
 
       expect(result).toEqual({ isValid: true });
+    });
+
+    test('handles floating point zero edge cases', () => {
+      expect(validateProgressParams(0.0, 0)).toEqual({ isValid: true });
+      expect(validateProgressParams(0, 0.0)).toEqual({ isValid: true });
     });
   });
 });

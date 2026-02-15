@@ -19,9 +19,9 @@ describe('TextInput index', () => {
   });
 
   test('module structure is correct', () => {
-    const keys = Object.keys(TextInputModule);
-    expect(keys).toContain('TextInput');
-    expect(keys).toContain('hasReadableText');
-    expect(keys).toContain('tokenizeContent');
+    // Check that the module has the expected export structure
+    expect(Object.keys(TextInputModule)).toContain('TextInput');
+    expect(Object.keys(TextInputModule)).toContain('hasReadableText');
+    expect(Object.keys(TextInputModule)).toContain('tokenizeContent');
   });
 });

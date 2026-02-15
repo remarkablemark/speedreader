@@ -20,10 +20,10 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 ## Path Conventions
 
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+- **React static website**: `src/` at repository root
+- Tests are colocated with components in their respective folders
+- Shared types in `src/types/`
+- All paths use this single-project structure
 
 ## Phase 1: Setup (Shared Infrastructure)
 

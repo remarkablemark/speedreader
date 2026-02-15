@@ -66,19 +66,22 @@ export function ControlPanel({
         </Button>
       ) : (
         <>
-          {isRunning ? (
-            <Button variant="secondary" onClick={onPauseReading}>
+          {isRunning && (
+            <Button variant="secondary" onClick={onPauseReading} autoFocus>
               Pause
             </Button>
-          ) : null}
-          {isPaused ? (
-            <Button variant="primary" onClick={onResumeReading}>
+          )}
+
+          {isPaused && (
+            <Button variant="primary" onClick={onResumeReading} autoFocus>
               Resume
             </Button>
-          ) : null}
+          )}
+
           <Button variant="secondary" onClick={onRestartReading}>
             Restart
           </Button>
+
           <Button variant="secondary" onClick={onEditText}>
             Edit Text
           </Button>

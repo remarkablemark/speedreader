@@ -7,20 +7,11 @@ vi.mock('./useReadingSession', () => ({
   useReadingSession: vi.fn(),
 }));
 
-interface SessionOverrides {
-  currentWordIndex?: number;
-  elapsedMs?: number;
-  msPerWord?: number;
-  progressPercent?: number;
-  restartCount?: number;
-  selectedWpm?: number;
-  startCount?: number;
-  status?: 'idle' | 'running' | 'paused' | 'completed';
-  totalWords?: number;
-  wordsRead?: number;
-}
+type ReadingSession = ReturnType<typeof useReadingSession>;
 
-function createSession(overrides: SessionOverrides = {}) {
+function createSession(
+  overrides: Partial<ReadingSession> = {},
+): ReadingSession {
   return {
     currentWordIndex: 0,
     elapsedMs: 0,

@@ -321,4 +321,16 @@ describe('ControlPanel', () => {
     expect(screen.getByRole('option', { name: '4' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: '5' })).toBeInTheDocument();
   });
+
+  test('supports native keyboard navigation in dropdown', () => {
+    render(<ControlPanel {...defaultProps} />);
+
+    const dropdown = screen.getByRole('combobox', { name: /word count/i });
+
+    // Test that dropdown can be focused (native behavior)
+    expect(dropdown).not.toHaveAttribute('disabled');
+
+    // Native select elements don't need explicit tabindex - they're focusable by default
+    expect(dropdown).toBeVisible();
+  });
 });

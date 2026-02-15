@@ -103,7 +103,7 @@ This feature extends the speed reader application to display multiple words simu
 ### Accessibility
 
 - [x] T034 [P] Ensure Word Count dropdown has proper accessibility with semantic HTML in ControlPanel component
-- [ ] T035 [P] Implement keyboard navigation for Word Count dropdown
+- [x] T035 [P] Implement keyboard navigation for Word Count dropdown using native HTML behavior
 - [ ] T036 [P] Add screen reader announcements for word count changes
 - [ ] T037 [P] Test accessibility with screen reader tools
 

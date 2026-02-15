@@ -93,7 +93,6 @@ export default function App() {
             wordsRead={wordsRead}
             totalWords={totalWords}
             progressPercent={progressPercent}
-            selectedWpm={selectedWpm}
             msPerWord={msPerWord}
           />
         )}

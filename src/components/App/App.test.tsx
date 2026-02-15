@@ -350,7 +350,7 @@ describe('App component', () => {
 
       // Should show tempo with WPM
       expect(screen.getByText(/Tempo:/)).toBeInTheDocument();
-      expect(screen.getAllByText(/300 WPM/)).toHaveLength(2); // label and session details
+      expect(screen.getAllByText(/300 WPM/)).toHaveLength(1);
     });
 
     it('does not show SessionDetails in setup mode', () => {

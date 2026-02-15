@@ -8,7 +8,6 @@ export function SessionDetails({
   wordsRead,
   totalWords,
   progressPercent,
-  selectedWpm,
   msPerWord,
 }: SessionDetailsProps) {
   return (
@@ -19,11 +18,10 @@ export function SessionDetails({
       <div className="mt-2 space-y-2" aria-live="polite">
         <p>
           Progress: <strong>{wordsRead}</strong> / <strong>{totalWords}</strong>{' '}
-          ( {Math.round(progressPercent)}%)
+          ({Math.round(progressPercent)}%)
         </p>
         <p>
-          Tempo: <strong>{selectedWpm} WPM</strong> ({Math.round(msPerWord)}{' '}
-          ms/word)
+          Tempo: <strong>{Math.round(msPerWord)}</strong> milliseconds/word
         </p>
       </div>
     </details>

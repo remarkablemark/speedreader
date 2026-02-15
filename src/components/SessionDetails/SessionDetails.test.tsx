@@ -9,7 +9,6 @@ describe('SessionDetails', () => {
     wordsRead: 25,
     totalWords: 100,
     progressPercent: 25,
-    selectedWpm: 250,
     msPerWord: 240,
   };
 
@@ -34,8 +33,8 @@ describe('SessionDetails', () => {
     render(<SessionDetails {...defaultProps} />);
 
     expect(screen.getByText(/Tempo:/)).toBeInTheDocument();
-    expect(screen.getByText(/250 WPM/)).toBeInTheDocument();
-    expect(screen.getByText(/240 ms\/word/)).toBeInTheDocument();
+    expect(screen.getByText('240')).toBeInTheDocument();
+    expect(screen.getByText(/milliseconds\/word/)).toBeInTheDocument();
   });
 
   test('rounds percentage and ms/word values', () => {
@@ -43,7 +42,6 @@ describe('SessionDetails', () => {
       wordsRead: 33,
       totalWords: 100,
       progressPercent: 33.33,
-      selectedWpm: 180,
       msPerWord: 333.33,
     };
 
@@ -52,7 +50,6 @@ describe('SessionDetails', () => {
     expect(screen.getByText('33')).toBeInTheDocument(); // wordsRead
     expect(screen.getByText('100')).toBeInTheDocument(); // totalWords
     expect(screen.getByText(/33%/)).toBeInTheDocument(); // progressPercent
-    expect(screen.getByText('180', { exact: false })).toBeInTheDocument(); // selectedWpm
     expect(screen.getByText('333', { exact: false })).toBeInTheDocument(); // msPerWord
   });
 
@@ -61,7 +58,6 @@ describe('SessionDetails', () => {
       wordsRead: 0,
       totalWords: 0,
       progressPercent: 0,
-      selectedWpm: 250,
       msPerWord: 240,
     };
 
@@ -69,7 +65,6 @@ describe('SessionDetails', () => {
 
     expect(screen.getAllByText('0')).toHaveLength(2); // wordsRead, totalWords (progressPercent is in a different format)
     expect(screen.getByText(/0%/)).toBeInTheDocument(); // progressPercent
-    expect(screen.getByText('250', { exact: false })).toBeInTheDocument(); // selectedWpm
     expect(screen.getByText('240', { exact: false })).toBeInTheDocument(); // msPerWord
   });
 
@@ -96,13 +91,13 @@ describe('SessionDetails', () => {
     render(<SessionDetails {...defaultProps} />);
 
     const progressText = screen.getByText(/Progress:/).parentElement;
-    expect(progressText).toHaveTextContent('Progress: 25 / 100 ( 25%)');
+    expect(progressText).toHaveTextContent('Progress: 25 / 100 (25%)');
   });
 
   test('formats tempo text correctly', () => {
     render(<SessionDetails {...defaultProps} />);
 
     const tempoText = screen.getByText(/Tempo:/).parentElement;
-    expect(tempoText).toHaveTextContent('Tempo: 250 WPM (240 ms/word)');
+    expect(tempoText).toHaveTextContent('Tempo: 240 milliseconds/word');
   });
 });

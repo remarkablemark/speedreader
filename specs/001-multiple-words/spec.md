@@ -15,6 +15,7 @@
 - Q: Where should the word count dropdown be positioned relative to the WPM slider? → A: After the WPM slider (WPM first, then word count)
 - Q: How should users toggle between single word and multiple words display modes? → A: No toggle mode
 - Q: What label text should be displayed for the word count dropdown? → A: "Word Count"
+- Q: How should text wrapping be implemented for overflowing word chunks? → A: Wrap text within fixed display area (multi-line)
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -110,7 +111,7 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 - **FR-004**: System MUST maintain consistent timing between word chunks based on WPM setting, using same total time per chunk regardless of word count
 - **FR-005**: System MUST handle edge cases where remaining words are fewer than configured group size
 - **FR-006**: System MUST preserve punctuation and maintain logical word groupings
-- **FR-008**: System MUST display word chunks in a readable format with appropriate spacing
+- **FR-008**: System MUST display word chunks in a readable format with appropriate spacing, wrapping text within fixed display area when content overflows horizontally
 
 ### Key Entities _(include if feature involves data)_
 

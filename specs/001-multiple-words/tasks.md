@@ -70,9 +70,9 @@ This feature extends the speed reader application to display multiple words simu
 
 ### Integration
 
-- [ ] T022 [US1] Integrate chunk display in App component in src/components/App/App.tsx
-- [ ] T023 [US1] Update SessionDetails for chunk terminology in src/components/SessionDetails/SessionDetails.tsx
-- [ ] T024 [US1] Test end-to-end multiple words reading flow
+- [x] T022 [US1] Integrate chunk display in App component in src/components/App/App.tsx
+- [x] T023 [US1] Update SessionDetails for chunk terminology in src/components/SessionDetails/SessionDetails.tsx
+- [x] T024 [US1] Test end-to-end multiple words reading flow
 
 ## Phase 4: User Story 2 - Configurable Word Count (P2)
 

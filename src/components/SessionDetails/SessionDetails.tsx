@@ -20,6 +20,7 @@ export function SessionDetails({
           Progress: <strong>{wordsRead}</strong> / <strong>{totalWords}</strong>{' '}
           ({Math.round(progressPercent)}%)
         </p>
+
         <p>
           Tempo: <strong>{Math.round(msPerWord)}</strong> milliseconds/word
         </p>

@@ -1,5 +1,3 @@
-import { expect } from 'vitest';
-
 import {
   FLASH_WORD_BASE_FONT_PX,
   READER_DEFAULT_WPM,

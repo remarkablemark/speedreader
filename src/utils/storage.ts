@@ -58,6 +58,7 @@ export const storageAPI = {
     try {
       return typeof localStorage !== 'undefined';
     } catch {
+      /* v8 ignore next -- @preserve */
       return false;
     }
   },

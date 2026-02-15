@@ -1,5 +1,6 @@
-import { generateWordChunks } from 'src/utils/wordChunking';
 import { describe, expect } from 'vitest';
+
+import { generateWordChunks } from './wordChunking';
 
 describe('wordChunking', () => {
   it('generates chunks correctly for basic input', () => {

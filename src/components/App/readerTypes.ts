@@ -15,6 +15,8 @@ export interface ReadingSessionState {
   currentChunkIndex: number;
   totalChunks: number;
   wordsPerChunk: number;
+  // Store the actual words for chunk generation
+  words: string[];
 }
 
 export interface ReadingSessionMetrics {

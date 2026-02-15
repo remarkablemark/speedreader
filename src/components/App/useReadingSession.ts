@@ -31,7 +31,7 @@ interface UseReadingSessionResult {
   resumeReading: () => void;
   setSelectedWpm: (value: number) => void;
   setWordsPerChunk: (value: number) => void;
-  startReading: (totalWords: number) => void;
+  startReading: (totalWords: number, words: string[]) => void;
 }
 
 export function useReadingSession(): UseReadingSessionResult {
@@ -41,18 +41,14 @@ export function useReadingSession(): UseReadingSessionResult {
     createInitialSessionState,
   );
 
-  // Load saved word count preference
-  const wordsPerChunk = storageAPI.getWordCount();
-
   // Calculate chunks directly - React Compiler will optimize
   let chunks: WordChunk[] = [];
-  if (state.totalWords > 0 && state.wordsPerChunk > 0) {
-    // Create a simple word array for demonstration
-    const wordArray = Array.from(
-      { length: state.totalWords },
-      (_, i) => `word${String(i + 1)}`,
-    );
-    chunks = generateWordChunks(wordArray, state.wordsPerChunk);
+  if (
+    state.totalWords > 0 &&
+    state.wordsPerChunk > 0 &&
+    state.words.length > 0
+  ) {
+    chunks = generateWordChunks(state.words, state.wordsPerChunk);
   }
 
   const currentChunk = chunks[state.currentChunkIndex] ?? null;
@@ -83,16 +79,11 @@ export function useReadingSession(): UseReadingSessionResult {
     dispatch({ type: 'setWordsPerChunk', wordsPerChunk: value });
   };
 
-  const startReading = (totalWords: number) => {
-    // Create word array for the content
-    const wordArray = Array.from(
-      { length: totalWords },
-      (_, i) => `word${String(i + 1)}`,
-    );
-    const newChunks = generateWordChunks(wordArray, wordsPerChunk);
-
-    dispatch({ type: 'start', totalWords });
-    dispatch({ type: 'updateChunkState', totalChunks: newChunks.length });
+  const startReading = (totalWords: number, words: string[]) => {
+    // Load saved word count preference when starting
+    const savedWordsPerChunk = storageAPI.getWordCount();
+    dispatch({ type: 'setWordsPerChunk', wordsPerChunk: savedWordsPerChunk });
+    dispatch({ type: 'start', totalWords, words });
   };
 
   const pauseReading = () => {
@@ -114,7 +105,7 @@ export function useReadingSession(): UseReadingSessionResult {
   useEffect(() => {
     if (
       state.status !== 'running' ||
-      state.currentWordIndex >= state.totalWords - 1
+      state.currentChunkIndex >= state.totalChunks - 1
     ) {
       return;
     }
@@ -127,7 +118,7 @@ export function useReadingSession(): UseReadingSessionResult {
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [msPerWord, state.currentWordIndex, state.status, state.totalWords]);
+  }, [msPerWord, state.currentChunkIndex, state.status, state.totalChunks]);
 
   return {
     status: state.status,

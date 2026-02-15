@@ -44,8 +44,8 @@ export default function App() {
       return;
     }
 
-    const { totalWords } = tokenizeContent(text);
-    startReading(totalWords);
+    const { totalWords, words } = tokenizeContent(text);
+    startReading(totalWords, words);
   };
 
   return (

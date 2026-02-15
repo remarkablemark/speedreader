@@ -58,9 +58,9 @@ This feature extends the speed reader application to display multiple words simu
 
 ### Services and Business Logic
 
-- [ ] T016 [US1] Extend useReadingSession hook with chunk state in src/components/App/useReadingSession.ts
-- [ ] T017 [US1] Implement chunk generation logic in useReadingSession hook
-- [ ] T018 [US1] Implement timing logic for chunks (same duration per chunk) in useReadingSession hook
+- [x] T016 [US1] Extend useReadingSession hook with chunk state in src/components/App/useReadingSession.ts
+- [x] T017 [US1] Implement chunk generation logic in useReadingSession hook
+- [x] T018 [US1] Implement timing logic for chunks (same duration per chunk) in useReadingSession hook
 
 ### UI Components
 

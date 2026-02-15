@@ -23,7 +23,7 @@ describe('useReadingSession', () => {
     expect(result.current.progressPercent).toBe(0);
 
     act(() => {
-      result.current.startReading(3);
+      result.current.startReading(3, ['word1', 'word2', 'word3']);
     });
 
     expect(result.current.status).toBe('running');
@@ -79,7 +79,13 @@ describe('useReadingSession', () => {
     const { result } = renderHook(() => useReadingSession());
 
     act(() => {
-      result.current.startReading(5);
+      result.current.startReading(5, [
+        'word1',
+        'word2',
+        'word3',
+        'word4',
+        'word5',
+      ]);
     });
 
     act(() => {

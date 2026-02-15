@@ -100,15 +100,20 @@ describe('ControlPanel', () => {
     ).not.toBeInTheDocument();
   });
 
-  test('calls onSpeedChange when slider value changes', () => {
+  test('has proper speed slider functionality', () => {
     const onSpeedChange = vi.fn();
 
     render(<ControlPanel {...defaultProps} onSpeedChange={onSpeedChange} />);
 
-    // The test passes if the component renders correctly - the onChange behavior
-    // is tested through integration tests in App.test.tsx
-    expect(screen.getByRole('slider', { name: /speed/i })).toBeInTheDocument();
-    expect(onSpeedChange).not.toHaveBeenCalled(); // Initially not called
+    const slider = screen.getByRole('slider', {
+      name: /speed/i,
+    });
+
+    // Verify slider exists and has correct attributes
+    expect(slider).toBeInTheDocument();
+    expect(slider).toHaveValue('250');
+    expect(slider).toHaveAttribute('min', '100');
+    expect(slider).toHaveAttribute('max', '1000');
   });
 
   test('calls onStartReading when Read button is clicked', async () => {

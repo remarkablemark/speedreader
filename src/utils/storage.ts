@@ -16,7 +16,9 @@ export const storageAPI = {
   getWordCount(): number {
     try {
       const value = localStorage.getItem(WORD_COUNT_KEY);
-      return value ? Math.max(1, Math.min(5, parseInt(value, 10))) : 1;
+      if (!value) return 1;
+      const parsed = parseInt(value, 10);
+      return isNaN(parsed) ? 1 : Math.max(1, Math.min(5, parsed));
     } catch {
       // localStorage unavailable or quota exceeded
       return 1;

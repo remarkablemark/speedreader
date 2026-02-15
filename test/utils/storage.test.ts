@@ -88,7 +88,7 @@ describe('storageAPI', () => {
 
       const result = storageAPI.getWordCount();
 
-      expect(isNaN(result)).toBe(true);
+      expect(result).toBe(1); // Fixed implementation returns 1 for invalid values
     });
   });
 

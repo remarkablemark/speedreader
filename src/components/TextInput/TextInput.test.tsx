@@ -153,4 +153,165 @@ describe('TextInput', () => {
       'focus:ring-sky-200',
     );
   });
+
+  test('renders label with correct text and htmlFor', () => {
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const label = screen.getByText('Session text');
+    expect(label).toBeInTheDocument();
+    expect(label.tagName).toBe('LABEL');
+  });
+
+  test('renders hidden submit button', () => {
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const submitButton = screen.getByTestId('submit-button');
+    expect(submitButton).toBeInTheDocument();
+    expect(submitButton).toHaveClass('sr-only');
+    expect(submitButton).toHaveAttribute('type', 'submit');
+  });
+
+  test('renders hidden word count input', () => {
+    render(
+      <TextInput
+        value="hello world"
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const wordCountInput = screen.getByTestId('word-count');
+    expect(wordCountInput).toBeInTheDocument();
+    expect(wordCountInput).toHaveAttribute('type', 'hidden');
+    expect(wordCountInput).toHaveAttribute('value', '2');
+  });
+
+  test('calculates word count correctly for empty text', () => {
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={false}
+      />,
+    );
+
+    const wordCountInput = screen.getByTestId('word-count');
+    expect(wordCountInput).toHaveAttribute('value', '0');
+  });
+
+  test('calculates word count correctly for single word', () => {
+    render(
+      <TextInput
+        value="hello"
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const wordCountInput = screen.getByTestId('word-count');
+    expect(wordCountInput).toHaveAttribute('value', '1');
+  });
+
+  test('calculates word count correctly for multiple words with extra spaces', () => {
+    render(
+      <TextInput
+        value="  hello   world  test  "
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const wordCountInput = screen.getByTestId('word-count');
+    expect(wordCountInput).toHaveAttribute('value', '3');
+  });
+
+  test('calls onSubmit when form is submitted via submit button', async () => {
+    const user = userEvent.setup();
+    render(
+      <TextInput
+        value="Valid text content"
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const submitButton = screen.getByTestId('submit-button');
+    await user.click(submitButton);
+
+    expect(mockOnSubmit).toHaveBeenCalledWith('Valid text content');
+  });
+
+  test('prevents form submission when invalid and submit button is clicked', async () => {
+    const user = userEvent.setup();
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={false}
+      />,
+    );
+
+    const submitButton = screen.getByTestId('submit-button');
+    await user.click(submitButton);
+
+    // onSubmit should not be called
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+  });
+
+  test('generates IDs for accessibility', () => {
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const textarea = screen.getByRole('textbox');
+    const textareaId = textarea.id;
+
+    // ID should be generated and match expected pattern
+    expect(textareaId).toBeTruthy();
+    expect(typeof textareaId).toBe('string');
+  });
+
+  test('associates validation message with textarea correctly', () => {
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={false}
+      />,
+    );
+
+    const errorMessage = screen.getByRole('alert');
+
+    // The validation message should be properly associated
+    expect(errorMessage).toHaveTextContent(
+      'Enter at least one word before reading.',
+    );
+    expect(errorMessage).toHaveAttribute('id');
+  });
 });

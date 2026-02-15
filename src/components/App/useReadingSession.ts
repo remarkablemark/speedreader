@@ -1,12 +1,7 @@
 import { useEffect, useReducer } from 'react';
 import type { ReadingSessionStatus } from 'src/types/readerTypes';
 
-import { getShortcutAction, shouldHandleShortcut } from './keyboardShortcuts';
-import {
-  clampWpm,
-  persistPreferredWpm,
-  readPreferredWpm,
-} from './readerPreferences';
+import { persistPreferredWpm, readPreferredWpm } from './readerPreferences';
 import { createInitialSessionState, sessionReducer } from './sessionReducer';
 
 interface UseReadingSessionResult {
@@ -88,71 +83,6 @@ export function useReadingSession(): UseReadingSessionResult {
       window.clearTimeout(timeoutId);
     };
   }, [msPerWord, state.currentWordIndex, state.status, state.totalWords]);
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (!shouldHandleShortcut(event.target)) {
-        return;
-      }
-
-      const shortcutAction = getShortcutAction(event.key);
-      if (shortcutAction === null) {
-        return;
-      }
-
-      if (
-        state.totalWords === 0 &&
-        shortcutAction.type !== 'adjustWpm' &&
-        shortcutAction.type !== 'setWpm'
-      ) {
-        return;
-      }
-
-      switch (shortcutAction.type) {
-        case 'togglePlayback': {
-          if (state.status === 'running') {
-            dispatch({ type: 'pause' });
-            event.preventDefault();
-          } else if (state.status === 'paused') {
-            dispatch({ type: 'resume' });
-            event.preventDefault();
-          }
-          break;
-        }
-
-        case 'restart': {
-          dispatch({ type: 'restart' });
-          event.preventDefault();
-          break;
-        }
-
-        case 'adjustWpm': {
-          const nextWpm = persistPreferredWpm(
-            clampWpm(state.selectedWpm + shortcutAction.amount),
-          );
-          dispatch({ type: 'setWpm', selectedWpm: nextWpm });
-          event.preventDefault();
-          break;
-        }
-
-        case 'setWpm': {
-          const nextWpm = persistPreferredWpm(shortcutAction.value);
-          dispatch({ type: 'setWpm', selectedWpm: nextWpm });
-          event.preventDefault();
-          break;
-        }
-
-        default:
-          break;
-      }
-    };
-
-    window.addEventListener('keydown', onKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [state.selectedWpm, state.status, state.totalWords]);
 
   return {
     status: state.status,

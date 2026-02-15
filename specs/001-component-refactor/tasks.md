@@ -4,6 +4,8 @@ description: 'Task list for component refactoring implementation'
 
 # Tasks: Component Refactoring
 
+**Note**: Keyboard shortcuts (space to pause/resume, R to restart, arrow keys for speed) have been removed from this implementation. All controls are now UI-based only.
+
 **Input**: Design documents from `/specs/001-component-refactor/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 

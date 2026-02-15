@@ -156,4 +156,60 @@ describe('App component', () => {
     // Should still be in setup mode
     expect(screen.getByLabelText(/session text/i)).toBeInTheDocument();
   });
+
+  describe('ReadingDisplay integration', () => {
+    it('renders ReadingDisplay component when in reading mode', async () => {
+      const user = userEvent.setup();
+      render(<App />);
+
+      const textarea = screen.getByLabelText(/session text/i);
+      const startButton = screen.getByRole('button', {
+        name: /start reading/i,
+      });
+
+      await user.type(textarea, 'Test word content');
+      await user.click(startButton);
+
+      // Should show ReadingDisplay component with proper attributes
+      const statusElement = screen.getByRole('status');
+      expect(statusElement).toBeInTheDocument();
+      expect(statusElement).toHaveAttribute('aria-live', 'polite');
+      expect(statusElement).toHaveAttribute('aria-atomic', 'true');
+    });
+
+    it('displays current word in ReadingDisplay during session', async () => {
+      const user = userEvent.setup();
+      render(<App />);
+
+      const textarea = screen.getByLabelText(/session text/i);
+      const startButton = screen.getByRole('button', {
+        name: /start reading/i,
+      });
+
+      await user.type(textarea, 'Hello world test');
+      await user.click(startButton);
+
+      // Should display the first word initially
+      const statusElement = screen.getByRole('status');
+      expect(statusElement).toHaveTextContent('Hello');
+    });
+
+    it('shows empty ReadingDisplay when no words are available', async () => {
+      const user = userEvent.setup();
+      render(<App />);
+
+      const textarea = screen.getByLabelText(/session text/i);
+      const startButton = screen.getByRole('button', {
+        name: /start reading/i,
+      });
+
+      await user.type(textarea, '   '); // Only whitespace
+      // Button should be disabled, so we can't start a session
+      expect(startButton).toBeDisabled();
+
+      // Should still be in setup mode, not showing ReadingDisplay
+      expect(screen.getByLabelText(/session text/i)).toBeInTheDocument();
+      expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    });
+  });
 });

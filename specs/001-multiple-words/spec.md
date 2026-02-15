@@ -2,7 +2,7 @@
 
 **Feature Branch**: `001-multiple-words`  
 **Created**: 2025-02-15  
-**Status**: **Implemented - Phase 1 Complete**  
+**Status**: **Implemented - Phase 1 & 2 Complete**  
 **Input**: User description: "multiple words"
 
 ## Implementation Summary
@@ -15,11 +15,19 @@
 - ✅ App integration with chunk display
 - ✅ SessionDetails simplified (chunk terminology removed)
 
-**Phase 2 (User Story 2) - PENDING**: Configurable word count UI controls
+**Phase 2 (User Story 2) - COMPLETED**: Configurable word count UI controls:
 
-- ⏳ Word Count dropdown in ControlPanel
-- ⏳ localStorage persistence for word count
-- ⏳ Word count change handlers
+- ✅ Word Count dropdown in ControlPanel with numeric options (1-5)
+- ✅ localStorage persistence for word count preferences
+- ✅ Word count validation (1-5 range) with progress recalculation
+- ✅ Full integration between UI controls and reading session state
+- ✅ Comprehensive test coverage for all new functionality
+
+**Phase 3 (User Story 3) - PENDING**: Smart word grouping with natural language patterns
+
+- ⏳ Punctuation-based grouping algorithm
+- ⏳ Function word grouping logic
+- ⏳ Long word handling strategies
 
 ## Clarifications
 

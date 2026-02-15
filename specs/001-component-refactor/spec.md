@@ -112,8 +112,9 @@ As a developer, I want the session completion message separated into its own com
 - **FR-006**: System MUST maintain all existing functionality and user interactions after refactoring
 - **FR-007**: System MUST preserve all existing test coverage and add component-specific tests
 - **FR-008**: Each component MUST have clear prop interfaces and TypeScript types
-- **FR-009**: Components MUST follow established project patterns for file structure and naming
-- **FR-010**: System MUST maintain responsive design and styling consistency across all components
+- **FR-009**: Components MUST follow established project patterns with individual folders containing component file, types, tests, and index.ts exports
+- **FR-010**: Component-specific utilities MUST be colocated with their primary consuming component, shared types moved to `src/types/`
+- **FR-011**: System MUST maintain responsive design and styling consistency across all components
 
 ### Key Entities _(include if feature involves data)_
 
@@ -122,6 +123,13 @@ As a developer, I want the session completion message separated into its own com
 - **ControlPanel**: Manages speed control and reading session action buttons
 - **SessionDetails**: Shows reading progress and tempo statistics
 - **SessionCompletion**: Displays completion message and session summary
+
+## Clarifications
+
+### Session 2026-02-14
+
+- Q: How should the new component directories be structured within the existing `src/components/` folder? → A: Each component in its own folder: `src/components/TextInput/`, `src/components/ReadingDisplay/`, etc. - each with component file, types, tests, and index.ts
+- Q: Should utilities and shared types be colocated with components that use them, or organized in separate shared folders? → A: Colocate - Move hooks/types with primary component (e.g., `useReadingSession` with ControlPanel), shared types in `src/types/`
 
 ## Success Criteria _(mandatory)_
 

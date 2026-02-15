@@ -1,4 +1,4 @@
-import type { WordChunk } from 'src/components/ReadingDisplay/WordChunk.types.ts';
+import type { WordChunk } from 'src/components/ReadingDisplay/wordChunk.types.ts';
 import type { TokenizedContent } from 'src/components/TextInput/TokenizedContent.types.ts';
 
 import { MAX_WORD_COUNT } from './storage';

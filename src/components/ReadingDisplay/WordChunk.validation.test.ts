@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'vitest';
 
-import type { WordChunk } from './WordChunk.types';
+import type { WordChunk } from './wordChunk.types';
 import {
   createValidWordChunk,
   validateWordChunk,
   validateWordChunkArray,
-} from './WordChunk.validation';
+} from './wordChunk.validation';
 
 describe('WordChunk.validation', () => {
   describe('validateWordChunk', () => {

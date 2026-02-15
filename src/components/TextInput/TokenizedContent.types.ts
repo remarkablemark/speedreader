@@ -1,4 +1,4 @@
-import type { WordChunk } from 'src/components/ReadingDisplay/WordChunk.types';
+import type { WordChunk } from 'src/components/ReadingDisplay/wordChunk.types';
 
 /**
  * Extended TokenizedContent interface for multiple words display

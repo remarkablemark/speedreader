@@ -3,7 +3,7 @@ import type { ReadingSessionStatus } from 'src/types/readerTypes';
 
 import { storageAPI } from '../../utils/storage';
 import { generateWordChunks } from '../../utils/wordChunking';
-import type { WordChunk } from '../ReadingDisplay/WordChunk.types.ts';
+import type { WordChunk } from '../ReadingDisplay/wordChunk.types.ts';
 import { persistPreferredWpm, readPreferredWpm } from './readerPreferences';
 import { createInitialSessionState, sessionReducer } from './sessionReducer';
 

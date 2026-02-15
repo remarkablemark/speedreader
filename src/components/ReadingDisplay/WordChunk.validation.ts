@@ -1,5 +1,5 @@
-import type { WordChunk } from './WordChunk.types';
-import { isValidWordChunk, WordChunkValidation } from './WordChunk.types';
+import type { WordChunk } from './wordChunk.types';
+import { isValidWordChunk, WordChunkValidation } from './wordChunk.types';
 
 /**
  * Validate a single WordChunk

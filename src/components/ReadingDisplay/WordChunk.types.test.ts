@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 
-import type { WordChunk } from './WordChunk.types';
-import { isValidWordChunk, WordChunkValidation } from './WordChunk.types';
+import type { WordChunk } from './wordChunk.types';
+import { isValidWordChunk, WordChunkValidation } from './wordChunk.types';
 
 describe('WordChunk.types', () => {
   describe('WordChunkValidation', () => {

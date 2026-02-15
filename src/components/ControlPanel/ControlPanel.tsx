@@ -18,11 +18,20 @@ export function ControlPanel({
   onEditText,
   isInputValid,
   status,
+  wordsPerChunk,
+  onWordsPerChunkChange,
 }: ControlPanelProps) {
   const speedInputId = useId();
+  const wordCountInputId = useId();
 
   const handleWpmChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onSpeedChange(Number.parseInt(event.target.value, 10));
+  };
+
+  const handleWordsPerChunkChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    onWordsPerChunkChange(Number.parseInt(event.target.value, 10));
   };
 
   const isIdle = status === 'idle';
@@ -54,6 +63,27 @@ export function ControlPanel({
           aria-valuemax={READER_MAX_WPM}
           aria-valuenow={selectedWpm}
         />
+      </div>
+
+      <div className="min-w-32 shrink-0">
+        <label
+          className="block text-xs font-medium text-slate-700"
+          htmlFor={wordCountInputId}
+        >
+          Word Count
+        </label>
+        <select
+          id={wordCountInputId}
+          value={wordsPerChunk}
+          onChange={handleWordsPerChunkChange}
+          className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-900 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none sm:text-sm"
+        >
+          <option value={1}>1 word</option>
+          <option value={2}>2 words</option>
+          <option value={3}>3 words</option>
+          <option value={4}>4 words</option>
+          <option value={5}>5 words</option>
+        </select>
       </div>
 
       {isIdle ? (

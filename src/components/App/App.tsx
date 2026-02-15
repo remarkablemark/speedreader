@@ -26,6 +26,7 @@ export default function App() {
     // Multiple words display
     currentChunk,
     wordsPerChunk,
+    setWordsPerChunk,
     editText,
     pauseReading,
     restartReading,
@@ -91,6 +92,8 @@ export default function App() {
           onEditText={editText}
           isInputValid={isInputValid}
           status={status}
+          wordsPerChunk={wordsPerChunk}
+          onWordsPerChunkChange={setWordsPerChunk}
         />
 
         {!isSetupMode && (

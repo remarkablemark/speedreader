@@ -75,8 +75,10 @@ export function useReadingSession(): UseReadingSessionResult {
   };
 
   const setWordsPerChunk = (value: number) => {
-    storageAPI.setWordCount(value);
-    dispatch({ type: 'setWordsPerChunk', wordsPerChunk: value });
+    // Validate word count range (1-5)
+    const validatedValue = Math.max(1, Math.min(5, value));
+    storageAPI.setWordCount(validatedValue);
+    dispatch({ type: 'setWordsPerChunk', wordsPerChunk: validatedValue });
   };
 
   const startReading = (totalWords: number, words: string[]) => {

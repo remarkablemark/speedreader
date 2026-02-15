@@ -16,6 +16,8 @@ describe('ControlPanel', () => {
     onEditText: vi.fn(),
     isInputValid: true,
     status: 'idle',
+    wordsPerChunk: 1,
+    onWordsPerChunkChange: vi.fn(),
   };
 
   test('renders speed slider with correct value', () => {
@@ -285,5 +287,38 @@ describe('ControlPanel', () => {
     expect(
       screen.getByRole('button', { name: 'Edit Text' }),
     ).toBeInTheDocument();
+  });
+
+  test('renders word count dropdown with correct value', () => {
+    render(<ControlPanel {...defaultProps} />);
+
+    const dropdown = screen.getByRole('combobox', { name: /word count/i });
+    expect(dropdown).toHaveValue('1');
+  });
+
+  test('displays correct word count label', () => {
+    render(<ControlPanel {...defaultProps} />);
+
+    expect(screen.getByText('Word Count')).toBeInTheDocument();
+  });
+
+  test('calls onWordsPerChunkChange when dropdown value changes', async () => {
+    const user = userEvent.setup();
+    render(<ControlPanel {...defaultProps} />);
+
+    const dropdown = screen.getByRole('combobox', { name: /word count/i });
+    await user.selectOptions(dropdown, '3');
+
+    expect(defaultProps.onWordsPerChunkChange).toHaveBeenCalledWith(3);
+  });
+
+  test('renders all word count options', () => {
+    render(<ControlPanel {...defaultProps} />);
+
+    expect(screen.getByRole('option', { name: '1 word' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '2 words' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '3 words' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '4 words' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '5 words' })).toBeInTheDocument();
   });
 });

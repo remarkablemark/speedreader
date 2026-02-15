@@ -56,6 +56,11 @@ describe('sessionReducer', () => {
       type: 'pause',
     });
     expect(ignoredPause.status).toBe('idle');
+
+    const ignoredResume = sessionReducer(createInitialSessionState(250), {
+      type: 'resume',
+    });
+    expect(ignoredResume.status).toBe('idle');
   });
 
   it('advances words and completes on final transition', () => {
@@ -67,6 +72,20 @@ describe('sessionReducer', () => {
     const completed = sessionReducer(afterFirstAdvance, { type: 'advance' });
     expect(completed.status).toBe('completed');
     expect(completed.currentWordIndex).toBe(1);
+
+    const ignoredAdvance = sessionReducer(createInitialSessionState(250), {
+      type: 'advance',
+    });
+    expect(ignoredAdvance.status).toBe('idle');
+  });
+
+  it('returns current state for unknown action types', () => {
+    const state = createRunningState();
+    const nextState = sessionReducer(state, {
+      type: 'unknown',
+    } as never);
+
+    expect(nextState).toBe(state);
   });
 
   it('restarts only from active/completed states and increments restart marker', () => {
@@ -90,6 +109,20 @@ describe('sessionReducer', () => {
       type: 'restart',
     });
     expect(ignoredRestart.restartCount).toBe(0);
+
+    const pausedRestart = sessionReducer(
+      createRunningState({ status: 'paused', restartCount: 2 }),
+      { type: 'restart' },
+    );
+    expect(pausedRestart.restartCount).toBe(3);
+    expect(pausedRestart.status).toBe('running');
+
+    const completedRestart = sessionReducer(
+      createRunningState({ status: 'completed', restartCount: 3 }),
+      { type: 'restart' },
+    );
+    expect(completedRestart.restartCount).toBe(4);
+    expect(completedRestart.status).toBe('running');
   });
 
   it('updates WPM, elapsed time, and edit transition', () => {

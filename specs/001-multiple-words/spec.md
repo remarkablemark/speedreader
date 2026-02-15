@@ -13,7 +13,7 @@
 - Q: What should be the default word count when users first enable multiple words display? → A: 1 word (same as current single-word mode)
 - Q: How should timing be calculated when displaying multiple words per chunk? → A: Same total time per chunk regardless of word count
 - Q: Where should the word count dropdown be positioned relative to the WPM slider? → A: After the WPM slider (WPM first, then word count)
-- Q: How should users toggle between single word and multiple words display modes? → A: No toggle mode
+- Q: How should users toggle between single word and multiple words display modes? → A: No separate modes - unified display controlled by word count dropdown (1-5 words)
 - Q: What label text should be displayed for the word count dropdown? → A: "Word Count"
 - Q: How should text wrapping be implemented for overflowing word chunks? → A: Wrap text within fixed display area (multi-line)
 - Q: Should the word count selection be saved and restored between sessions? → A: Yes, save to localStorage with key "speedreader.wordCount"
@@ -94,11 +94,6 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 
 ## Requirements _(mandatory)_
 
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right functional requirements.
--->
-
 ### Constitution Alignment _(mandatory)_
 
 - **Comprehension Outcome**: Multiple words display must preserve or improve reading comprehension by grouping words in natural language chunks rather than arbitrary segments
@@ -107,8 +102,8 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 
 ### Functional Requirements
 
-- **FR-001**: System MUST allow users to select word count from dropdown (1-5 words) where 1 word represents single word mode and 2+ words represents multiple words display
-- **FR-002**: System MUST allow users to configure the number of words displayed per chunk (1-5 words) via dropdown/select menu labeled "Word Count" positioned after the WPM slider
+- **FR-001**: System MUST provide a unified display mode where users can select word count (1-5 words) via dropdown to control how many words appear simultaneously
+- **FR-002**: System MUST provide a dropdown/select menu labeled "Word Count" positioned after the WPM slider for configuring words per chunk (1-5 words)
 - **FR-009**: System MUST default to 1 word per chunk when multiple words display is first enabled
 - **FR-010**: System MUST save word count selection to localStorage with key "speedreader.wordCount" and restore on page load
 - **FR-011**: System MUST display "word" terminology in Session Details when word count is 1, and "chunk" terminology when word count is >1
@@ -126,11 +121,6 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 - **TokenizedContent**: Extended to support word chunking in addition to individual word tokenization
 
 ## Success Criteria _(mandatory)_
-
-<!--
-  ACTION REQUIRED: Define measurable success criteria.
-  These must be technology-agnostic and measurable.
--->
 
 ### Measurable Outcomes
 

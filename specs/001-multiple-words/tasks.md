@@ -7,9 +7,9 @@
 
 This feature extends the speed reader application to display multiple words simultaneously instead of single words. The implementation adds a dropdown control for word count selection (1-5 words), with intelligent word grouping, consistent timing, and proper progress tracking.
 
-**Total Tasks**: 32  
-**Tasks per User Story**: US1 (12), US2 (8), US3 (6)  
-**Parallel Opportunities**: 15 tasks can be executed in parallel
+**Total Tasks**: 54  
+**Tasks per User Story**: US1 (12), US2 (8), US3 (6), Setup/Polish (28)  
+**Parallel Opportunities**: 15+ tasks can be executed in parallel
 
 ## Phase 1: Setup
 

@@ -9,7 +9,7 @@ This feature extends the speed reader application to display multiple words simu
 
 **Total Tasks**: 55  
 **Tasks per User Story**: US1 (12), US2 (9), US3 (6), Setup/Polish (28)  
-**Parallel Opportunities**: 15+ tasks can be executed in parallel
+**Parallel Opportunities**: 16+ tasks can be executed in parallel
 
 ## Phase 1: Setup
 
@@ -98,45 +98,45 @@ This feature extends the speed reader application to display multiple words simu
 
 ### Algorithm Enhancement
 
-- [ ] T033 [P] [US3] Implement punctuation-based grouping in src/utils/wordChunking.ts
-- [ ] T034 [P] [US3] Implement function word grouping logic in src/utils/wordChunking.ts
-- [ ] T035 [P] [US3] Implement long word handling in src/utils/wordChunking.ts
+- [ ] T034 [P] [US3] Implement punctuation-based grouping in src/utils/wordChunking.ts
+- [ ] T035 [P] [US3] Implement function word grouping logic in src/utils/wordChunking.ts
+- [ ] T036 [P] [US3] Implement long word handling in src/utils/wordChunking.ts
 
 ### Integration and Testing
 
-- [ ] T036 [US3] Update chunk generation to use smart grouping in useReadingSession hook
-- [ ] T037 [US3] Test smart word grouping with various text patterns
-- [ ] T038 [US3] Verify grouping preserves readability and comprehension
+- [ ] T037 [US3] Update chunk generation to use smart grouping in useReadingSession hook
+- [ ] T038 [US3] Test smart word grouping with various text patterns
+- [ ] T039 [US3] Verify grouping preserves readability and comprehension
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
 ### Accessibility
 
-- [ ] T039 [P] Add proper ARIA labels to Word Count dropdown in ControlPanel component
-- [ ] T040 [P] Implement keyboard navigation for Word Count dropdown
-- [ ] T041 [P] Add screen reader announcements for word count changes
-- [ ] T042 [P] Test accessibility with screen reader tools
+- [ ] T040 [P] Add proper ARIA labels to Word Count dropdown in ControlPanel component
+- [ ] T041 [P] Implement keyboard navigation for Word Count dropdown
+- [ ] T042 [P] Add screen reader announcements for word count changes
+- [ ] T043 [P] Test accessibility with screen reader tools
 
 ### Performance and Error Handling
 
-- [ ] T043 [P] Optimize chunk generation with memoization in useReadingSession hook
-- [ ] T044 [P] Implement error handling for localStorage failures
-- [ ] T045 [P] Add debounced localStorage saves for word count
-- [ ] T046 [P] Test performance with large texts (10,000+ words)
+- [ ] T044 [P] Optimize chunk generation with memoization in useReadingSession hook
+- [ ] T045 [P] Implement error handling for localStorage failures
+- [ ] T046 [P] Add debounced localStorage saves for word count
+- [ ] T047 [P] Test performance with large texts (10,000+ words)
 
 ### Testing and Quality
 
-- [ ] T047 [P] Add unit tests for word chunking utilities in test/utils/wordChunking.test.ts
-- [ ] T048 [P] Add unit tests for localStorage utilities in test/utils/storage.test.ts
-- [ ] T049 [P] Add component tests for ControlPanel word count functionality
-- [ ] T050 [P] Add integration tests for complete multiple words flow
+- [ ] T048 [P] Add unit tests for word chunking utilities in test/utils/wordChunking.test.ts
+- [ ] T049 [P] Add unit tests for localStorage utilities in test/utils/storage.test.ts
+- [ ] T050 [P] Add component tests for ControlPanel word count functionality
+- [ ] T051 [P] Add integration tests for complete multiple words flow
 
 ### Documentation and Cleanup
 
-- [ ] T051 [P] Update component documentation and TypeScript comments
-- [ ] T052 [P] Run final test suite: `npm run test:ci`
-- [ ] T053 [P] Run linting and type checking: `npm run lint`, `npm run lint:tsc`
-- [ ] T054 [P] Verify feature meets all acceptance criteria
+- [ ] T052 [P] Update component documentation and TypeScript comments
+- [ ] T053 [P] Run final test suite: `npm run test:ci`
+- [ ] T054 [P] Run linting and type checking: `npm run lint`, `npm run lint:tsc`
+- [ ] T055 [P] Verify feature meets all acceptance criteria
 
 ## Dependencies
 

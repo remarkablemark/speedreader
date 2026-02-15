@@ -8,35 +8,6 @@ import { MAX_WORD_COUNT } from './storage';
  */
 const PUNCTUATION_MARKS = /[.,;:!?]/;
 const END_PUNCTUATION_MARKS = /[.!?;:]$/;
-const FUNCTION_WORDS = new Set([
-  'a',
-  'an',
-  'the',
-  'and',
-  'or',
-  'but',
-  'for',
-  'nor',
-  'yet',
-  'so',
-  'at',
-  'by',
-  'of',
-  'to',
-  'in',
-  'on',
-  'with',
-  'as',
-  'from',
-  'up',
-  'out',
-  'if',
-  'into',
-  'onto',
-  'off',
-  'over',
-  'under',
-]);
 
 /**
  * Check if word contains end punctuation
@@ -50,13 +21,6 @@ function hasEndPunctuation(word: string): boolean {
  */
 function hasPunctuation(word: string): boolean {
   return PUNCTUATION_MARKS.test(word);
-}
-
-/**
- * Check if word is a function word
- */
-function isFunctionWord(word: string): boolean {
-  return FUNCTION_WORDS.has(word.toLowerCase());
 }
 
 /**
@@ -81,18 +45,19 @@ export function generateWordChunks(
     const word = words[i];
     currentChunkWords.push(word);
 
-    // Determine if we should break at this point
-    const shouldBreak =
-      currentChunkWords.length >= wordsPerChunk ||
-      hasEndPunctuation(word) ||
-      (currentChunkWords.length > 1 && hasPunctuation(word)) ||
-      (currentChunkWords.length > 1 &&
-        isFunctionWord(word) &&
-        i < words.length - 1 &&
-        !isFunctionWord(words[i + 1]));
+    // Priority 1: Always respect word count requirement
+    const reachedWordCount = currentChunkWords.length >= wordsPerChunk;
 
-    // If this is the last word, always break
-    if (i === words.length - 1 || shouldBreak) {
+    // Priority 2: Break on strong punctuation (periods, question marks, etc.)
+    const hasStrongPunctuation = hasEndPunctuation(word);
+
+    // Priority 3: If this is the last word, always break
+    const isLastWord = i === words.length - 1;
+
+    // Determine if we should break at this point
+    const shouldBreak = reachedWordCount || hasStrongPunctuation || isLastWord;
+
+    if (shouldBreak) {
       chunks.push({
         text: currentChunkWords.join(' '),
         words: [...currentChunkWords],

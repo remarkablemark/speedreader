@@ -19,6 +19,7 @@
 - Q: Should the word count selection be saved and restored between sessions? → A: Yes, save to localStorage with key "speedreader.wordCount"
 - Q: How should the Session Details component be updated to reflect multiple words display? → A: If word count is 1, use "word". If word count is >1, use "chunk"
 - Q: How should progress be recalculated when word count changes during a session? → A: Recalculate progress based on current position in text
+- Q: How does word chunking handle user word count preferences vs natural language boundaries? → A: User word count takes priority, natural boundaries only used for strong punctuation breaks that don't conflict with word count
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -108,7 +109,7 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 - **FR-010**: System MUST save word count selection to localStorage with key "speedreader.wordCount" and restore on page load
 - **FR-011**: System MUST display "word" terminology in Session Details when word count is 1, and "chunk" terminology when word count is >1
 - **FR-012**: System MUST recalculate progress based on current position in text when word count changes during a session
-- **FR-003**: System MUST group words based on natural language boundaries when possible
+- **FR-003**: System MUST prioritize user-specified word count over natural language boundaries, breaking only on strong punctuation (periods, question marks, semicolons) when it doesn't conflict with word count requirements
 - **FR-004**: System MUST maintain consistent timing between word chunks based on WPM setting, using same total time per chunk regardless of word count
 - **FR-005**: System MUST handle edge cases where remaining words are fewer than configured group size
 - **FR-006**: System MUST preserve punctuation and maintain logical word groupings

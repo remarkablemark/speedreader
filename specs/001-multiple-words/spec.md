@@ -23,11 +23,9 @@
 - ✅ Full integration between UI controls and reading session state
 - ✅ Comprehensive test coverage for all new functionality
 
-**Phase 3 (User Story 3) - PENDING**: Smart word grouping with natural language patterns
+**Phase 3 (User Story 3) - REMOVED**: Smart word grouping was removed in favor of simple sequential splitting approach for better maintainability and user experience.
 
-- ⏳ Punctuation-based grouping algorithm
-- ⏳ Function word grouping logic
-- ⏳ Long word handling strategies
+**Phase 4 - PENDING**: Polish and accessibility improvements
 
 ## Clarifications
 

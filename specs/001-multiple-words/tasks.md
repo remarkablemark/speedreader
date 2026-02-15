@@ -98,25 +98,7 @@ This feature extends the speed reader application to display multiple words simu
 - [x] T032 [US2] Connect ControlPanel word count to useReadingSession in App component
 - [x] T033 [US2] Test word count configuration and display updates
 
-## Phase 5: User Story 3 - Smart Word Grouping (P3)
-
-**Goal**: Group words intelligently based on natural language patterns  
-**Independent Test**: Input text with various structures and verify logical word breaks  
-**Acceptance Criteria**: Prefer punctuation breaks, group function words, handle long words
-
-### Algorithm Enhancement
-
-- [ ] T034 [P] [US3] Implement punctuation-based grouping in src/utils/wordChunking.ts
-- [ ] T035 [P] [US3] Implement function word grouping logic in src/utils/wordChunking.ts
-- [ ] T036 [P] [US3] Implement long word handling in src/utils/wordChunking.ts
-
-### Integration and Testing
-
-- [ ] T037 [US3] Update chunk generation to use smart grouping in useReadingSession hook
-- [ ] T038 [US3] Test smart word grouping with various text patterns
-- [ ] T039 [US3] Verify grouping preserves readability and comprehension
-
-## Phase 6: Polish & Cross-Cutting Concerns
+## Phase 5: Polish & Cross-Cutting Concerns
 
 ### Accessibility
 

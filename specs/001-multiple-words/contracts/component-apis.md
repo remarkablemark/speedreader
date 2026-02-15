@@ -57,7 +57,7 @@ interface ReadingDisplayProps {
   displaySettings: DisplaySettings;
 
   // Legacy Support
-  currentWord: string; // Derived from currentChunk.text for single word mode
+  currentWord: string; // Derived from currentChunk.text[0] for single word mode
   hasWords: boolean; // Derived from currentChunk !== null
 }
 ```
@@ -68,9 +68,6 @@ interface ReadingDisplayProps {
 interface WordChunk {
   text: string; // Display text (joined words)
   words: string[]; // Individual words
-  startIndex: number; // Position in original text
-  endIndex: number; // End position
-  hasPunctuation: boolean; // Contains punctuation
 }
 ```
 

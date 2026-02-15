@@ -24,8 +24,6 @@ export function generateWordChunks(
     chunks.push({
       text: chunkWords.join(' '),
       words: chunkWords,
-      startIndex: i,
-      endIndex: Math.min(i + wordsPerChunk - 1, words.length - 1),
     });
   }
 

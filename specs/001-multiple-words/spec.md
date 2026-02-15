@@ -117,7 +117,7 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 
 ### Key Entities _(include if feature involves data)_
 
-- **WordChunk**: Represents a group of 1-5 words to be displayed together, contains the text content and position indices
+- **WordChunk**: Represents a group of 1-5 words to be displayed together, contains the text content and word array
 - **DisplaySettings**: Contains user preferences for words per chunk and grouping behavior
 - **TokenizedContent**: Extended to support word chunking in addition to individual word tokenization
 

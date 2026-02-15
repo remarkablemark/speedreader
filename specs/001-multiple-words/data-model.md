@@ -14,9 +14,6 @@ Represents a group of 1-5 words to be displayed together.
 interface WordChunk {
   text: string; // The combined text of all words in chunk
   words: string[]; // Individual words that make up this chunk
-  startIndex: number; // Index in original word array
-  endIndex: number; // End index in original word array
-  hasPunctuation: boolean; // Whether chunk contains punctuation
 }
 ```
 
@@ -24,8 +21,6 @@ interface WordChunk {
 
 - `text` must not be empty
 - `words` array length must be 1-5
-- `startIndex` and `endIndex` must be within bounds of original text
-- `startIndex` <= `endIndex`
 
 ### DisplaySettings
 

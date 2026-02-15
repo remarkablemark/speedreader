@@ -39,15 +39,6 @@ export function validateWordChunk(chunk: unknown): {
     );
   }
 
-  // Check index bounds
-  if (chunk.startIndex < 0) {
-    errors.push('Start index cannot be negative');
-  }
-
-  if (chunk.endIndex < chunk.startIndex) {
-    errors.push('End index cannot be less than start index');
-  }
-
   // Check text consistency
   const expectedText = chunk.words.join(' ');
   if (chunk.text !== expectedText) {
@@ -92,22 +83,6 @@ export function validateWordChunkArray(chunks: unknown[]): {
     }
   });
 
-  // Check for gaps in sequence
-  if (chunks.length > 1) {
-    for (let i = 1; i < chunks.length; i++) {
-      const prevChunk = chunks[i - 1] as WordChunk;
-      const currentChunk = chunks[i] as WordChunk;
-
-      if (isValidWordChunk(prevChunk) && isValidWordChunk(currentChunk)) {
-        if (currentChunk.startIndex !== prevChunk.endIndex + 1) {
-          warnings.push(
-            `Gap in sequence between chunks ${String(i - 1)} and ${String(i)}`,
-          );
-        }
-      }
-    }
-  }
-
   return {
     isValid: errors.length === 0,
     errors,
@@ -119,21 +94,15 @@ export function validateWordChunkArray(chunks: unknown[]): {
  * Create a valid WordChunk with validation
  * @param text - Combined text
  * @param words - Individual words
- * @param startIndex - Start index
- * @param endIndex - End index
  * @returns Valid WordChunk or null if invalid
  */
 export function createValidWordChunk(
   text: string,
   words: string[],
-  startIndex: number,
-  endIndex: number,
 ): WordChunk | null {
   const chunk: WordChunk = {
     text,
     words,
-    startIndex,
-    endIndex,
   };
 
   const validation = validateWordChunk(chunk);

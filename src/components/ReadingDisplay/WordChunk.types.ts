@@ -9,12 +9,6 @@ export interface WordChunk {
 
   /** Individual words that make up this chunk */
   words: string[];
-
-  /** Index in original word array */
-  startIndex: number;
-
-  /** End index in original word array */
-  endIndex: number;
 }
 
 /**
@@ -45,10 +39,6 @@ export function isValidWordChunk(chunk: unknown): chunk is WordChunk {
     wc.text.length <= WordChunkValidation.MAX_TEXT_LENGTH &&
     Array.isArray(wc.words) &&
     wc.words.length >= WordChunkValidation.MIN_WORDS &&
-    wc.words.length <= WordChunkValidation.MAX_WORDS &&
-    typeof wc.startIndex === 'number' &&
-    typeof wc.endIndex === 'number' &&
-    wc.startIndex >= 0 &&
-    wc.endIndex >= wc.startIndex
+    wc.words.length <= WordChunkValidation.MAX_WORDS
   );
 }

@@ -115,6 +115,7 @@ As a developer, I want the session completion message separated into its own com
 - **FR-009**: Components MUST follow established project patterns with individual folders containing component file, types, tests, and index.ts exports
 - **FR-010**: Component-specific utilities MUST be colocated with their primary consuming component, shared types moved to `src/types/`
 - **FR-011**: System MUST maintain responsive design and styling consistency across all components
+- **FR-012**: System MUST extract Button component with primary/secondary variants to eliminate styling duplication
 
 ### Key Entities _(include if feature involves data)_
 
@@ -123,6 +124,7 @@ As a developer, I want the session completion message separated into its own com
 - **ControlPanel**: Manages speed control and reading session action buttons
 - **SessionDetails**: Shows reading progress and tempo statistics
 - **SessionCompletion**: Displays completion message and session summary
+- **Button**: Reusable button component with primary/secondary variants for consistent styling
 
 ## Clarifications
 
@@ -130,6 +132,7 @@ As a developer, I want the session completion message separated into its own com
 
 - Q: How should the new component directories be structured within the existing `src/components/` folder? → A: Each component in its own folder: `src/components/TextInput/`, `src/components/ReadingDisplay/`, etc. - each with component file, types, tests, and index.ts
 - Q: Should utilities and shared types be colocated with components that use them, or organized in separate shared folders? → A: Colocate - Move hooks/types with primary component (e.g., `useReadingSession` with ControlPanel), shared types in `src/types/`
+- Q: Should we create shared button component variants or utility classes to eliminate the significant button styling duplication? → A: Create Button component with primary/secondary variants using component-level styling
 
 ## Success Criteria _(mandatory)_
 

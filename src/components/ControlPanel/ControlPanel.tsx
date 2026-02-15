@@ -62,19 +62,19 @@ export function ControlPanel({
           disabled={!isInputValid}
           onClick={onStartReading}
         >
-          Start Reading
+          ▶ Read
         </Button>
       ) : (
         <>
           {isRunning && (
             <Button variant="secondary" onClick={onPauseReading} autoFocus>
-              Pause
+              ⏸ Pause
             </Button>
           )}
 
           {isPaused && (
             <Button variant="primary" onClick={onResumeReading} autoFocus>
-              Resume
+              ▶ Play
             </Button>
           )}
 

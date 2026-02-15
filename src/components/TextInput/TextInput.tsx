@@ -51,7 +51,7 @@ export const TextInput = ({
       />
       {!isValid ? (
         <p className="text-sm text-rose-700" id={validationId} role="alert">
-          Enter at least one word before starting.
+          Enter at least one word before reading.
         </p>
       ) : null}
       <button type="submit" className="sr-only" data-testid="submit-button">

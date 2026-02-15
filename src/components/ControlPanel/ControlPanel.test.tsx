@@ -31,52 +31,52 @@ describe('ControlPanel', () => {
     expect(screen.getByText('Speed (250 WPM)')).toBeInTheDocument();
   });
 
-  test('shows Start Reading button in idle state', () => {
+  test('shows Read button in idle state', () => {
     render(<ControlPanel {...defaultProps} status="idle" />);
 
-    const startButton = screen.getByRole('button', { name: 'Start Reading' });
+    const startButton = screen.getByRole('button', { name: /Read/ });
     expect(startButton).toBeInTheDocument();
     expect(startButton).toBeEnabled();
   });
 
-  test('disables Start Reading button when input is invalid', () => {
+  test('disables Read button when input is invalid', () => {
     render(
       <ControlPanel {...defaultProps} status="idle" isInputValid={false} />,
     );
 
-    const startButton = screen.getByRole('button', { name: 'Start Reading' });
+    const startButton = screen.getByRole('button', { name: /Read/ });
     expect(startButton).toBeDisabled();
   });
 
   test('shows Pause button in running state', () => {
     render(<ControlPanel {...defaultProps} status="running" />);
 
-    expect(screen.getByRole('button', { name: 'Pause' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Pause/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Restart' })).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Edit Text' }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Start Reading' }),
+      screen.queryByRole('button', { name: /Read/ }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Resume' }),
+      screen.queryByRole('button', { name: /Play/ }),
     ).not.toBeInTheDocument();
   });
 
-  test('shows Resume button in paused state', () => {
+  test('shows Play button in paused state', () => {
     render(<ControlPanel {...defaultProps} status="paused" />);
 
-    expect(screen.getByRole('button', { name: 'Resume' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Play/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Restart' })).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Edit Text' }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Start Reading' }),
+      screen.queryByRole('button', { name: /Read/ }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Pause' }),
+      screen.queryByRole('button', { name: /Pause/ }),
     ).not.toBeInTheDocument();
   });
 
@@ -88,13 +88,13 @@ describe('ControlPanel', () => {
       screen.getByRole('button', { name: 'Edit Text' }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Start Reading' }),
+      screen.queryByRole('button', { name: /Read/ }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Pause' }),
+      screen.queryByRole('button', { name: /Pause/ }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Resume' }),
+      screen.queryByRole('button', { name: /Play/ }),
     ).not.toBeInTheDocument();
   });
 
@@ -109,7 +109,7 @@ describe('ControlPanel', () => {
     expect(onSpeedChange).not.toHaveBeenCalled(); // Initially not called
   });
 
-  test('calls onStartReading when Start Reading button is clicked', async () => {
+  test('calls onStartReading when Read button is clicked', async () => {
     const user = userEvent.setup();
     const onStartReading = vi.fn();
 
@@ -121,7 +121,7 @@ describe('ControlPanel', () => {
       />,
     );
 
-    const startButton = screen.getByRole('button', { name: 'Start Reading' });
+    const startButton = screen.getByRole('button', { name: /Read/ });
     await user.click(startButton);
 
     expect(onStartReading).toHaveBeenCalledTimes(1);
@@ -139,13 +139,13 @@ describe('ControlPanel', () => {
       />,
     );
 
-    const pauseButton = screen.getByRole('button', { name: 'Pause' });
+    const pauseButton = screen.getByRole('button', { name: /Pause/ });
     await user.click(pauseButton);
 
     expect(onPauseReading).toHaveBeenCalledTimes(1);
   });
 
-  test('calls onResumeReading when Resume button is clicked', async () => {
+  test('calls onResumeReading when Play button is clicked', async () => {
     const user = userEvent.setup();
     const onResumeReading = vi.fn();
 
@@ -157,7 +157,7 @@ describe('ControlPanel', () => {
       />,
     );
 
-    const resumeButton = screen.getByRole('button', { name: 'Resume' });
+    const resumeButton = screen.getByRole('button', { name: /Play/ });
     await user.click(resumeButton);
 
     expect(onResumeReading).toHaveBeenCalledTimes(1);
@@ -227,15 +227,13 @@ describe('ControlPanel', () => {
       <ControlPanel {...defaultProps} status="idle" />,
     );
 
-    // Idle state - only Start Reading button
+    // Idle state - only Read button
+    expect(screen.getByRole('button', { name: /Read/ })).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Start Reading' }),
-    ).toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: 'Pause' }),
+      screen.queryByRole('button', { name: /Pause/ }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Resume' }),
+      screen.queryByRole('button', { name: /Play/ }),
     ).not.toBeInTheDocument();
     expect(
       screen.queryByRole('button', { name: 'Restart' }),
@@ -247,26 +245,26 @@ describe('ControlPanel', () => {
     // Running state - Pause, Restart, Edit Text buttons
     rerender(<ControlPanel {...defaultProps} status="running" />);
     expect(
-      screen.queryByRole('button', { name: 'Start Reading' }),
+      screen.queryByRole('button', { name: /Read/ }),
     ).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Pause' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Pause/ })).toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Resume' }),
+      screen.queryByRole('button', { name: /Play/ }),
     ).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Restart' })).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Edit Text' }),
     ).toBeInTheDocument();
 
-    // Paused state - Resume, Restart, Edit Text buttons
+    // Paused state - Play, Restart, Edit Text buttons
     rerender(<ControlPanel {...defaultProps} status="paused" />);
     expect(
-      screen.queryByRole('button', { name: 'Start Reading' }),
+      screen.queryByRole('button', { name: /Read/ }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Pause' }),
+      screen.queryByRole('button', { name: /Pause/ }),
     ).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Resume' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Play/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Restart' })).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Edit Text' }),
@@ -275,13 +273,13 @@ describe('ControlPanel', () => {
     // Completed state - Restart, Edit Text buttons
     rerender(<ControlPanel {...defaultProps} status="completed" />);
     expect(
-      screen.queryByRole('button', { name: 'Start Reading' }),
+      screen.queryByRole('button', { name: /Read/ }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Pause' }),
+      screen.queryByRole('button', { name: /Pause/ }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: 'Resume' }),
+      screen.queryByRole('button', { name: /Play/ }),
     ).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Restart' })).toBeInTheDocument();
     expect(

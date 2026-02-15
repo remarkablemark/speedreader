@@ -15,7 +15,7 @@ describe('App component', () => {
 
     expect(screen.getByLabelText(/session text/i)).toBeInTheDocument();
 
-    const button = screen.getByRole('button', { name: /start reading/i });
+    const button = screen.getByRole('button', { name: /Read/ });
     expect(button).toBeInTheDocument();
     expect(button).toBeDisabled();
   });
@@ -27,7 +27,7 @@ describe('App component', () => {
 
       const textarea = screen.getByLabelText(/session text/i);
       const startButton = screen.getByRole('button', {
-        name: /start reading/i,
+        name: /Read/,
       });
 
       expect(startButton).toBeDisabled();
@@ -45,7 +45,7 @@ describe('App component', () => {
       await user.click(submitButton);
 
       const errorMessage = screen.getByText(
-        /enter at least one word before starting/i,
+        'Enter at least one word before reading.',
       );
       expect(errorMessage).toBeInTheDocument();
     });
@@ -73,10 +73,10 @@ describe('App component', () => {
     const textArea = screen.getByLabelText(/session text/i);
     await user.type(textArea, 'Alpha beta gamma');
 
-    const startButton = screen.getByRole('button', { name: /start reading/i });
+    const startButton = screen.getByRole('button', { name: /Read/ });
     await user.click(startButton);
 
-    expect(screen.getByRole('button', { name: /pause/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Pause/ })).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /restart/i }),
     ).toBeInTheDocument();
@@ -98,7 +98,7 @@ describe('App component', () => {
 
     expect(screen.getByLabelText(/session text/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/enter at least one word before starting/i),
+      screen.getByText('Enter at least one word before reading.'),
     ).toBeInTheDocument();
   });
 
@@ -107,7 +107,7 @@ describe('App component', () => {
     render(<App />);
 
     // Test the early return case in handleStartReading
-    const startButton = screen.getByRole('button', { name: /start reading/i });
+    const startButton = screen.getByRole('button', { name: /Read/ });
 
     // Button should be disabled with empty text
     expect(startButton).toBeDisabled();
@@ -127,7 +127,7 @@ describe('App component', () => {
     const textarea = screen.getByLabelText(/session text/i);
     await user.type(textarea, '   ');
 
-    const startButton = screen.getByRole('button', { name: /start reading/i });
+    const startButton = screen.getByRole('button', { name: /Read/ });
 
     // Button should still be disabled for whitespace-only text
     expect(startButton).toBeDisabled();
@@ -145,9 +145,7 @@ describe('App component', () => {
       render(<App />);
 
       const textarea = screen.getByLabelText(/session text/i);
-      const startButton = screen.getByRole('button', {
-        name: /start reading/i,
-      });
+      const startButton = screen.getByRole('button', { name: /Read/ });
 
       await user.type(textarea, 'Test word content');
       await user.click(startButton);
@@ -164,9 +162,7 @@ describe('App component', () => {
       render(<App />);
 
       const textarea = screen.getByLabelText(/session text/i);
-      const startButton = screen.getByRole('button', {
-        name: /start reading/i,
-      });
+      const startButton = screen.getByRole('button', { name: /Read/ });
 
       await user.type(textarea, 'Hello world test');
       await user.click(startButton);
@@ -181,9 +177,7 @@ describe('App component', () => {
       render(<App />);
 
       const textarea = screen.getByLabelText(/session text/i);
-      const startButton = screen.getByRole('button', {
-        name: /start reading/i,
-      });
+      const startButton = screen.getByRole('button', { name: /Read/ });
 
       await user.type(textarea, '   '); // Only whitespace
       // Button should be disabled, so we can't start a session
@@ -209,9 +203,7 @@ describe('App component', () => {
       expect(speedSlider).toHaveValue('320');
 
       // Should show Start Reading button
-      expect(
-        screen.getByRole('button', { name: /start reading/i }),
-      ).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Read/ })).toBeInTheDocument();
     });
 
     it('shows correct buttons based on session state', async () => {
@@ -221,15 +213,11 @@ describe('App component', () => {
       const textarea = screen.getByLabelText(/session text/i);
       await user.type(textarea, 'Test content for reading');
 
-      const startButton = screen.getByRole('button', {
-        name: /start reading/i,
-      });
+      const startButton = screen.getByRole('button', { name: /Read/ });
       await user.click(startButton);
 
       // Should show Pause, Restart, Edit Text buttons in running state
-      expect(
-        screen.getByRole('button', { name: /pause/i }),
-      ).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Pause/ })).toBeInTheDocument();
       expect(
         screen.getByRole('button', { name: /restart/i }),
       ).toBeInTheDocument();
@@ -237,10 +225,10 @@ describe('App component', () => {
         screen.getByRole('button', { name: /edit text/i }),
       ).toBeInTheDocument();
       expect(
-        screen.queryByRole('button', { name: /start reading/i }),
+        screen.queryByRole('button', { name: /Read/ }),
       ).not.toBeInTheDocument();
       expect(
-        screen.queryByRole('button', { name: /resume/i }),
+        screen.queryByRole('button', { name: /Play/ }),
       ).not.toBeInTheDocument();
     });
 
@@ -251,21 +239,17 @@ describe('App component', () => {
       const textarea = screen.getByLabelText(/session text/i);
       await user.type(textarea, 'Test content for reading');
 
-      const startButton = screen.getByRole('button', {
-        name: /start reading/i,
-      });
+      const startButton = screen.getByRole('button', { name: /Read/ });
       await user.click(startButton);
 
       // Pause the session
-      const pauseButton = screen.getByRole('button', { name: /pause/i });
+      const pauseButton = screen.getByRole('button', { name: /Pause/ });
       await user.click(pauseButton);
 
       // Should show Resume button
+      expect(screen.getByRole('button', { name: /Play/ })).toBeInTheDocument();
       expect(
-        screen.getByRole('button', { name: /resume/i }),
-      ).toBeInTheDocument();
-      expect(
-        screen.queryByRole('button', { name: /pause/i }),
+        screen.queryByRole('button', { name: /Pause/ }),
       ).not.toBeInTheDocument();
     });
 
@@ -309,7 +293,7 @@ describe('App component', () => {
       await user.type(textarea, 'Test content for reading');
 
       const startButton = screen.getByRole('button', {
-        name: /start reading/i,
+        name: /Read/,
       });
       await user.click(startButton);
 
@@ -327,7 +311,7 @@ describe('App component', () => {
       await user.type(textarea, 'One two three four five');
 
       const startButton = screen.getByRole('button', {
-        name: /start reading/i,
+        name: /Read/,
       });
       await user.click(startButton);
 
@@ -344,7 +328,7 @@ describe('App component', () => {
       await user.type(textarea, 'Test content');
 
       const startButton = screen.getByRole('button', {
-        name: /start reading/i,
+        name: /Read/,
       });
       await user.click(startButton);
 
@@ -370,7 +354,7 @@ describe('App component', () => {
       await user.type(textarea, 'Test content');
 
       const startButton = screen.getByRole('button', {
-        name: /start reading/i,
+        name: /Read/,
       });
       await user.click(startButton);
 
@@ -398,7 +382,7 @@ describe('App component', () => {
       await user.type(textarea, 'One two');
 
       const startButton = screen.getByRole('button', {
-        name: /start reading/i,
+        name: /Read/,
       });
       await user.click(startButton);
 

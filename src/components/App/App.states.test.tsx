@@ -41,9 +41,7 @@ describe('App state-specific rendering', () => {
 
     render(<App />);
 
-    expect(
-      screen.getByRole('button', { name: /start reading/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Read/ })).toBeInTheDocument();
   });
 
   afterEach(() => {
@@ -61,7 +59,7 @@ describe('App state-specific rendering', () => {
     );
 
     render(<App />);
-    expect(screen.getByRole('button', { name: /resume/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Play/ })).toBeInTheDocument();
   });
 
   it('does not render SessionCompletion when status is not completed', () => {

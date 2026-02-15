@@ -61,7 +61,7 @@ describe('TextInput', () => {
     );
 
     const errorMessage = screen.getByText(
-      'Enter at least one word before starting.',
+      'Enter at least one word before reading.',
     );
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveClass('text-rose-700');
@@ -79,7 +79,7 @@ describe('TextInput', () => {
     );
 
     const errorMessage = screen.queryByText(
-      'Enter at least one word before starting.',
+      'Enter at least one word before reading.',
     );
     expect(errorMessage).not.toBeInTheDocument();
   });

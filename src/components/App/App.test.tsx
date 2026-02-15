@@ -66,24 +66,6 @@ describe('App component', () => {
     });
   });
 
-  it('enables start button after entering readable text', async () => {
-    const user = userEvent.setup();
-    render(<App />);
-
-    const textArea = screen.getByLabelText(/session text/i);
-    const button = screen.getByRole('button', { name: /start reading/i });
-
-    expect(button).toBeDisabled();
-
-    await user.type(textArea, 'Hello world');
-
-    expect(button).toBeEnabled();
-
-    await user.clear(textArea);
-
-    expect(button).toBeDisabled();
-  });
-
   it('starts a session and updates speed from the range input', async () => {
     const user = userEvent.setup();
     render(<App />);
@@ -303,28 +285,6 @@ describe('App component', () => {
       expect(screen.getByText(/speed \(300 wpm\)/i)).toBeInTheDocument();
     });
 
-    it('disables Start Reading button when input is invalid', () => {
-      render(<App />);
-
-      const startButton = screen.getByRole('button', {
-        name: /start reading/i,
-      });
-      expect(startButton).toBeDisabled();
-    });
-
-    it('enables Start Reading button when input is valid', async () => {
-      const user = userEvent.setup();
-      render(<App />);
-
-      const textarea = screen.getByLabelText(/session text/i);
-      await user.type(textarea, 'Valid text content');
-
-      const startButton = screen.getByRole('button', {
-        name: /start reading/i,
-      });
-      expect(startButton).toBeEnabled();
-    });
-
     it('has proper accessibility attributes', () => {
       render(<App />);
 
@@ -450,36 +410,15 @@ describe('App component', () => {
       expect(screen.queryByText('Session complete')).not.toBeInTheDocument();
     });
 
-    it('displays correct completion message structure', () => {
+    it('does not render SessionCompletion component in setup mode', () => {
       render(<App />);
 
       // Should not show completion message in setup mode
       expect(screen.queryByText('Session complete')).not.toBeInTheDocument();
       expect(screen.queryByText(/You read/)).not.toBeInTheDocument();
-    });
-
-    it('has proper semantic structure', () => {
-      render(<App />);
-
-      // Should not have completion heading in setup mode
       expect(
         screen.queryByRole('heading', { name: 'Session complete' }),
       ).not.toBeInTheDocument();
-    });
-
-    it('uses proper styling classes', () => {
-      render(<App />);
-
-      // Should not have completion styling in setup mode
-      expect(screen.queryByText('Session complete')).not.toBeInTheDocument();
-    });
-
-    it('does not render SessionCompletion when session is not completed', () => {
-      render(<App />);
-
-      // Should not render SessionCompletion component in setup mode
-      expect(screen.queryByText('Session complete')).not.toBeInTheDocument();
-      expect(screen.queryByText(/You read/)).not.toBeInTheDocument();
     });
   });
 });

@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from 'react';
+import type { ReadingSessionStatus } from 'src/types/readerTypes';
 
 import { getShortcutAction, shouldHandleShortcut } from './keyboardShortcuts';
 import {
@@ -6,7 +7,6 @@ import {
   persistPreferredWpm,
   readPreferredWpm,
 } from './readerPreferences';
-import type { ReadingSessionStatus } from './readerTypes';
 import { createInitialSessionState, sessionReducer } from './sessionReducer';
 
 interface UseReadingSessionResult {

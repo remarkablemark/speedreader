@@ -61,14 +61,12 @@ export default function App() {
 
       <section className="space-y-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         {isSetupMode ? (
-          <div className="space-y-4">
-            <TextInput
-              value={rawText}
-              onChange={setRawText}
-              onSubmit={handleStartReading}
-              isValid={isInputValid}
-            />
-          </div>
+          <TextInput
+            value={rawText}
+            onChange={setRawText}
+            onSubmit={handleStartReading}
+            isValid={isInputValid}
+          />
         ) : (
           <ReadingDisplay
             currentWord={currentWord}

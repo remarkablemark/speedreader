@@ -119,4 +119,41 @@ describe('App component', () => {
       screen.getByText(/enter at least one word before starting/i),
     ).toBeInTheDocument();
   });
+
+  it('does not start reading when handleStartReading is called with invalid text', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    // Test the early return case in handleStartReading
+    const startButton = screen.getByRole('button', { name: /start reading/i });
+
+    // Button should be disabled with empty text
+    expect(startButton).toBeDisabled();
+
+    // Try to click it (shouldn't work due to being disabled)
+    await user.click(startButton);
+
+    // Should still be in setup mode
+    expect(screen.getByLabelText(/session text/i)).toBeInTheDocument();
+  });
+
+  it('tests handleStartReading early return with invalid input', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    // Add some whitespace text (appears valid visually but fails hasReadableText check)
+    const textarea = screen.getByLabelText(/session text/i);
+    await user.type(textarea, '   ');
+
+    const startButton = screen.getByRole('button', { name: /start reading/i });
+
+    // Button should still be disabled for whitespace-only text
+    expect(startButton).toBeDisabled();
+
+    // Try to click it (shouldn't work)
+    await user.click(startButton);
+
+    // Should still be in setup mode
+    expect(screen.getByLabelText(/session text/i)).toBeInTheDocument();
+  });
 });

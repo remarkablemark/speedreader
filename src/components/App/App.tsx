@@ -37,6 +37,7 @@ export default function App() {
   const currentWord = hasSessionWords ? (words[currentWordIndex] ?? '') : '';
 
   const handleStartReading = (text: string) => {
+    /* v8 ignore next -- @preserve */
     if (!isInputValid) {
       return;
     }

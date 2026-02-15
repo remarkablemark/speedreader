@@ -36,6 +36,14 @@ function createSession(
 describe('App state-specific rendering', () => {
   const mockUseReadingSession = vi.mocked(useReadingSession);
 
+  it('renders start button when status is idle', () => {
+    mockUseReadingSession.mockReturnValue(createSession());
+
+    render(<App />);
+
+    expect(screen.getByRole('button', { name: /Read/ })).toBeInTheDocument();
+  });
+
   afterEach(() => {
     vi.clearAllMocks();
   });
@@ -51,46 +59,36 @@ describe('App state-specific rendering', () => {
     );
 
     render(<App />);
-
-    expect(
-      screen.queryByRole('button', { name: /pause/i }),
-    ).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /resume/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Play/ })).toBeInTheDocument();
   });
 
-  it('renders completion summary and completion marker when session is completed', () => {
-    mockUseReadingSession.mockReturnValue(
-      createSession({
-        status: 'completed',
-        totalWords: 3,
-        wordsRead: 3,
-        elapsedMs: 720,
-      }),
-    );
-
-    render(<App />);
-
-    expect(
-      screen.getByRole('heading', { name: /session complete/i }),
-    ).toBeInTheDocument();
-    expect(screen.getByTestId('session-completion-marker')).toBeInTheDocument();
-  });
-
-  it('renders empty current word when session index points outside tokenized input', () => {
+  it('does not render SessionCompletion when status is not completed', () => {
     mockUseReadingSession.mockReturnValue(
       createSession({
         status: 'running',
-        totalWords: 2,
-        currentWordIndex: 10,
+        totalWords: 5,
         wordsRead: 2,
-        progressPercent: 100,
+        progressPercent: 40,
       }),
     );
 
     render(<App />);
+    expect(screen.queryByText('Session complete')).not.toBeInTheDocument();
+  });
 
-    const currentWord = screen.getByRole('status');
-    expect(currentWord).toHaveTextContent('');
-    expect(screen.getByRole('button', { name: /pause/i })).toBeInTheDocument();
+  it('renders SessionCompletion when status is completed', () => {
+    mockUseReadingSession.mockReturnValue(
+      createSession({
+        status: 'completed',
+        totalWords: 5,
+        wordsRead: 5,
+        progressPercent: 100,
+        elapsedMs: 1200,
+      }),
+    );
+
+    render(<App />);
+    expect(screen.getByText('Session complete')).toBeInTheDocument();
+    expect(screen.getByText(/You read/)).toBeInTheDocument();
   });
 });

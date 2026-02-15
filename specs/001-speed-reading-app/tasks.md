@@ -38,19 +38,19 @@ Tests are included because this feature changes core behavior, has deterministic
 
 ## Phase 3: User Story 1 - Read Text in Single-Word Flashes (Priority: P1) 🎯 MVP
 
-**Goal**: Let readers paste text and run deterministic single-word playback with start/pause/resume/edit transitions.
+**Goal**: Let readers paste text and run deterministic single-word playback with start/pause/play/edit transitions.
 
-**Independent Test**: Enter valid text, start session, observe ordered single-word flashes at selected pace, pause/resume from same word, and return to edit mode.
+**Independent Test**: Enter valid text, start session, observe ordered single-word flashes at selected pace, pause/play from same word, and return to edit mode.
 
 ### Tests for User Story 1
 
-- [x] T012 [P] [US1] Add reducer transition tests for start/pause/resume/restart/edit in src/components/App/sessionReducer.test.ts
+- [x] T012 [P] [US1] Add reducer transition tests for start/pause/play/restart/edit in src/components/App/sessionReducer.test.ts
 - [x] T013 [P] [US1] Add fake-timer playback integration test for deterministic word advancement in src/components/App/App.test.tsx
 
 ### Implementation for User Story 1
 
-- [x] T014 [US1] Implement setup-mode textarea, validation message, and Start Reading enable/disable rules in src/components/App/App.tsx
-- [x] T015 [US1] Implement deterministic per-word timer tick progression and pause/resume behavior in src/components/App/useReadingSession.ts
+- [x] T014 [US1] Implement setup-mode textarea, validation message, and Read enable/disable rules in src/components/App/App.tsx
+- [x] T015 [US1] Implement deterministic per-word timer tick progression and pause/play behavior in src/components/App/useReadingSession.ts
 - [x] T016 [US1] Render reading-mode flash-word viewport with accessible status announcements in src/components/App/App.tsx
 - [x] T017 [US1] Implement explicit Edit Text transition from reading states back to idle setup mode in src/components/App/App.tsx
 

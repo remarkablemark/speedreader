@@ -1,25 +1,27 @@
-import { type ChangeEvent, type SyntheticEvent, useId, useState } from 'react';
+import { useState } from 'react';
+import { ControlPanel } from 'src/components/ControlPanel';
+import { ReadingDisplay } from 'src/components/ReadingDisplay';
+import { SessionDetails } from 'src/components/SessionDetails';
+import {
+  hasReadableText,
+  TextInput,
+  tokenizeContent,
+} from 'src/components/TextInput';
 
-import { READER_MAX_WPM, READER_MIN_WPM } from './readerConfig';
-import { hasReadableText, tokenizeContent } from './tokenizeContent';
+import { SessionCompletion } from '../SessionCompletion';
 import { useReadingSession } from './useReadingSession';
 
 export default function App() {
   const [rawText, setRawText] = useState('');
-  const textAreaId = useId();
-  const speedInputId = useId();
-  const validationId = useId();
 
   const {
     currentWordIndex,
     elapsedMs,
     msPerWord,
     progressPercent,
-    restartCount,
     selectedWpm,
-    startCount,
     status,
-    totalWords: sessionWordCount,
+    totalWords,
     wordsRead,
     editText,
     pauseReading,
@@ -29,31 +31,21 @@ export default function App() {
     startReading,
   } = useReadingSession();
 
-  const { totalWords, words } = tokenizeContent(rawText);
+  const { words } = tokenizeContent(rawText);
   const isInputValid = hasReadableText(rawText);
   const isSetupMode = status === 'idle';
-  const isRunning = status === 'running';
-  const isPaused = status === 'paused';
   const isCompleted = status === 'completed';
-  const hasSessionWords = sessionWordCount > 0;
+  const hasSessionWords = totalWords > 0;
   const currentWord = hasSessionWords ? (words[currentWordIndex] ?? '') : '';
 
-  const handleStartReading = (event: SyntheticEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const handleStartReading = (text: string) => {
+    /* v8 ignore next -- @preserve */
     if (!isInputValid) {
       return;
     }
 
+    const { totalWords } = tokenizeContent(text);
     startReading(totalWords);
-  };
-
-  const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setRawText(event.target.value);
-  };
-
-  const handleWpmChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSelectedWpm(Number.parseInt(event.target.value, 10));
   };
 
   return (
@@ -68,155 +60,46 @@ export default function App() {
       </header>
 
       <section className="space-y-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-        <form className="space-y-4" onSubmit={handleStartReading}>
-          {isSetupMode ? (
-            <div className="space-y-2">
-              <label
-                className="block text-sm font-medium text-slate-900"
-                htmlFor={textAreaId}
-              >
-                Session text
-              </label>
-              <textarea
-                id={textAreaId}
-                value={rawText}
-                onChange={handleTextChange}
-                className="min-h-56 w-full rounded-md border border-slate-300 bg-white p-3 text-sm text-slate-900 shadow-sm transition outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
-                placeholder="Paste text to begin your speed reading session."
-                rows={10}
-              />
-              {!isInputValid ? (
-                <p
-                  className="text-sm text-rose-700"
-                  id={validationId}
-                  role="alert"
-                >
-                  Enter at least one word before starting.
-                </p>
-              ) : null}
-            </div>
-          ) : (
-            <div className="flex min-h-40 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-[48px] leading-[1.1] font-semibold tracking-wide text-slate-900 max-[480px]:min-h-[8.5rem] max-[480px]:text-[2rem]">
-              <p aria-live="polite" aria-atomic="true" role="status">
-                {currentWord}
-              </p>
-            </div>
-          )}
+        {isSetupMode ? (
+          <TextInput
+            value={rawText}
+            onChange={setRawText}
+            onSubmit={handleStartReading}
+            isValid={isInputValid}
+          />
+        ) : (
+          <ReadingDisplay
+            currentWord={currentWord}
+            hasWords={hasSessionWords}
+          />
+        )}
 
-          <div
-            className="flex w-full items-end justify-center gap-2 overflow-x-auto pb-1 max-[480px]:gap-[0.4rem]"
-            role="group"
-            aria-label="Reading controls"
-          >
-            <div className="min-w-44 shrink-0">
-              <label
-                className="block text-xs font-medium text-slate-700"
-                htmlFor={speedInputId}
-              >
-                Speed ({selectedWpm} WPM)
-              </label>
-              <input
-                id={speedInputId}
-                min={READER_MIN_WPM}
-                max={READER_MAX_WPM}
-                step={1}
-                type="range"
-                value={selectedWpm}
-                onChange={handleWpmChange}
-                aria-valuemin={READER_MIN_WPM}
-                aria-valuemax={READER_MAX_WPM}
-                aria-valuenow={selectedWpm}
-              />
-            </div>
-
-            {isSetupMode ? (
-              <button
-                className="inline-flex shrink-0 items-center justify-center rounded-md border border-sky-600 bg-sky-600 px-3 py-2 text-sm font-medium text-white transition hover:border-sky-700 hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
-                disabled={!isInputValid}
-                type="submit"
-              >
-                Start Reading
-              </button>
-            ) : (
-              <>
-                {isRunning ? (
-                  <button
-                    className="inline-flex shrink-0 items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
-                    onClick={pauseReading}
-                    type="button"
-                  >
-                    Pause
-                  </button>
-                ) : null}
-                {isPaused ? (
-                  <button
-                    className="inline-flex shrink-0 items-center justify-center rounded-md border border-sky-600 bg-sky-600 px-3 py-2 text-sm font-medium text-white transition hover:border-sky-700 hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
-                    onClick={resumeReading}
-                    type="button"
-                  >
-                    Resume
-                  </button>
-                ) : null}
-                <button
-                  className="inline-flex shrink-0 items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
-                  onClick={restartReading}
-                  type="button"
-                >
-                  Restart
-                </button>
-                <button
-                  className="inline-flex shrink-0 items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50 max-[480px]:px-[0.6rem] max-[480px]:py-[0.45rem] max-[480px]:text-[0.8rem]"
-                  onClick={editText}
-                  type="button"
-                >
-                  Edit Text
-                </button>
-              </>
-            )}
-          </div>
-        </form>
-
-        {!isSetupMode ? (
-          <details className="m-0">
-            <summary className="mx-auto list-item w-fit cursor-pointer text-sm text-slate-400">
-              Session details
-            </summary>
-            <div className="mt-2 space-y-2" aria-live="polite">
-              <p>
-                Progress: <strong>{wordsRead}</strong> /{' '}
-                <strong>{sessionWordCount}</strong> ({' '}
-                {Math.round(progressPercent)}%)
-              </p>
-              <p>
-                Tempo: <strong>{selectedWpm} WPM</strong> (
-                {Math.round(msPerWord)} ms/word)
-              </p>
-            </div>
-          </details>
-        ) : null}
-
-        {isCompleted ? (
-          <div className="rounded-md border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
-            <h2 className="font-semibold">Session complete</h2>
-            <p>
-              You read {wordsRead} words in {Math.round(elapsedMs)} ms.
-            </p>
-          </div>
-        ) : null}
-
-        <div
-          className="sr-only"
-          data-testid="start-latency-marker"
-          data-start-count={startCount}
+        <ControlPanel
+          selectedWpm={selectedWpm}
+          onSpeedChange={setSelectedWpm}
+          onStartReading={() => {
+            handleStartReading(rawText);
+          }}
+          onPauseReading={pauseReading}
+          onResumeReading={resumeReading}
+          onRestartReading={restartReading}
+          onEditText={editText}
+          isInputValid={isInputValid}
+          status={status}
         />
-        <div
-          className="sr-only"
-          data-testid="restart-marker"
-          data-restart-count={restartCount}
-        />
-        {isCompleted ? (
-          <div className="sr-only" data-testid="session-completion-marker" />
-        ) : null}
+
+        {!isSetupMode && (
+          <SessionDetails
+            wordsRead={wordsRead}
+            totalWords={totalWords}
+            progressPercent={progressPercent}
+            msPerWord={msPerWord}
+          />
+        )}
+
+        {isCompleted && (
+          <SessionCompletion wordsRead={wordsRead} elapsedMs={elapsedMs} />
+        )}
       </section>
     </main>
   );

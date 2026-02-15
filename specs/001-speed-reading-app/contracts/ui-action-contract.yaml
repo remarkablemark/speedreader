@@ -40,7 +40,7 @@ actions:
         when: rawText is empty or whitespace-only
 
   - id: startReading
-    trigger: user activates "Start Reading"
+    trigger: user activates "Read"
     fromState: idle
     preconditions:
       - parsed content is valid
@@ -62,7 +62,7 @@ actions:
         - timer halted
 
   - id: resumeReading
-    trigger: user clicks Resume or presses Space while paused
+    trigger: user clicks Play or presses Space while paused
     fromState: paused
     transition:
       toState: running

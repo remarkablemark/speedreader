@@ -1,4 +1,4 @@
-export type ReadingSessionStatus = 'idle' | 'running' | 'paused' | 'completed';
+import type { ReadingSessionStatus } from 'src/types/readerTypes';
 
 export interface ReadingContent {
   rawText: string;

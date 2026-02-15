@@ -51,7 +51,7 @@
 
 - Use React state transitions and effects with cleanup to avoid orphan timers.
 - Isolate pure utilities for tokenization and timing calculations to maximize deterministic test coverage.
-- Validate text input (`trim().length > 0`) before enabling Start Reading.
+- Validate text input (`trim().length > 0`) before enabling Read.
 - Cover timing-sensitive logic with fake timers in Vitest to ensure reproducible tests.
 
 All prior technical unknowns are now resolved for implementation planning.

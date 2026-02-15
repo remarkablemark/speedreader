@@ -473,5 +473,13 @@ describe('App component', () => {
       // Should not have completion styling in setup mode
       expect(screen.queryByText('Session complete')).not.toBeInTheDocument();
     });
+
+    it('does not render SessionCompletion when session is not completed', () => {
+      render(<App />);
+
+      // Should not render SessionCompletion component in setup mode
+      expect(screen.queryByText('Session complete')).not.toBeInTheDocument();
+      expect(screen.queryByText(/You read/)).not.toBeInTheDocument();
+    });
   });
 });

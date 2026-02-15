@@ -63,4 +63,34 @@ describe('App state-specific rendering', () => {
     render(<App />);
     expect(screen.getByRole('button', { name: /resume/i })).toBeInTheDocument();
   });
+
+  it('does not render SessionCompletion when status is not completed', () => {
+    mockUseReadingSession.mockReturnValue(
+      createSession({
+        status: 'running',
+        totalWords: 5,
+        wordsRead: 2,
+        progressPercent: 40,
+      }),
+    );
+
+    render(<App />);
+    expect(screen.queryByText('Session complete')).not.toBeInTheDocument();
+  });
+
+  it('renders SessionCompletion when status is completed', () => {
+    mockUseReadingSession.mockReturnValue(
+      createSession({
+        status: 'completed',
+        totalWords: 5,
+        wordsRead: 5,
+        progressPercent: 100,
+        elapsedMs: 1200,
+      }),
+    );
+
+    render(<App />);
+    expect(screen.getByText('Session complete')).toBeInTheDocument();
+    expect(screen.getByText(/You read/)).toBeInTheDocument();
+  });
 });

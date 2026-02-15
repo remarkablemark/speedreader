@@ -19,11 +19,9 @@ export default function App() {
     elapsedMs,
     msPerWord,
     progressPercent,
-    restartCount,
     selectedWpm,
-    startCount,
     status,
-    totalWords: sessionWordCount,
+    totalWords,
     wordsRead,
     editText,
     pauseReading,
@@ -37,7 +35,7 @@ export default function App() {
   const isInputValid = hasReadableText(rawText);
   const isSetupMode = status === 'idle';
   const isCompleted = status === 'completed';
-  const hasSessionWords = sessionWordCount > 0;
+  const hasSessionWords = totalWords > 0;
   const currentWord = hasSessionWords ? (words[currentWordIndex] ?? '') : '';
 
   const handleStartReading = (text: string) => {
@@ -92,33 +90,19 @@ export default function App() {
           status={status}
         />
 
-        {!isSetupMode ? (
+        {!isSetupMode && (
           <SessionDetails
             wordsRead={wordsRead}
-            totalWords={sessionWordCount}
+            totalWords={totalWords}
             progressPercent={progressPercent}
             selectedWpm={selectedWpm}
             msPerWord={msPerWord}
           />
-        ) : null}
+        )}
 
-        {isCompleted ? (
+        {isCompleted && (
           <SessionCompletion wordsRead={wordsRead} elapsedMs={elapsedMs} />
-        ) : null}
-
-        <div
-          className="sr-only"
-          data-testid="start-latency-marker"
-          data-start-count={startCount}
-        />
-        <div
-          className="sr-only"
-          data-testid="restart-marker"
-          data-restart-count={restartCount}
-        />
-        {isCompleted ? (
-          <div className="sr-only" data-testid="session-completion-marker" />
-        ) : null}
+        )}
       </section>
     </main>
   );

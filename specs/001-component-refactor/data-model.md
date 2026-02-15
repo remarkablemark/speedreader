@@ -159,7 +159,7 @@ App (Container)
 
 - Start button only visible in idle state
 - Pause button only visible in running state
-- Resume button only visible in paused state
+- Play button only visible in paused state
 - Restart/Edit buttons visible in non-idle states
 
 ## State Transitions

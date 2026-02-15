@@ -84,11 +84,11 @@ interface ControlPanelProps {
 - Renders speed slider with min/max values from readerConfig
 - Calls onSpeedChange when slider value changes
 - Conditionally renders action buttons based on status:
-  - idle: Start Reading button (primary)
+  - idle: Read button (primary)
   - running: Pause button (secondary) + Restart + Edit Text
-  - paused: Resume button (primary) + Restart + Edit Text
+  - paused: Play button (primary) + Restart + Edit Text
   - completed: Restart + Edit Text
-- Start Reading button disabled when isInputValid is false
+- Read button disabled when isInputValid is false
 - All buttons maintain responsive design patterns
 
 ## SessionDetails Component Contract

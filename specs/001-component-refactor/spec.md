@@ -49,9 +49,9 @@ As a developer, I want the reading controls (speed slider, action buttons) separ
 
 **Acceptance Scenarios**:
 
-1. **Given** idle state, **When** component renders, **Then** only Start Reading button is enabled
+1. **Given** idle state, **When** component renders, **Then** only Read button is enabled
 2. **Given** running state, **When** component renders, **Then** Pause button is visible and functional
-3. **Given** paused state, **When** component renders, **Then** Resume button is visible and functional
+3. **Given** paused state, **When** component renders, **Then** Play button is visible and functional
 4. **Given** any state, **When** speed slider is adjusted, **Then** onSpeedChange callback is called with new value
 
 ---

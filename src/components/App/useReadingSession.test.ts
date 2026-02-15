@@ -196,4 +196,100 @@ describe('useReadingSession', () => {
     expect(result.current.currentChunkIndex).toBe(1);
     expect(result.current.currentWordIndex).toBe(2);
   });
+
+  it('restarts reading session from active states', () => {
+    const { result } = renderHook(() => useReadingSession());
+
+    // Start a reading session
+    act(() => {
+      result.current.startReading(4, ['word1', 'word2', 'word3', 'word4']);
+    });
+
+    // Advance to show progress
+    act(() => {
+      vi.advanceTimersByTime(240);
+    });
+
+    expect(result.current.currentWordIndex).toBe(1);
+    expect(result.current.elapsedMs).toBe(240);
+    expect(result.current.restartCount).toBe(0);
+
+    // Restart reading
+    act(() => {
+      result.current.restartReading();
+    });
+
+    // Should reset progress but increment restart count
+    expect(result.current.currentWordIndex).toBe(0);
+    expect(result.current.currentChunkIndex).toBe(0);
+    expect(result.current.elapsedMs).toBe(0);
+    expect(result.current.restartCount).toBe(1);
+    expect(result.current.status).toBe('running');
+  });
+
+  it('does not restart from idle state', () => {
+    const { result } = renderHook(() => useReadingSession());
+
+    const initialRestartCount = result.current.restartCount;
+
+    // Try to restart from idle state
+    act(() => {
+      result.current.restartReading();
+    });
+
+    // Should not change state
+    expect(result.current.restartCount).toBe(initialRestartCount);
+    expect(result.current.status).toBe('idle');
+  });
+
+  it('edits text and resets session to idle state', () => {
+    const { result } = renderHook(() => useReadingSession());
+
+    // Start a reading session
+    act(() => {
+      result.current.startReading(4, ['word1', 'word2', 'word3', 'word4']);
+    });
+
+    expect(result.current.status).toBe('running');
+    expect(result.current.totalWords).toBe(4);
+    expect(result.current.currentWordIndex).toBe(0);
+
+    // Edit text
+    act(() => {
+      result.current.editText();
+    });
+
+    // Should reset to idle state
+    expect(result.current.status).toBe('idle');
+    expect(result.current.totalWords).toBe(0);
+    expect(result.current.currentWordIndex).toBe(0);
+    expect(result.current.currentChunkIndex).toBe(0);
+    expect(result.current.elapsedMs).toBe(0);
+    expect(result.current.chunks).toHaveLength(0);
+    expect(result.current.totalChunks).toBe(0);
+  });
+
+  it('can edit text from any state', () => {
+    const { result } = renderHook(() => useReadingSession());
+
+    // Start reading
+    act(() => {
+      result.current.startReading(3, ['word1', 'word2', 'word3']);
+    });
+
+    // Pause
+    act(() => {
+      result.current.pauseReading();
+    });
+
+    expect(result.current.status).toBe('paused');
+
+    // Edit text should reset to idle
+    act(() => {
+      result.current.editText();
+    });
+
+    expect(result.current.status).toBe('idle');
+    expect(result.current.totalWords).toBe(0);
+  });
 });

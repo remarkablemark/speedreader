@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest';
+import { expect } from 'vitest';
 
 import {
   FLASH_WORD_BASE_FONT_PX,
@@ -10,7 +10,7 @@ import {
 } from './readerConfig';
 
 describe('readerConfig', () => {
-  test('exports correct constants', () => {
+  it('exports correct constants', () => {
     expect(READER_MIN_WPM).toBe(100);
     expect(READER_MAX_WPM).toBe(1000);
     expect(READER_DEFAULT_WPM).toBe(250);
@@ -19,7 +19,7 @@ describe('readerConfig', () => {
     expect(FLASH_WORD_BASE_FONT_PX).toBe(48);
   });
 
-  test('constants have correct types', () => {
+  it('constants have correct types', () => {
     expect(typeof READER_MIN_WPM).toBe('number');
     expect(typeof READER_MAX_WPM).toBe('number');
     expect(typeof READER_DEFAULT_WPM).toBe('number');
@@ -28,7 +28,7 @@ describe('readerConfig', () => {
     expect(typeof FLASH_WORD_BASE_FONT_PX).toBe('number');
   });
 
-  test('constants have logical values', () => {
+  it('constants have logical values', () => {
     expect(READER_MIN_WPM).toBeLessThan(READER_DEFAULT_WPM);
     expect(READER_DEFAULT_WPM).toBeLessThan(READER_MAX_WPM);
     expect(READER_SPEED_STEP).toBeGreaterThan(0);

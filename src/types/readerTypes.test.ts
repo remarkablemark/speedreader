@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest';
+import { expect } from 'vitest';
 
 import type {
   ReadingSessionActions,
@@ -7,13 +7,13 @@ import type {
 } from './readerTypes';
 
 describe('readerTypes', () => {
-  test('ReadingSessionStatus type exists', () => {
+  it('ReadingSessionStatus type exists', () => {
     // This test ensures the type is properly exported
     const status: ReadingSessionStatus = 'idle';
     expect(status).toBe('idle');
   });
 
-  test('ReadingSessionStatus has correct values', () => {
+  it('ReadingSessionStatus has correct values', () => {
     const validStatuses: ReadingSessionStatus[] = [
       'idle',
       'running',
@@ -27,7 +27,7 @@ describe('readerTypes', () => {
     expect(validStatuses).toContain('completed');
   });
 
-  test('ReadingSessionState interface structure is correct', () => {
+  it('ReadingSessionState interface structure is correct', () => {
     // This test ensures the interface has the expected structure
     const state: ReadingSessionState = {
       currentWordIndex: 0,
@@ -54,7 +54,7 @@ describe('readerTypes', () => {
     expect(state.wordsRead).toBe(0);
   });
 
-  test('ReadingSessionActions interface structure is correct', () => {
+  it('ReadingSessionActions interface structure is correct', () => {
     // This test ensures the interface has the expected methods
     const actions: ReadingSessionActions = {
       editText: () => {

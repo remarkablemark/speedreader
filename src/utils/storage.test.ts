@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, vi } from 'vitest';
 
 import {
   DEFAULT_WORD_COUNT,
@@ -35,7 +35,7 @@ describe('storage', () => {
     });
 
     describe('getWordCount', () => {
-      test('returns default value when localStorage has no value', () => {
+      it('returns default value when localStorage has no value', () => {
         mockLocalStorage.getItem.mockReturnValue(null);
 
         expect(storageAPI.getWordCount()).toBe(1);
@@ -44,7 +44,7 @@ describe('storage', () => {
         );
       });
 
-      test('returns stored value when valid', () => {
+      it('returns stored value when valid', () => {
         mockLocalStorage.getItem.mockReturnValue('3');
 
         expect(storageAPI.getWordCount()).toBe(3);
@@ -53,19 +53,19 @@ describe('storage', () => {
         );
       });
 
-      test('clamps values below minimum to minimum', () => {
+      it('clamps values below minimum to minimum', () => {
         mockLocalStorage.getItem.mockReturnValue('0');
 
         expect(storageAPI.getWordCount()).toBe(1);
       });
 
-      test('clamps values above maximum to maximum', () => {
+      it('clamps values above maximum to maximum', () => {
         mockLocalStorage.getItem.mockReturnValue('10');
 
         expect(storageAPI.getWordCount()).toBe(5);
       });
 
-      test('handles invalid values gracefully', () => {
+      it('handles invalid values gracefully', () => {
         mockLocalStorage.getItem.mockReturnValue('invalid');
 
         // parseInt('invalid', 10) returns NaN, Math.max/min with NaN returns NaN
@@ -73,7 +73,7 @@ describe('storage', () => {
         expect(storageAPI.getWordCount()).toBe(1);
       });
 
-      test('returns default when localStorage throws error', () => {
+      it('returns default when localStorage throws error', () => {
         mockLocalStorage.getItem.mockImplementation(() => {
           throw new Error('localStorage unavailable');
         });
@@ -83,7 +83,7 @@ describe('storage', () => {
     });
 
     describe('setWordCount', () => {
-      test('stores valid value in localStorage', () => {
+      it('stores valid value in localStorage', () => {
         mockLocalStorage.setItem.mockImplementation(() => {
           // Empty implementation
         });
@@ -96,7 +96,7 @@ describe('storage', () => {
         );
       });
 
-      test('clamps values below minimum before storing', () => {
+      it('clamps values below minimum before storing', () => {
         mockLocalStorage.setItem.mockImplementation(() => {
           // Empty implementation
         });
@@ -109,7 +109,7 @@ describe('storage', () => {
         );
       });
 
-      test('clamps values above maximum before storing', () => {
+      it('clamps values above maximum before storing', () => {
         mockLocalStorage.setItem.mockImplementation(() => {
           // Empty implementation
         });
@@ -122,7 +122,7 @@ describe('storage', () => {
         );
       });
 
-      test('handles localStorage errors gracefully', () => {
+      it('handles localStorage errors gracefully', () => {
         mockLocalStorage.setItem.mockImplementation(() => {
           throw new Error('localStorage quota exceeded');
         });
@@ -134,7 +134,7 @@ describe('storage', () => {
     });
 
     describe('removeWordCount', () => {
-      test('removes word count from localStorage', () => {
+      it('removes word count from localStorage', () => {
         mockLocalStorage.removeItem.mockImplementation(() => {
           // Empty implementation
         });
@@ -146,7 +146,7 @@ describe('storage', () => {
         );
       });
 
-      test('handles localStorage errors gracefully', () => {
+      it('handles localStorage errors gracefully', () => {
         mockLocalStorage.removeItem.mockImplementation(() => {
           throw new Error('localStorage unavailable');
         });
@@ -158,19 +158,19 @@ describe('storage', () => {
     });
 
     describe('isAvailable', () => {
-      test('returns true when localStorage is available', () => {
+      it('returns true when localStorage is available', () => {
         vi.stubGlobal('localStorage', {});
 
         expect(storageAPI.isAvailable()).toBe(true);
       });
 
-      test('returns false when localStorage is undefined', () => {
+      it('returns false when localStorage is undefined', () => {
         vi.stubGlobal('localStorage', undefined);
 
         expect(storageAPI.isAvailable()).toBe(false);
       });
 
-      test('returns false when accessing localStorage throws error', () => {
+      it('returns false when accessing localStorage throws error', () => {
         vi.stubGlobal('localStorage', undefined);
 
         expect(storageAPI.isAvailable()).toBe(false);
@@ -179,15 +179,15 @@ describe('storage', () => {
   });
 
   describe('constants', () => {
-    test('exports correct default word count', () => {
+    it('exports correct default word count', () => {
       expect(DEFAULT_WORD_COUNT).toBe(1);
     });
 
-    test('exports correct maximum word count', () => {
+    it('exports correct maximum word count', () => {
       expect(MAX_WORD_COUNT).toBe(5);
     });
 
-    test('exports correct minimum word count', () => {
+    it('exports correct minimum word count', () => {
       expect(MIN_WORD_COUNT).toBe(1);
     });
   });

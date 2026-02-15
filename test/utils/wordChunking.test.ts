@@ -1,8 +1,8 @@
 import { generateWordChunks } from 'src/utils/wordChunking';
-import { describe, expect, test } from 'vitest';
+import { describe, expect } from 'vitest';
 
 describe('wordChunking', () => {
-  test('generates chunks correctly for basic input', () => {
+  it('generates chunks correctly for basic input', () => {
     const words = ['one', 'two', 'three', 'four', 'five'];
     const chunks = generateWordChunks(words, 2);
 
@@ -21,7 +21,7 @@ describe('wordChunking', () => {
     });
   });
 
-  test('handles single word per chunk', () => {
+  it('handles single word per chunk', () => {
     const words = ['one', 'two', 'three'];
     const chunks = generateWordChunks(words, 1);
 
@@ -40,7 +40,7 @@ describe('wordChunking', () => {
     });
   });
 
-  test('handles multiple words per chunk', () => {
+  it('handles multiple words per chunk', () => {
     const words = ['one', 'two', 'three', 'four', 'five', 'six'];
     const chunks = generateWordChunks(words, 3);
 
@@ -55,12 +55,12 @@ describe('wordChunking', () => {
     });
   });
 
-  test('handles empty words array', () => {
+  it('handles empty words array', () => {
     const chunks = generateWordChunks([], 2);
     expect(chunks).toEqual([]);
   });
 
-  test('handles invalid wordsPerChunk values', () => {
+  it('handles invalid wordsPerChunk values', () => {
     const words = ['one', 'two', 'three'];
 
     // Test 0 words per chunk
@@ -73,7 +73,7 @@ describe('wordChunking', () => {
     expect(generateWordChunks(words, 10)).toEqual([]);
   });
 
-  test('handles edge case with exact division', () => {
+  it('handles edge case with exact division', () => {
     const words = ['one', 'two', 'three', 'four'];
     const chunks = generateWordChunks(words, 2);
 
@@ -88,7 +88,7 @@ describe('wordChunking', () => {
     });
   });
 
-  test('handles edge case with single word', () => {
+  it('handles edge case with single word', () => {
     const words = ['single'];
     const chunks = generateWordChunks(words, 2);
 
@@ -99,7 +99,7 @@ describe('wordChunking', () => {
     });
   });
 
-  test('handles edge case with wordsPerChunk greater than word count', () => {
+  it('handles edge case with wordsPerChunk greater than word count', () => {
     const words = ['one', 'two'];
     const chunks = generateWordChunks(words, 5);
 
@@ -110,7 +110,7 @@ describe('wordChunking', () => {
     });
   });
 
-  test('preserves word order', () => {
+  it('preserves word order', () => {
     const words = ['first', 'second', 'third', 'fourth', 'fifth'];
     const chunks = generateWordChunks(words, 2);
 
@@ -119,7 +119,7 @@ describe('wordChunking', () => {
     expect(chunks[2].words).toEqual(['fifth']);
   });
 
-  test('handles words with special characters', () => {
+  it('handles words with special characters', () => {
     const words = ['hello-world', "it's", 'test'];
     const chunks = generateWordChunks(words, 2);
 

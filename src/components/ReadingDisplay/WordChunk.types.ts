@@ -10,35 +10,3 @@ export interface WordChunk {
   /** Individual words that make up this chunk */
   words: string[];
 }
-
-/**
- * Validation rules for WordChunk
- */
-export const WordChunkValidation = {
-  /** Minimum number of words per chunk */
-  MIN_WORDS: 1,
-
-  /** Maximum number of words per chunk */
-  MAX_WORDS: 5,
-
-  /** Maximum text length for display */
-  MAX_TEXT_LENGTH: 200,
-} as const;
-
-/**
- * Type guard to validate WordChunk
- */
-export function isValidWordChunk(chunk: unknown): chunk is WordChunk {
-  if (!chunk || typeof chunk !== 'object') return false;
-
-  const wc = chunk as WordChunk;
-
-  return (
-    typeof wc.text === 'string' &&
-    wc.text.length > 0 &&
-    wc.text.length <= WordChunkValidation.MAX_TEXT_LENGTH &&
-    Array.isArray(wc.words) &&
-    wc.words.length >= WordChunkValidation.MIN_WORDS &&
-    wc.words.length <= WordChunkValidation.MAX_WORDS
-  );
-}

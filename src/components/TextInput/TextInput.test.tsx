@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, vi } from 'vitest';
 
 import { TextInput } from './TextInput';
 
@@ -12,7 +12,7 @@ describe('TextInput', () => {
     vi.clearAllMocks();
   });
 
-  test('renders textarea with correct attributes', () => {
+  it('renders textarea with correct attributes', () => {
     render(
       <TextInput
         value=""
@@ -31,7 +31,7 @@ describe('TextInput', () => {
     expect(textarea).toHaveAttribute('rows', '10');
   });
 
-  test('calls onChange when text is typed', async () => {
+  it('calls onChange when text is typed', async () => {
     const user = userEvent.setup();
     render(
       <TextInput
@@ -50,7 +50,7 @@ describe('TextInput', () => {
     expect(mockOnChange).toHaveBeenCalledTimes(5);
   });
 
-  test('displays validation message when input is invalid', () => {
+  it('displays validation message when input is invalid', () => {
     render(
       <TextInput
         value=""
@@ -68,7 +68,7 @@ describe('TextInput', () => {
     expect(errorMessage).toHaveAttribute('role', 'alert');
   });
 
-  test('does not display validation message when input is valid', () => {
+  it('does not display validation message when input is valid', () => {
     render(
       <TextInput
         value="Some text"
@@ -84,7 +84,7 @@ describe('TextInput', () => {
     expect(errorMessage).not.toBeInTheDocument();
   });
 
-  test('calls onSubmit when form is submitted with valid input', async () => {
+  it('calls onSubmit when form is submitted with valid input', async () => {
     const user = userEvent.setup();
     render(
       <TextInput
@@ -101,7 +101,7 @@ describe('TextInput', () => {
     expect(mockOnSubmit).toHaveBeenCalledWith('Valid text content');
   });
 
-  test('does not call onSubmit when form is submitted with invalid input', async () => {
+  it('does not call onSubmit when form is submitted with invalid input', async () => {
     const user = userEvent.setup();
     render(
       <TextInput
@@ -121,7 +121,7 @@ describe('TextInput', () => {
     }
   });
 
-  test('is disabled when disabled prop is true', () => {
+  it('is disabled when disabled prop is true', () => {
     render(
       <TextInput
         value="Some text"
@@ -136,7 +136,7 @@ describe('TextInput', () => {
     expect(textarea).toBeDisabled();
   });
 
-  test('has proper accessibility attributes', () => {
+  it('has proper accessibility attributes', () => {
     render(
       <TextInput
         value=""
@@ -154,7 +154,7 @@ describe('TextInput', () => {
     );
   });
 
-  test('renders label with correct text and htmlFor', () => {
+  it('renders label with correct text and htmlFor', () => {
     render(
       <TextInput
         value=""
@@ -169,7 +169,7 @@ describe('TextInput', () => {
     expect(label.tagName).toBe('LABEL');
   });
 
-  test('renders hidden submit button', () => {
+  it('renders hidden submit button', () => {
     render(
       <TextInput
         value=""
@@ -185,7 +185,7 @@ describe('TextInput', () => {
     expect(submitButton).toHaveAttribute('type', 'submit');
   });
 
-  test('renders hidden word count input', () => {
+  it('renders hidden word count input', () => {
     render(
       <TextInput
         value="hello world"
@@ -201,7 +201,7 @@ describe('TextInput', () => {
     expect(wordCountInput).toHaveAttribute('value', '2');
   });
 
-  test('calculates word count correctly for empty text', () => {
+  it('calculates word count correctly for empty text', () => {
     render(
       <TextInput
         value=""
@@ -215,7 +215,7 @@ describe('TextInput', () => {
     expect(wordCountInput).toHaveAttribute('value', '0');
   });
 
-  test('calculates word count correctly for single word', () => {
+  it('calculates word count correctly for single word', () => {
     render(
       <TextInput
         value="hello"
@@ -229,7 +229,7 @@ describe('TextInput', () => {
     expect(wordCountInput).toHaveAttribute('value', '1');
   });
 
-  test('calculates word count correctly for multiple words with extra spaces', () => {
+  it('calculates word count correctly for multiple words with extra spaces', () => {
     render(
       <TextInput
         value="  hello   world  test  "
@@ -243,7 +243,7 @@ describe('TextInput', () => {
     expect(wordCountInput).toHaveAttribute('value', '3');
   });
 
-  test('calls onSubmit when form is submitted via submit button', async () => {
+  it('calls onSubmit when form is submitted via submit button', async () => {
     const user = userEvent.setup();
     render(
       <TextInput
@@ -260,7 +260,7 @@ describe('TextInput', () => {
     expect(mockOnSubmit).toHaveBeenCalledWith('Valid text content');
   });
 
-  test('prevents form submission when invalid and submit button is clicked', async () => {
+  it('prevents form submission when invalid and submit button is clicked', async () => {
     const user = userEvent.setup();
     render(
       <TextInput
@@ -278,7 +278,7 @@ describe('TextInput', () => {
     expect(mockOnSubmit).not.toHaveBeenCalled();
   });
 
-  test('generates IDs for accessibility', () => {
+  it('generates IDs for accessibility', () => {
     render(
       <TextInput
         value=""
@@ -296,7 +296,7 @@ describe('TextInput', () => {
     expect(typeof textareaId).toBe('string');
   });
 
-  test('associates validation message with textarea correctly', () => {
+  it('associates validation message with textarea correctly', () => {
     render(
       <TextInput
         value=""

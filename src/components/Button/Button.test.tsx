@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, test } from 'vitest';
+import { describe, expect } from 'vitest';
 
 import { Button } from './Button';
 
 describe('Button', () => {
-  test('renders primary button by default', () => {
+  it('renders primary button by default', () => {
     render(<Button>Click me</Button>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
@@ -13,7 +13,7 @@ describe('Button', () => {
     expect(button).toHaveClass('border-sky-600', 'bg-sky-600', 'text-white');
   });
 
-  test('renders secondary button variant', () => {
+  it('renders secondary button variant', () => {
     render(<Button variant="secondary">Click me</Button>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
@@ -24,7 +24,7 @@ describe('Button', () => {
     );
   });
 
-  test('handles click events', async () => {
+  it('handles click events', async () => {
     const handleClick = vi.fn();
     const user = userEvent.setup();
 
@@ -36,7 +36,7 @@ describe('Button', () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  test('can be disabled', () => {
+  it('can be disabled', () => {
     render(<Button disabled>Click me</Button>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
@@ -47,21 +47,21 @@ describe('Button', () => {
     );
   });
 
-  test('renders as submit button', () => {
+  it('renders as submit button', () => {
     render(<Button type="submit">Submit</Button>);
     const button = screen.getByRole('button', { name: 'Submit' });
 
     expect(button).toHaveAttribute('type', 'submit');
   });
 
-  test('applies custom className', () => {
+  it('applies custom className', () => {
     render(<Button className="custom-class">Click me</Button>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
     expect(button).toHaveClass('custom-class');
   });
 
-  test('has proper focus styles', () => {
+  it('has proper focus styles', () => {
     render(<Button>Click me</Button>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
@@ -72,7 +72,7 @@ describe('Button', () => {
     );
   });
 
-  test('has responsive design classes', () => {
+  it('has responsive design classes', () => {
     render(<Button>Click me</Button>);
     const button = screen.getByRole('button', { name: 'Click me' });
 

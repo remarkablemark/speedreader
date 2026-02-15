@@ -1,5 +1,5 @@
 import { storageAPI } from 'src/utils/storage';
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, vi } from 'vitest';
 
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment */
 
@@ -30,7 +30,7 @@ describe('storageAPI', () => {
   });
 
   describe('getWordCount', () => {
-    test('returns saved word count when valid', () => {
+    it('returns saved word count when valid', () => {
       localStorageMock.getItem.mockReturnValue('3');
 
       const result = storageAPI.getWordCount();
@@ -41,7 +41,7 @@ describe('storageAPI', () => {
       expect(result).toBe(3);
     });
 
-    test('returns default 1 when no saved value', () => {
+    it('returns default 1 when no saved value', () => {
       localStorageMock.getItem.mockReturnValue(null);
 
       const result = storageAPI.getWordCount();
@@ -49,7 +49,7 @@ describe('storageAPI', () => {
       expect(result).toBe(1);
     });
 
-    test('returns default 1 when localStorage throws error', () => {
+    it('returns default 1 when localStorage throws error', () => {
       localStorageMock.getItem.mockImplementation(() => {
         throw new Error('localStorage unavailable');
       });
@@ -59,7 +59,7 @@ describe('storageAPI', () => {
       expect(result).toBe(1);
     });
 
-    test('clamps high values to maximum 5', () => {
+    it('clamps high values to maximum 5', () => {
       localStorageMock.getItem.mockReturnValue('10');
 
       const result = storageAPI.getWordCount();
@@ -67,7 +67,7 @@ describe('storageAPI', () => {
       expect(result).toBe(5);
     });
 
-    test('clamps low values to minimum 1', () => {
+    it('clamps low values to minimum 1', () => {
       localStorageMock.getItem.mockReturnValue('0');
 
       const result = storageAPI.getWordCount();
@@ -75,7 +75,7 @@ describe('storageAPI', () => {
       expect(result).toBe(1);
     });
 
-    test('clamps negative values to minimum 1', () => {
+    it('clamps negative values to minimum 1', () => {
       localStorageMock.getItem.mockReturnValue('-5');
 
       const result = storageAPI.getWordCount();
@@ -83,7 +83,7 @@ describe('storageAPI', () => {
       expect(result).toBe(1);
     });
 
-    test('handles invalid string values', () => {
+    it('handles invalid string values', () => {
       localStorageMock.getItem.mockReturnValue('invalid');
 
       const result = storageAPI.getWordCount();
@@ -93,7 +93,7 @@ describe('storageAPI', () => {
   });
 
   describe('setWordCount', () => {
-    test('saves valid word count', () => {
+    it('saves valid word count', () => {
       storageAPI.setWordCount(3);
 
       expect(localStorageMock.setItem).toHaveBeenCalledWith(
@@ -102,7 +102,7 @@ describe('storageAPI', () => {
       );
     });
 
-    test('clamps high values to maximum 5', () => {
+    it('clamps high values to maximum 5', () => {
       storageAPI.setWordCount(10);
 
       expect(localStorageMock.setItem).toHaveBeenCalledWith(
@@ -111,7 +111,7 @@ describe('storageAPI', () => {
       );
     });
 
-    test('clamps low values to minimum 1', () => {
+    it('clamps low values to minimum 1', () => {
       storageAPI.setWordCount(0);
 
       expect(localStorageMock.setItem).toHaveBeenCalledWith(
@@ -120,7 +120,7 @@ describe('storageAPI', () => {
       );
     });
 
-    test('clamps negative values to minimum 1', () => {
+    it('clamps negative values to minimum 1', () => {
       storageAPI.setWordCount(-5);
 
       expect(localStorageMock.setItem).toHaveBeenCalledWith(
@@ -129,7 +129,7 @@ describe('storageAPI', () => {
       );
     });
 
-    test('handles localStorage errors gracefully', () => {
+    it('handles localStorage errors gracefully', () => {
       localStorageMock.setItem.mockImplementation(() => {
         throw new Error('localStorage quota exceeded');
       });
@@ -142,7 +142,7 @@ describe('storageAPI', () => {
   });
 
   describe('removeWordCount', () => {
-    test('removes word count from localStorage', () => {
+    it('removes word count from localStorage', () => {
       storageAPI.removeWordCount();
 
       expect(localStorageMock.removeItem).toHaveBeenCalledWith(
@@ -150,7 +150,7 @@ describe('storageAPI', () => {
       );
     });
 
-    test('handles localStorage errors gracefully', () => {
+    it('handles localStorage errors gracefully', () => {
       localStorageMock.removeItem.mockImplementation(() => {
         throw new Error('localStorage unavailable');
       });
@@ -163,11 +163,11 @@ describe('storageAPI', () => {
   });
 
   describe('isAvailable', () => {
-    test('returns true when localStorage is available', () => {
+    it('returns true when localStorage is available', () => {
       expect(storageAPI.isAvailable()).toBe(true);
     });
 
-    test('returns false when localStorage is undefined', () => {
+    it('returns false when localStorage is undefined', () => {
       const originalLocalStorage = (window as any).localStorage;
 
       delete (window as any).localStorage;
@@ -178,7 +178,7 @@ describe('storageAPI', () => {
       (window as any).localStorage = originalLocalStorage;
     });
 
-    test('returns false when localStorage throws error', () => {
+    it('returns false when localStorage throws error', () => {
       const originalLocalStorage = window.localStorage;
 
       Object.defineProperty(window, 'localStorage', {

@@ -91,7 +91,7 @@ export default function App() {
                   id={validationId}
                   role="alert"
                 >
-                  Enter at least one readable word before starting.
+                  Enter at least one word before starting.
                 </p>
               ) : null}
             </div>

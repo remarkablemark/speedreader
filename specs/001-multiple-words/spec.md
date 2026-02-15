@@ -5,6 +5,12 @@
 **Status**: Draft  
 **Input**: User description: "multiple words"
 
+## Clarifications
+
+### Session 2025-02-15
+
+- Q: What type of UI control should be used for selecting the word count per chunk? → A: Dropdown/select menu with numbered options, min 1 and max 5 words
+
 ## User Scenarios & Testing _(mandatory)_
 
 <!--
@@ -93,7 +99,7 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 ### Functional Requirements
 
 - **FR-001**: System MUST allow users to enable multiple words display mode
-- **FR-002**: System MUST allow users to configure the number of words displayed per chunk (2-4 words)
+- **FR-002**: System MUST allow users to configure the number of words displayed per chunk (1-5 words) via dropdown/select menu
 - **FR-003**: System MUST group words based on natural language boundaries when possible
 - **FR-004**: System MUST maintain consistent timing between word chunks based on WPM setting
 - **FR-005**: System MUST handle edge cases where remaining words are fewer than configured group size
@@ -103,7 +109,7 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 
 ### Key Entities _(include if feature involves data)_
 
-- **WordChunk**: Represents a group of 1-4 words to be displayed together, contains the text content and timing information
+- **WordChunk**: Represents a group of 1-5 words to be displayed together, contains the text content and timing information
 - **DisplaySettings**: Contains user preferences for words per chunk and grouping behavior
 - **TokenizedContent**: Extended to support word chunking in addition to individual word tokenization
 

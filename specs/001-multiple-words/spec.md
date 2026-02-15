@@ -104,7 +104,7 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 
 - **FR-001**: System MUST provide a unified display mode where users can select word count (1-5 words) via dropdown to control how many words appear simultaneously
 - **FR-002**: System MUST provide a dropdown/select menu labeled "Word Count" positioned after the WPM slider for configuring words per chunk (1-5 words)
-- **FR-009**: System MUST default to 1 word per chunk when multiple words display is first enabled
+- **FR-009**: System MUST default to 1 word per chunk when display is first enabled
 - **FR-010**: System MUST save word count selection to localStorage with key "speedreader.wordCount" and restore on page load
 - **FR-011**: System MUST display "word" terminology in Session Details when word count is 1, and "chunk" terminology when word count is >1
 - **FR-012**: System MUST recalculate progress based on current position in text when word count changes during a session
@@ -126,7 +126,7 @@ As a speed reader, I want words to be grouped intelligently based on natural lan
 
 - **SC-001**: Users can complete reading sessions 15-25% faster with multiple words display while maintaining 90%+ comprehension
 - **SC-002**: Users can configure word chunk settings in under 10 seconds without confusion
-- **SC-003**: 95% of users successfully switch between single word and multiple words modes without session interruption
+- **SC-003**: 95% of users successfully adjust word count settings without session interruption
 - **SC-004**: Word grouping algorithm maintains 90%+ user satisfaction for natural language breaks
 - **SC-005**: System handles all text edge cases without crashes or display errors
 - **SC-006**: Reading session timing remains accurate within 5% regardless of word chunk size

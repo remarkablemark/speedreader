@@ -7,8 +7,8 @@
 
 This feature extends the speed reader application to display multiple words simultaneously instead of single words. The implementation adds a dropdown control for word count selection (1-5 words), with intelligent word grouping, consistent timing, and proper progress tracking.
 
-**Total Tasks**: 54  
-**Tasks per User Story**: US1 (12), US2 (8), US3 (6), Setup/Polish (28)  
+**Total Tasks**: 55  
+**Tasks per User Story**: US1 (12), US2 (9), US3 (6), Setup/Polish (28)  
 **Parallel Opportunities**: 15+ tasks can be executed in parallel
 
 ## Phase 1: Setup
@@ -75,19 +75,20 @@ This feature extends the speed reader application to display multiple words simu
 ### UI Controls
 
 - [ ] T025 [P] [US2] Add Word Count dropdown to ControlPanel in src/components/ControlPanel/ControlPanel.tsx
-- [ ] T026 [US2] Implement word count change handler in ControlPanel component
-- [ ] T027 [US2] Add localStorage persistence for word count in ControlPanel component
+- [ ] T026 [US2] Position Word Count dropdown after WPM slider in ControlPanel component
+- [ ] T027 [US2] Implement word count change handler in ControlPanel component
+- [ ] T028 [US2] Add localStorage persistence for word count in ControlPanel component
 
 ### State Management
 
-- [ ] T028 [US2] Extend useReadingSession hook with word count state in src/components/App/useReadingSession.ts
-- [ ] T029 [US2] Implement word count change handler with progress recalculation in useReadingSession hook
-- [ ] T030 [US2] Add word count validation (1-5 range) in useReadingSession hook
+- [ ] T029 [US2] Extend useReadingSession hook with word count state in src/components/App/useReadingSession.ts
+- [ ] T030 [US2] Implement word count change handler with progress recalculation in useReadingSession hook
+- [ ] T031 [US2] Add word count validation (1-5 range) in useReadingSession hook
 
 ### Integration
 
-- [ ] T031 [US2] Connect ControlPanel word count to useReadingSession in App component
-- [ ] T032 [US2] Test word count configuration and display updates
+- [ ] T032 [US2] Connect ControlPanel word count to useReadingSession in App component
+- [ ] T033 [US2] Test word count configuration and display updates
 
 ## Phase 5: User Story 3 - Smart Word Grouping (P3)
 
@@ -99,7 +100,7 @@ This feature extends the speed reader application to display multiple words simu
 
 - [ ] T033 [P] [US3] Implement punctuation-based grouping in src/utils/wordChunking.ts
 - [ ] T034 [P] [US3] Implement function word grouping logic in src/utils/wordChunking.ts
-- [ ] T035 [US3] Implement long word handling in src/utils/wordChunking.ts
+- [ ] T035 [P] [US3] Implement long word handling in src/utils/wordChunking.ts
 
 ### Integration and Testing
 

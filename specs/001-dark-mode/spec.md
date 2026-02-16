@@ -11,6 +11,7 @@
 
 - Q: Toggle Control Location and Type → A: Header toggle switch with sun/moon icons
 - Q: Theme Transition Animation Duration → A: 300ms smooth transition
+- Q: System Theme Change Behavior → A: Automatically follow system changes
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -95,7 +96,7 @@ User wants the application to automatically match their operating system's theme
 - **FR-001**: System MUST provide a header toggle switch with sun/moon icons to switch between light and dark themes
 - **FR-002**: System MUST apply theme changes immediately to all UI elements
 - **FR-003**: System MUST persist user's theme preference across sessions
-- **FR-004**: System MUST detect and respect user's operating system theme preference on first visit
+- **FR-004**: System MUST detect and respect user's operating system theme preference on first visit and automatically follow system changes
 - **FR-005**: System MUST maintain proper color contrast ratios for accessibility in both themes
 - **FR-006**: System MUST provide 300ms smooth transitions between theme changes without flickering
 - **FR-007**: System MUST handle localStorage unavailability gracefully by defaulting to system theme preference

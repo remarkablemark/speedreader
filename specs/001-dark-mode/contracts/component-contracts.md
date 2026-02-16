@@ -148,8 +148,6 @@ interface StorageContract {
   key: 'speedreader.theme';
   /** Data format stored */
   format: 'light' | 'dark' | 'system';
-  /** Maximum storage size */
-  maxSize: 32; // bytes (string)
 }
 ```
 

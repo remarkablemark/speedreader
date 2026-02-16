@@ -15,6 +15,8 @@ const resolveEffectiveTheme = (
   return systemTheme === 'dark' ? 'dark' : 'light';
 };
 
+const ROOT = document.documentElement;
+
 export const useTheme = () => {
   const [themeState, setThemeState] = useState<ThemeState>(() => {
     const stored = loadThemePreference();
@@ -87,11 +89,10 @@ export const useTheme = () => {
   }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
     if (themeState.effectiveTheme === 'dark') {
-      root.classList.add('dark');
+      ROOT.classList.add('dark');
     } else {
-      root.classList.remove('dark');
+      ROOT.classList.remove('dark');
     }
   }, [themeState.effectiveTheme]);
 

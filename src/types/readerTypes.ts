@@ -1,6 +1,15 @@
 // Reading session states
 export type ReadingSessionStatus = 'idle' | 'running' | 'paused' | 'completed';
 
+// Word chunk for multiple words display
+export interface WordChunk {
+  /** The combined text of all words in chunk */
+  text: string;
+
+  /** Individual words that make up this chunk */
+  words: string[];
+}
+
 // Reading session data
 export interface ReadingSessionState {
   currentWordIndex: number;

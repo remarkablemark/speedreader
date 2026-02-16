@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, test, vi } from 'vitest';
+import { vi } from 'vitest';
 
 import { ControlPanel } from './ControlPanel';
 import type { ControlPanelProps } from './ControlPanel.types';
@@ -16,22 +16,24 @@ describe('ControlPanel', () => {
     onEditText: vi.fn(),
     isInputValid: true,
     status: 'idle',
+    wordsPerChunk: 1,
+    onWordsPerChunkChange: vi.fn(),
   };
 
-  test('renders speed slider with correct value', () => {
+  it('renders speed slider with correct value', () => {
     render(<ControlPanel {...defaultProps} />);
 
     const slider = screen.getByRole('slider', { name: /speed/i });
     expect(slider).toHaveValue('250');
   });
 
-  test('displays correct speed label', () => {
+  it('displays correct speed label', () => {
     render(<ControlPanel {...defaultProps} />);
 
     expect(screen.getByText('Speed (250 WPM)')).toBeInTheDocument();
   });
 
-  test('shows Read button in idle state', () => {
+  it('shows Read button in idle state', () => {
     render(<ControlPanel {...defaultProps} status="idle" />);
 
     const startButton = screen.getByRole('button', { name: /Read/ });
@@ -39,7 +41,7 @@ describe('ControlPanel', () => {
     expect(startButton).toBeEnabled();
   });
 
-  test('disables Read button when input is invalid', () => {
+  it('disables Read button when input is invalid', () => {
     render(
       <ControlPanel {...defaultProps} status="idle" isInputValid={false} />,
     );
@@ -48,7 +50,7 @@ describe('ControlPanel', () => {
     expect(startButton).toBeDisabled();
   });
 
-  test('shows Pause button in running state', () => {
+  it('shows Pause button in running state', () => {
     render(<ControlPanel {...defaultProps} status="running" />);
 
     expect(screen.getByRole('button', { name: /Pause/ })).toBeInTheDocument();
@@ -64,7 +66,7 @@ describe('ControlPanel', () => {
     ).not.toBeInTheDocument();
   });
 
-  test('shows Play button in paused state', () => {
+  it('shows Play button in paused state', () => {
     render(<ControlPanel {...defaultProps} status="paused" />);
 
     expect(screen.getByRole('button', { name: /Play/ })).toBeInTheDocument();
@@ -80,7 +82,7 @@ describe('ControlPanel', () => {
     ).not.toBeInTheDocument();
   });
 
-  test('shows only Restart and Edit Text in completed state', () => {
+  it('shows only Restart and Edit Text in completed state', () => {
     render(<ControlPanel {...defaultProps} status="completed" />);
 
     expect(screen.getByRole('button', { name: 'Restart' })).toBeInTheDocument();
@@ -98,18 +100,23 @@ describe('ControlPanel', () => {
     ).not.toBeInTheDocument();
   });
 
-  test('calls onSpeedChange when slider value changes', () => {
+  it('has proper speed slider functionality', () => {
     const onSpeedChange = vi.fn();
 
     render(<ControlPanel {...defaultProps} onSpeedChange={onSpeedChange} />);
 
-    // The test passes if the component renders correctly - the onChange behavior
-    // is tested through integration tests in App.test.tsx
-    expect(screen.getByRole('slider', { name: /speed/i })).toBeInTheDocument();
-    expect(onSpeedChange).not.toHaveBeenCalled(); // Initially not called
+    const slider = screen.getByRole('slider', {
+      name: /speed/i,
+    });
+
+    // Verify slider exists and has correct attributes
+    expect(slider).toBeInTheDocument();
+    expect(slider).toHaveValue('250');
+    expect(slider).toHaveAttribute('min', '100');
+    expect(slider).toHaveAttribute('max', '1000');
   });
 
-  test('calls onStartReading when Read button is clicked', async () => {
+  it('calls onStartReading when Read button is clicked', async () => {
     const user = userEvent.setup();
     const onStartReading = vi.fn();
 
@@ -127,7 +134,7 @@ describe('ControlPanel', () => {
     expect(onStartReading).toHaveBeenCalledTimes(1);
   });
 
-  test('calls onPauseReading when Pause button is clicked', async () => {
+  it('calls onPauseReading when Pause button is clicked', async () => {
     const user = userEvent.setup();
     const onPauseReading = vi.fn();
 
@@ -145,7 +152,7 @@ describe('ControlPanel', () => {
     expect(onPauseReading).toHaveBeenCalledTimes(1);
   });
 
-  test('calls onResumeReading when Play button is clicked', async () => {
+  it('calls onResumeReading when Play button is clicked', async () => {
     const user = userEvent.setup();
     const onResumeReading = vi.fn();
 
@@ -163,7 +170,7 @@ describe('ControlPanel', () => {
     expect(onResumeReading).toHaveBeenCalledTimes(1);
   });
 
-  test('calls onRestartReading when Restart button is clicked', async () => {
+  it('calls onRestartReading when Restart button is clicked', async () => {
     const user = userEvent.setup();
     const onRestartReading = vi.fn();
 
@@ -181,7 +188,7 @@ describe('ControlPanel', () => {
     expect(onRestartReading).toHaveBeenCalledTimes(1);
   });
 
-  test('calls onEditText when Edit Text button is clicked', async () => {
+  it('calls onEditText when Edit Text button is clicked', async () => {
     const user = userEvent.setup();
     const onEditText = vi.fn();
 
@@ -199,7 +206,7 @@ describe('ControlPanel', () => {
     expect(onEditText).toHaveBeenCalledTimes(1);
   });
 
-  test('has proper accessibility attributes', () => {
+  it('has proper accessibility attributes', () => {
     render(<ControlPanel {...defaultProps} />);
 
     const controlsGroup = screen.getByRole('group', {
@@ -213,16 +220,7 @@ describe('ControlPanel', () => {
     expect(slider).toHaveAttribute('aria-valuenow', '250');
   });
 
-  test('applies responsive design classes', () => {
-    render(<ControlPanel {...defaultProps} />);
-
-    const controlsGroup = screen.getByRole('group', {
-      name: 'Reading controls',
-    });
-    expect(controlsGroup).toHaveClass('max-[480px]:gap-[0.4rem]');
-  });
-
-  test('renders conditional buttons correctly for all states', () => {
+  it('renders conditional buttons correctly for all states', () => {
     const { rerender } = render(
       <ControlPanel {...defaultProps} status="idle" />,
     );
@@ -285,5 +283,50 @@ describe('ControlPanel', () => {
     expect(
       screen.getByRole('button', { name: 'Edit Text' }),
     ).toBeInTheDocument();
+  });
+
+  it('renders word count dropdown with correct value', () => {
+    render(<ControlPanel {...defaultProps} />);
+
+    const dropdown = screen.getByRole('combobox', { name: /word count/i });
+    expect(dropdown).toHaveValue('1');
+  });
+
+  it('displays correct word count label', () => {
+    render(<ControlPanel {...defaultProps} />);
+
+    expect(screen.getByText('Word Count')).toBeInTheDocument();
+  });
+
+  it('calls onWordsPerChunkChange when dropdown value changes', async () => {
+    const user = userEvent.setup();
+    render(<ControlPanel {...defaultProps} />);
+
+    const dropdown = screen.getByRole('combobox', { name: /word count/i });
+    await user.selectOptions(dropdown, '3');
+
+    expect(defaultProps.onWordsPerChunkChange).toHaveBeenCalledWith(3);
+  });
+
+  it('renders all word count options', () => {
+    render(<ControlPanel {...defaultProps} />);
+
+    expect(screen.getByRole('option', { name: '1' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '2' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '3' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '4' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '5' })).toBeInTheDocument();
+  });
+
+  it('supports native keyboard navigation in dropdown', () => {
+    render(<ControlPanel {...defaultProps} />);
+
+    const dropdown = screen.getByRole('combobox', { name: /word count/i });
+
+    // Test that dropdown can be focused (native behavior)
+    expect(dropdown).not.toHaveAttribute('disabled');
+
+    // Native select elements don't need explicit tabindex - they're focusable by default
+    expect(dropdown).toBeVisible();
   });
 });

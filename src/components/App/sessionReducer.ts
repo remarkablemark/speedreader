@@ -7,7 +7,7 @@ export interface SessionReducerState extends ReadingSessionState {
 }
 
 export type SessionReducerAction =
-  | { type: 'start'; totalWords: number }
+  | { type: 'start'; totalWords: number; words: string[] }
   | { type: 'pause' }
   | { type: 'resume' }
   | { type: 'restart' }
@@ -18,7 +18,10 @@ export type SessionReducerAction =
   | { type: 'advance' }
   | { type: 'editText' }
   | { type: 'resetElapsed' }
-  | { type: 'addElapsed'; durationMs: number };
+  | { type: 'addElapsed'; durationMs: number }
+  // Multiple words display actions
+  | { type: 'setWordsPerChunk'; wordsPerChunk: number }
+  | { type: 'updateChunkState'; totalChunks: number };
 
 export function createInitialSessionState(
   selectedWpm: number,
@@ -31,6 +34,11 @@ export function createInitialSessionState(
     startCount: 0,
     restartCount: 0,
     totalWords: 0,
+    // Multiple words display defaults
+    currentChunkIndex: 0,
+    totalChunks: 0,
+    wordsPerChunk: 1,
+    words: [],
   };
 }
 
@@ -48,6 +56,9 @@ export function sessionReducer(
         startCount: state.startCount + 1,
         restartCount: 0,
         totalWords: action.totalWords,
+        words: action.words,
+        // Reset chunk state when starting new session
+        currentChunkIndex: 0,
       };
     }
 
@@ -87,6 +98,7 @@ export function sessionReducer(
         ...state,
         status: 'running',
         currentWordIndex: 0,
+        currentChunkIndex: 0,
         elapsedMs: 0,
         restartCount: state.restartCount + 1,
       };
@@ -104,18 +116,24 @@ export function sessionReducer(
         return state;
       }
 
-      const nextWordIndex = state.currentWordIndex + 1;
-      if (nextWordIndex >= state.totalWords) {
+      const nextChunkIndex = state.currentChunkIndex + 1;
+      if (nextChunkIndex >= state.totalChunks) {
         return {
           ...state,
           status: 'completed',
+          currentChunkIndex: Math.max(state.totalChunks - 1, 0),
+          // Set word index to the last word
           currentWordIndex: Math.max(state.totalWords - 1, 0),
         };
       }
 
+      // Calculate the word index for the start of the next chunk
+      const nextWordIndex = nextChunkIndex * state.wordsPerChunk;
+
       return {
         ...state,
-        currentWordIndex: nextWordIndex,
+        currentChunkIndex: nextChunkIndex,
+        currentWordIndex: Math.min(nextWordIndex, state.totalWords - 1),
       };
     }
 
@@ -124,8 +142,11 @@ export function sessionReducer(
         ...state,
         status: 'idle',
         currentWordIndex: 0,
+        currentChunkIndex: 0,
         elapsedMs: 0,
         totalWords: 0,
+        words: [],
+        totalChunks: 0,
       };
     }
 
@@ -140,6 +161,28 @@ export function sessionReducer(
       return {
         ...state,
         elapsedMs: state.elapsedMs + action.durationMs,
+      };
+    }
+
+    // Multiple words display actions
+    case 'setWordsPerChunk': {
+      return {
+        ...state,
+        wordsPerChunk: action.wordsPerChunk,
+        // Reset chunk index when word count changes
+        currentChunkIndex: Math.floor(
+          state.currentWordIndex / action.wordsPerChunk,
+        ),
+      };
+    }
+
+    case 'updateChunkState': {
+      return {
+        ...state,
+        totalChunks: action.totalChunks,
+        currentChunkIndex: Math.floor(
+          state.currentWordIndex / state.wordsPerChunk,
+        ),
       };
     }
 

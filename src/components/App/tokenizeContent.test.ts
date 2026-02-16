@@ -12,13 +12,20 @@ describe('tokenizeContent', () => {
   });
 
   it('returns empty token payload when text is unreadable', () => {
-    expect(tokenizeContent('  ')).toEqual({ words: [], totalWords: 0 });
+    expect(tokenizeContent('  ')).toEqual({
+      words: [],
+      totalWords: 0,
+      chunks: [],
+      totalChunks: 0,
+    });
   });
 
   it('tokenizes words by whitespace while preserving order', () => {
     expect(tokenizeContent('alpha   beta\n gamma\t delta')).toEqual({
       words: ['alpha', 'beta', 'gamma', 'delta'],
       totalWords: 4,
+      chunks: [],
+      totalChunks: 0,
     });
   });
 
@@ -26,11 +33,15 @@ describe('tokenizeContent', () => {
     expect(tokenizeContent(SESSION_TEXT.singleWord)).toEqual({
       words: ['Read'],
       totalWords: 1,
+      chunks: [],
+      totalChunks: 0,
     });
 
     const largeTokenized = tokenizeContent(SESSION_TEXT.largeText);
     expect(largeTokenized.totalWords).toBe(2000);
     expect(largeTokenized.words[0]).toBe('token-1');
     expect(largeTokenized.words[1999]).toBe('token-2000');
+    expect(largeTokenized.chunks).toEqual([]);
+    expect(largeTokenized.totalChunks).toBe(0);
   });
 });

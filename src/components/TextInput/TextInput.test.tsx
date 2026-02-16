@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, test, vi } from 'vitest';
+import { vi } from 'vitest';
 
 import { TextInput } from './TextInput';
 
@@ -12,7 +12,7 @@ describe('TextInput', () => {
     vi.clearAllMocks();
   });
 
-  test('renders textarea with correct attributes', () => {
+  it('renders textarea with correct attributes', () => {
     render(
       <TextInput
         value=""
@@ -31,7 +31,7 @@ describe('TextInput', () => {
     expect(textarea).toHaveAttribute('rows', '10');
   });
 
-  test('calls onChange when text is typed', async () => {
+  it('calls onChange when text is typed', async () => {
     const user = userEvent.setup();
     render(
       <TextInput
@@ -50,7 +50,7 @@ describe('TextInput', () => {
     expect(mockOnChange).toHaveBeenCalledTimes(5);
   });
 
-  test('displays validation message when input is invalid', () => {
+  it('displays validation message when input is invalid', () => {
     render(
       <TextInput
         value=""
@@ -68,7 +68,7 @@ describe('TextInput', () => {
     expect(errorMessage).toHaveAttribute('role', 'alert');
   });
 
-  test('does not display validation message when input is valid', () => {
+  it('does not display validation message when input is valid', () => {
     render(
       <TextInput
         value="Some text"
@@ -84,7 +84,7 @@ describe('TextInput', () => {
     expect(errorMessage).not.toBeInTheDocument();
   });
 
-  test('calls onSubmit when form is submitted with valid input', async () => {
+  it('calls onSubmit when form is submitted with valid input', async () => {
     const user = userEvent.setup();
     render(
       <TextInput
@@ -101,7 +101,7 @@ describe('TextInput', () => {
     expect(mockOnSubmit).toHaveBeenCalledWith('Valid text content');
   });
 
-  test('does not call onSubmit when form is submitted with invalid input', async () => {
+  it('does not call onSubmit when form is submitted with invalid input', async () => {
     const user = userEvent.setup();
     render(
       <TextInput
@@ -121,7 +121,7 @@ describe('TextInput', () => {
     }
   });
 
-  test('is disabled when disabled prop is true', () => {
+  it('is disabled when disabled prop is true', () => {
     render(
       <TextInput
         value="Some text"
@@ -136,7 +136,7 @@ describe('TextInput', () => {
     expect(textarea).toBeDisabled();
   });
 
-  test('has proper accessibility attributes', () => {
+  it('has proper accessibility attributes', () => {
     render(
       <TextInput
         value=""
@@ -152,5 +152,166 @@ describe('TextInput', () => {
       'focus:ring-2',
       'focus:ring-sky-200',
     );
+  });
+
+  it('renders label with correct text and htmlFor', () => {
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const label = screen.getByText('Session text');
+    expect(label).toBeInTheDocument();
+    expect(label.tagName).toBe('LABEL');
+  });
+
+  it('renders hidden submit button', () => {
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const submitButton = screen.getByTestId('submit-button');
+    expect(submitButton).toBeInTheDocument();
+    expect(submitButton).toHaveClass('sr-only');
+    expect(submitButton).toHaveAttribute('type', 'submit');
+  });
+
+  it('renders hidden word count input', () => {
+    render(
+      <TextInput
+        value="hello world"
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const wordCountInput = screen.getByTestId('word-count');
+    expect(wordCountInput).toBeInTheDocument();
+    expect(wordCountInput).toHaveAttribute('type', 'hidden');
+    expect(wordCountInput).toHaveAttribute('value', '2');
+  });
+
+  it('calculates word count correctly for empty text', () => {
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={false}
+      />,
+    );
+
+    const wordCountInput = screen.getByTestId('word-count');
+    expect(wordCountInput).toHaveAttribute('value', '0');
+  });
+
+  it('calculates word count correctly for single word', () => {
+    render(
+      <TextInput
+        value="hello"
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const wordCountInput = screen.getByTestId('word-count');
+    expect(wordCountInput).toHaveAttribute('value', '1');
+  });
+
+  it('calculates word count correctly for multiple words with extra spaces', () => {
+    render(
+      <TextInput
+        value="  hello   world  test  "
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const wordCountInput = screen.getByTestId('word-count');
+    expect(wordCountInput).toHaveAttribute('value', '3');
+  });
+
+  it('calls onSubmit when form is submitted via submit button', async () => {
+    const user = userEvent.setup();
+    render(
+      <TextInput
+        value="Valid text content"
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const submitButton = screen.getByTestId('submit-button');
+    await user.click(submitButton);
+
+    expect(mockOnSubmit).toHaveBeenCalledWith('Valid text content');
+  });
+
+  it('prevents form submission when invalid and submit button is clicked', async () => {
+    const user = userEvent.setup();
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={false}
+      />,
+    );
+
+    const submitButton = screen.getByTestId('submit-button');
+    await user.click(submitButton);
+
+    // onSubmit should not be called
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+  });
+
+  it('generates IDs for accessibility', () => {
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={true}
+      />,
+    );
+
+    const textarea = screen.getByRole('textbox');
+    const textareaId = textarea.id;
+
+    // ID should be generated and match expected pattern
+    expect(textareaId).toBeTruthy();
+    expect(typeof textareaId).toBe('string');
+  });
+
+  it('associates validation message with textarea correctly', () => {
+    render(
+      <TextInput
+        value=""
+        onChange={mockOnChange}
+        onSubmit={mockOnSubmit}
+        isValid={false}
+      />,
+    );
+
+    const errorMessage = screen.getByRole('alert');
+
+    // The validation message should be properly associated
+    expect(errorMessage).toHaveTextContent(
+      'Enter at least one word before reading.',
+    );
+    expect(errorMessage).toHaveAttribute('id');
   });
 });

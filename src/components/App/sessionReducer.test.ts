@@ -4,13 +4,13 @@ import {
   type SessionReducerState,
 } from './sessionReducer';
 
-function createRunningState(
-  overrides: Partial<SessionReducerState> = {},
-): SessionReducerState {
+function createRunningState(overrides: Partial<SessionReducerState> = {}) {
   return {
     ...createInitialSessionState(250),
-    status: 'running',
+    status: 'running' as const,
     totalWords: 3,
+    words: ['word1', 'word2', 'word3'],
+    totalChunks: 3, // 3 words with 1 word per chunk
     ...overrides,
   };
 }
@@ -25,6 +25,11 @@ describe('sessionReducer', () => {
       startCount: 0,
       restartCount: 0,
       totalWords: 0,
+      // Multiple words display defaults
+      currentChunkIndex: 0,
+      totalChunks: 0,
+      wordsPerChunk: 1,
+      words: [],
     });
   });
 
@@ -32,6 +37,7 @@ describe('sessionReducer', () => {
     const started = sessionReducer(createInitialSessionState(250), {
       type: 'start',
       totalWords: 4,
+      words: ['word1', 'word2', 'word3', 'word4'],
     });
 
     expect(started).toMatchObject({
@@ -63,14 +69,23 @@ describe('sessionReducer', () => {
     expect(ignoredResume.status).toBe('idle');
   });
 
-  it('advances words and completes on final transition', () => {
-    const running = createRunningState({ totalWords: 2, currentWordIndex: 0 });
+  it('advances chunks and completes on final transition', () => {
+    const running = createRunningState({
+      totalWords: 2,
+      words: ['word1', 'word2'],
+      totalChunks: 2,
+    });
     const afterFirstAdvance = sessionReducer(running, { type: 'advance' });
-    expect(afterFirstAdvance.currentWordIndex).toBe(1);
+    // With 2 words and 1 word per chunk, we have 2 chunks (indices 0, 1)
+    // Starting at chunk 0, after first advance we move to chunk 1, still running
     expect(afterFirstAdvance.status).toBe('running');
+    expect(afterFirstAdvance.currentChunkIndex).toBe(1);
+    expect(afterFirstAdvance.currentWordIndex).toBe(1);
 
+    // Second advance should complete (trying to go from chunk 1 to 2, but totalChunks is 2)
     const completed = sessionReducer(afterFirstAdvance, { type: 'advance' });
     expect(completed.status).toBe('completed');
+    expect(completed.currentChunkIndex).toBe(1);
     expect(completed.currentWordIndex).toBe(1);
 
     const ignoredAdvance = sessionReducer(createInitialSessionState(250), {

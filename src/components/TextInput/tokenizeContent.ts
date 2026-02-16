@@ -1,8 +1,12 @@
 const WHITESPACE_DELIMITER_PATTERN = /\s+/;
 
+import type { WordChunk } from 'src/types';
+
 export interface TokenizedContent {
   words: string[];
   totalWords: number;
+  chunks: WordChunk[];
+  totalChunks: number;
 }
 
 /**
@@ -20,6 +24,8 @@ export function tokenizeContent(rawText: string): TokenizedContent {
     return {
       words: [],
       totalWords: 0,
+      chunks: [],
+      totalChunks: 0,
     };
   }
 
@@ -31,5 +37,7 @@ export function tokenizeContent(rawText: string): TokenizedContent {
   return {
     words,
     totalWords: words.length,
+    chunks: [],
+    totalChunks: 0,
   };
 }

@@ -23,6 +23,10 @@ export default function App() {
     status,
     totalWords,
     wordsRead,
+    // Multiple words display
+    currentChunk,
+    wordsPerChunk,
+    setWordsPerChunk,
     editText,
     pauseReading,
     restartReading,
@@ -44,8 +48,8 @@ export default function App() {
       return;
     }
 
-    const { totalWords } = tokenizeContent(text);
-    startReading(totalWords);
+    const { totalWords, words } = tokenizeContent(text);
+    startReading(totalWords, words);
   };
 
   return (
@@ -70,6 +74,8 @@ export default function App() {
         ) : (
           <ReadingDisplay
             currentWord={currentWord}
+            currentChunk={currentChunk}
+            wordsPerChunk={wordsPerChunk}
             hasWords={hasSessionWords}
           />
         )}
@@ -86,6 +92,8 @@ export default function App() {
           onEditText={editText}
           isInputValid={isInputValid}
           status={status}
+          wordsPerChunk={wordsPerChunk}
+          onWordsPerChunkChange={setWordsPerChunk}
         />
 
         {!isSetupMode && (

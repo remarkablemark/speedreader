@@ -11,6 +11,9 @@ export interface ControlPanelProps {
   onEditText: () => void;
   isInputValid: boolean;
   status: ReadingSessionStatus;
+  // Multiple words display support
+  wordsPerChunk: number;
+  onWordsPerChunkChange: (wordsPerChunk: number) => void;
 }
 
 export interface SpeedSliderProps {

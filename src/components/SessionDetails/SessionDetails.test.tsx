@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, test } from 'vitest';
 
 import { SessionDetails } from './SessionDetails';
 import type { SessionDetailsProps } from './SessionDetails.types';
@@ -12,7 +11,7 @@ describe('SessionDetails', () => {
     msPerWord: 240,
   };
 
-  test('renders collapsible details with summary', () => {
+  it('renders collapsible details with summary', () => {
     render(<SessionDetails {...defaultProps} />);
 
     const summary = screen.getByText('Session details');
@@ -20,7 +19,7 @@ describe('SessionDetails', () => {
     expect(summary.tagName).toBe('SUMMARY');
   });
 
-  test('displays progress information correctly', () => {
+  it('displays progress information correctly', () => {
     render(<SessionDetails {...defaultProps} />);
 
     expect(screen.getByText(/Progress:/)).toBeInTheDocument();
@@ -29,7 +28,7 @@ describe('SessionDetails', () => {
     expect(screen.getByText(/25%/)).toBeInTheDocument(); // progressPercent
   });
 
-  test('displays tempo information correctly', () => {
+  it('displays tempo information correctly', () => {
     render(<SessionDetails {...defaultProps} />);
 
     expect(screen.getByText(/Tempo:/)).toBeInTheDocument();
@@ -37,7 +36,7 @@ describe('SessionDetails', () => {
     expect(screen.getByText(/milliseconds\/word/)).toBeInTheDocument();
   });
 
-  test('rounds percentage and ms/word values', () => {
+  it('rounds percentage and ms/word values', () => {
     const propsWithDecimals: SessionDetailsProps = {
       wordsRead: 33,
       totalWords: 100,
@@ -53,7 +52,7 @@ describe('SessionDetails', () => {
     expect(screen.getByText('333', { exact: false })).toBeInTheDocument(); // msPerWord
   });
 
-  test('handles zero values gracefully', () => {
+  it('handles zero values gracefully', () => {
     const zeroProps: SessionDetailsProps = {
       wordsRead: 0,
       totalWords: 0,
@@ -68,7 +67,7 @@ describe('SessionDetails', () => {
     expect(screen.getByText('240', { exact: false })).toBeInTheDocument(); // msPerWord
   });
 
-  test('has proper accessibility attributes', () => {
+  it('has proper accessibility attributes', () => {
     render(<SessionDetails {...defaultProps} />);
 
     const detailsElement = screen.getByRole('group');
@@ -79,7 +78,7 @@ describe('SessionDetails', () => {
     expect(liveRegion).toHaveAttribute('aria-live', 'polite');
   });
 
-  test('uses semantic details element', () => {
+  it('uses semantic details element', () => {
     render(<SessionDetails {...defaultProps} />);
 
     const detailsElement = screen.getByRole('group');
@@ -87,14 +86,14 @@ describe('SessionDetails', () => {
     expect(detailsElement).toHaveClass('m-0');
   });
 
-  test('formats progress text correctly', () => {
+  it('formats progress text correctly', () => {
     render(<SessionDetails {...defaultProps} />);
 
     const progressText = screen.getByText(/Progress:/).parentElement;
     expect(progressText).toHaveTextContent('Progress: 25 / 100 (25%)');
   });
 
-  test('formats tempo text correctly', () => {
+  it('formats tempo text correctly', () => {
     render(<SessionDetails {...defaultProps} />);
 
     const tempoText = screen.getByText(/Tempo:/).parentElement;

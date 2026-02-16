@@ -24,9 +24,8 @@ You're an expert engineer for this React app.
   - Prettier with Tailwind plugin
   - React Compiler (babel-plugin-react-compiler)
 - **File Structure:**
-  - `public/` – app assets
-  - `src/` – app code
-  - `test/` – test setup
+  - `public/` – assets
+  - `src/` – features, types, tests
 
 ## Commands you can use
 
@@ -44,7 +43,7 @@ You're an expert engineer for this React app.
 
 ### Testing
 
-- **Coverage:** `npm run test:ci` (run tests with coverage report, requires 100% coverage)
+- **Coverage:** `npm run test:ci` (run tests with coverage report)
 - **Single test file:** `npm test -- path/to/test.test.tsx` (run specific test file)
 - **Single test with coverage:** `npm run test:ci -- path/to/test.test.tsx`
 
@@ -109,13 +108,15 @@ import type { User } from './types';
 
 ### Testing Standards
 
-- **100% coverage required** - all statements, branches, functions, and lines
+- **100% coverage required** - all statements, branches, functions, and lines (except for barrel exports)
+- **Do not test barrel exports** - index.ts files are barrel exports and should not have dedicated tests
 - **Testing Library** - use @testing-library/react for component testing
 - **User interactions** - use @testing-library/user-event for simulating user actions
 - **Mock external dependencies** - mock API calls, browser APIs, etc.
 - **Descriptive test names** - should clearly state what is being tested
 - **Vitest globals** - use `vi.fn()`, `vi.mock()`, `vi.clearAllMocks()`
-- **Test setup** - global test environment configured in `vite.config.mts` with `globals: true`
+- **Test setup** - global test environment configured in `vite.config.mts` with `globals: true` and `src/setupTests.ts`
+- **Coverage exclusions** - Use `/* v8 ignore next -- @preserve */` for lines that are not testable
 
 ### Code Quality Rules
 
@@ -138,8 +139,7 @@ src/components/ComponentName/
 
 ### Import Aliases
 
-- `src/` maps to absolute imports (`src/components/App` → `src/components/App`)
-- `test/` maps to test utilities (`test/mocks/api` → `test/mocks/api`)
+- `src/` maps to absolute imports
 
 ## Boundaries
 

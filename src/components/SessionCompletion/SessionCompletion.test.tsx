@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, test } from 'vitest';
 
 import { SessionCompletion } from './SessionCompletion';
 import type { SessionCompletionProps } from './SessionCompletion.types';
@@ -10,7 +9,7 @@ describe('SessionCompletion', () => {
     elapsedMs: 24000,
   };
 
-  test('renders completion message with heading', () => {
+  it('renders completion message with heading', () => {
     render(<SessionCompletion {...defaultProps} />);
 
     const heading = screen.getByRole('heading', { level: 2 });
@@ -18,26 +17,26 @@ describe('SessionCompletion', () => {
     expect(heading).toHaveTextContent('Session complete');
   });
 
-  test('displays word count correctly', () => {
+  it('displays word count correctly', () => {
     render(<SessionCompletion {...defaultProps} />);
 
     expect(screen.getByText(/You read 100 words/)).toBeInTheDocument();
   });
 
-  test('displays elapsed time correctly', () => {
+  it('displays elapsed time correctly', () => {
     render(<SessionCompletion {...defaultProps} />);
 
     expect(screen.getByText(/in 24000 ms/)).toBeInTheDocument();
   });
 
-  test('displays full completion message', () => {
+  it('displays full completion message', () => {
     render(<SessionCompletion {...defaultProps} />);
 
     const message = screen.getByText(/You read 100 words in 24000 ms/);
     expect(message).toBeInTheDocument();
   });
 
-  test('handles zero values gracefully', () => {
+  it('handles zero values gracefully', () => {
     const zeroProps: SessionCompletionProps = {
       wordsRead: 0,
       elapsedMs: 0,
@@ -48,7 +47,7 @@ describe('SessionCompletion', () => {
     expect(screen.getByText(/You read 0 words in 0 ms/)).toBeInTheDocument();
   });
 
-  test('has proper styling classes', () => {
+  it('has proper styling classes', () => {
     render(<SessionCompletion {...defaultProps} />);
 
     const container = screen.getByText(/Session complete/).parentElement;
@@ -63,7 +62,7 @@ describe('SessionCompletion', () => {
     );
   });
 
-  test('uses semantic h2 heading', () => {
+  it('uses semantic h2 heading', () => {
     render(<SessionCompletion {...defaultProps} />);
 
     const heading = screen.getByRole('heading', { level: 2 });
@@ -71,7 +70,7 @@ describe('SessionCompletion', () => {
     expect(heading).toHaveClass('font-semibold');
   });
 
-  test('formats message with different values', () => {
+  it('formats message with different values', () => {
     const props: SessionCompletionProps = {
       wordsRead: 250,
       elapsedMs: 60000,
@@ -84,7 +83,7 @@ describe('SessionCompletion', () => {
     ).toBeInTheDocument();
   });
 
-  test('wraps content in proper container structure', () => {
+  it('wraps content in proper container structure', () => {
     render(<SessionCompletion {...defaultProps} />);
 
     const container = screen.getByRole('heading', { level: 2 }).parentElement;

@@ -1,6 +1,9 @@
 import { useEffect, useReducer } from 'react';
+import type { WordChunk } from 'src/types';
 import type { ReadingSessionStatus } from 'src/types/readerTypes';
 
+import { storageAPI } from '../../utils/storage';
+import { generateWordChunks } from '../../utils/wordChunking';
 import { persistPreferredWpm, readPreferredWpm } from './readerPreferences';
 import { createInitialSessionState, sessionReducer } from './sessionReducer';
 
@@ -15,20 +18,57 @@ interface UseReadingSessionResult {
   status: ReadingSessionStatus;
   totalWords: number;
   wordsRead: number;
+  // Multiple words display
+  currentChunkIndex: number;
+  totalChunks: number;
+  wordsPerChunk: number;
+  currentChunk: WordChunk | null;
+  chunks: WordChunk[];
+  // Actions
   editText: () => void;
   pauseReading: () => void;
   restartReading: () => void;
   resumeReading: () => void;
   setSelectedWpm: (value: number) => void;
-  startReading: (totalWords: number) => void;
+  setWordsPerChunk: (value: number) => void;
+  startReading: (totalWords: number, words: string[]) => void;
 }
 
+/**
+ * Hook for managing reading session state and word chunking.
+ *
+ * Features:
+ * - Manages reading session state (idle, running, paused, completed)
+ * - Handles word chunk generation with configurable words per chunk
+ * - Provides progress tracking and timing control
+ * - Integrates with localStorage for word count persistence
+ * - Uses React Compiler for automatic optimization
+ *
+ * @returns Hook result with session state and control functions
+ */
 export function useReadingSession(): UseReadingSessionResult {
   const [state, dispatch] = useReducer(
     sessionReducer,
     readPreferredWpm(),
     createInitialSessionState,
   );
+
+  // Calculate chunks directly - React Compiler will optimize
+  let chunks: WordChunk[] = [];
+  if (
+    state.totalWords > 0 &&
+    state.wordsPerChunk > 0 &&
+    state.words.length > 0
+  ) {
+    chunks = generateWordChunks(state.words, state.wordsPerChunk);
+  }
+
+  const currentChunk = chunks[state.currentChunkIndex] ?? null;
+
+  // Update chunk state in reducer when chunks change
+  useEffect(() => {
+    dispatch({ type: 'updateChunkState', totalChunks: chunks.length });
+  }, [chunks.length]);
 
   const msPerWord = 60000 / state.selectedWpm;
   const wordsRead =
@@ -46,8 +86,18 @@ export function useReadingSession(): UseReadingSessionResult {
     });
   };
 
-  const startReading = (totalWords: number) => {
-    dispatch({ type: 'start', totalWords });
+  const setWordsPerChunk = (value: number) => {
+    // Validate word count range (1-5)
+    const validatedValue = Math.max(1, Math.min(5, value));
+    storageAPI.setWordCount(validatedValue);
+    dispatch({ type: 'setWordsPerChunk', wordsPerChunk: validatedValue });
+  };
+
+  const startReading = (totalWords: number, words: string[]) => {
+    // Load saved word count preference when starting
+    const savedWordsPerChunk = storageAPI.getWordCount();
+    dispatch({ type: 'setWordsPerChunk', wordsPerChunk: savedWordsPerChunk });
+    dispatch({ type: 'start', totalWords, words });
   };
 
   const pauseReading = () => {
@@ -69,7 +119,7 @@ export function useReadingSession(): UseReadingSessionResult {
   useEffect(() => {
     if (
       state.status !== 'running' ||
-      state.currentWordIndex >= state.totalWords - 1
+      state.currentChunkIndex >= state.totalChunks - 1
     ) {
       return;
     }
@@ -82,7 +132,7 @@ export function useReadingSession(): UseReadingSessionResult {
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [msPerWord, state.currentWordIndex, state.status, state.totalWords]);
+  }, [msPerWord, state.currentChunkIndex, state.status, state.totalChunks]);
 
   return {
     status: state.status,
@@ -95,7 +145,15 @@ export function useReadingSession(): UseReadingSessionResult {
     wordsRead,
     progressPercent,
     restartCount: state.restartCount,
+    // Multiple words display
+    currentChunkIndex: state.currentChunkIndex,
+    totalChunks: state.totalChunks,
+    wordsPerChunk: state.wordsPerChunk,
+    currentChunk,
+    chunks,
+    // Actions
     setSelectedWpm,
+    setWordsPerChunk,
     startReading,
     pauseReading,
     resumeReading,

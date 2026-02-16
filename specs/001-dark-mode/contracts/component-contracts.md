@@ -112,11 +112,13 @@ interface ErrorHandling {
   /** Fallback behavior when localStorage fails */
   localStorageFallback: 'system-preference';
   /** Behavior when JSON parsing fails */
-  parseErrorFallback: 'clear-storage-and-use-system';
+  parseErrorFallback: 'use-system-preference';
   /** Behavior when media queries not supported */
   mediaQueryFallback: 'assume-no-preference';
 }
 ```
+
+**Approach**: Simple try-catch blocks following existing `storage.ts` pattern with silent failure and system preference fallback.
 
 ## Theme Utility Contract
 
@@ -156,17 +158,25 @@ interface StorageContract {
 }
 ```
 
-#### Error Recovery
+#### Error Handling
 
-1. **Quota Exceeded**
-   - Clear existing theme data
-   - Fall back to system preference
-   - Log error for debugging
+Follow existing codebase pattern with simple try-catch blocks:
 
-2. **Data Corruption**
-   - Detect invalid JSON structure
-   - Remove corrupted data
-   - Reset to system preference
+```typescript
+interface ErrorHandling {
+  /** Fallback behavior when localStorage fails */
+  localStorageFallback: 'system-preference';
+  /** Error handling approach */
+  errorStrategy: 'silent-failure-with-default';
+}
+```
+
+**Storage Operations**:
+
+- All localStorage operations wrapped in try-catch blocks
+- On any error, fall back to system preference
+- No explicit error logging or data corruption detection
+- Follows same pattern as existing `storage.ts` utility
 
 ## Integration Contract
 

@@ -7,7 +7,7 @@ description: 'Task list template for feature implementation'
 **Input**: Design documents from `/specs/001-dark-mode/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), data-model.md, contracts/
 
-**Tests**: TDD approach enforced - tests MUST be written and FAIL before implementation for all behavior changes.
+**Tests**: Test-First Quality Gates enforced - tests MUST be written and validated before implementation for behavior changes, following constitution principle IV.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -57,7 +57,7 @@ description: 'Task list template for feature implementation'
 
 ### Tests for User Story 1 (TDD REQUIRED)
 
-> **⚠️ TDD ENFORCED**: Write these tests FIRST, ensure they FAIL before implementation
+> **⚠️ TEST-FIRST ENFORCED**: Write tests FIRST, ensure they PASS validation before implementation
 
 - [ ] T008 [P] [US1] Write FAILING useTheme hook tests in src/hooks/useTheme.test.ts
 - [ ] T009 [P] [US1] Write FAILING theme utility tests in src/utils/theme.test.ts
@@ -70,6 +70,7 @@ description: 'Task list template for feature implementation'
 - [ ] T013 [US1] Integrate useTheme hook in src/components/App/App.tsx
 - [ ] T014 [US1] Apply theme classes to existing components in src/components/App/App.tsx
 - [ ] T015 [US1] Add theme transition styles to src/index.css
+- [ ] T016 [US1] Implement theme loading state management in src/components/App/App.tsx to wait for stored theme before showing content
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -83,17 +84,17 @@ description: 'Task list template for feature implementation'
 
 ### Tests for User Story 2 (TDD REQUIRED)
 
-> **⚠️ TDD ENFORCED**: Write these tests FIRST, ensure they FAIL before implementation
+> **⚠️ TEST-FIRST ENFORCED**: Write tests FIRST, ensure they PASS validation before implementation
 
-- [ ] T016 [P] [US2] Write FAILING localStorage persistence tests in src/hooks/useTheme.test.ts
-- [ ] T017 [P] [US2] Write FAILING localStorage error handling tests in src/utils/theme.test.ts
+- [ ] T017 [P] [US2] Write FAILING localStorage persistence tests in src/hooks/useTheme.test.ts
+- [ ] T018 [P] [US2] Write FAILING localStorage error handling tests in src/utils/theme.test.ts
 
 ### Implementation for User Story 2
 
-- [ ] T018 [US2] Implement localStorage save functionality in src/utils/theme.ts
-- [ ] T019 [US2] Implement localStorage load functionality in src/utils/theme.ts
-- [ ] T020 [US2] Add localStorage error handling in src/hooks/useTheme.ts
-- [ ] T021 [US2] Test theme persistence across browser sessions
+- [ ] T019 [US2] Implement localStorage save functionality in src/utils/theme.ts
+- [ ] T020 [US2] Implement localStorage load functionality in src/utils/theme.ts
+- [ ] T021 [US2] Add localStorage error handling in src/hooks/useTheme.ts
+- [ ] T022 [US2] Test theme persistence across browser sessions
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -107,18 +108,18 @@ description: 'Task list template for feature implementation'
 
 ### Tests for User Story 3 (TDD REQUIRED)
 
-> **⚠️ TDD ENFORCED**: Write these tests FIRST, ensure they FAIL before implementation
+> **⚠️ TEST-FIRST ENFORCED**: Write tests FIRST, ensure they PASS validation before implementation
 
-- [ ] T022 [P] [US3] Write FAILING system theme detection tests in src/utils/theme.test.ts
-- [ ] T023 [P] [US3] Write FAILING system theme change listener tests in src/hooks/useTheme.test.ts
+- [ ] T023 [P] [US3] Write FAILING system theme detection tests in src/utils/theme.test.ts
+- [ ] T024 [P] [US3] Write FAILING system theme change listener tests in src/hooks/useTheme.test.ts
 
 ### Implementation for User Story 3
 
-- [ ] T024 [US3] Implement system theme detection in src/utils/theme.ts
-- [ ] T025 [US3] Add system theme change listeners in src/hooks/useTheme.ts
-- [ ] T026 [US3] Implement high contrast mode detection in src/utils/theme.ts
-- [ ] T027 [US3] Add high contrast mode handling in src/hooks/useTheme.ts
-- [ ] T028 [US3] Update ThemeToggle to show system preference state
+- [ ] T025 [US3] Implement system theme detection in src/utils/theme.ts
+- [ ] T026 [US3] Add system theme change listeners in src/hooks/useTheme.ts
+- [ ] T027 [US3] Implement high contrast mode detection in src/utils/theme.ts
+- [ ] T028 [US3] Add high contrast mode handling in src/hooks/useTheme.ts
+- [ ] T029 [US3] Update ThemeToggle to show system preference state
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -128,13 +129,13 @@ description: 'Task list template for feature implementation'
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T029 [P] Update README.md with dark mode feature documentation
-- [ ] T030 Code cleanup and refactoring for theme implementation
-- [ ] T031 Performance optimization for theme transitions
-- [ ] T032 [P] Accessibility verification across keyboard, semantics, and responsive breakpoints
-- [ ] T033 [P] Additional regression tests for theme functionality
-- [ ] T034 Security hardening for localStorage usage
-- [ ] T035 Execute quality gates: `npm run lint`, `npm run lint:tsc`, `npm run test:ci`
+- [ ] T030 [P] Update README.md with dark mode feature documentation
+- [ ] T031 Code cleanup and refactoring for theme implementation
+- [ ] T032 Performance optimization for theme transitions
+- [ ] T033 [P] Accessibility verification across keyboard, semantics, and responsive breakpoints
+- [ ] T034 [P] Additional regression tests for theme functionality
+- [ ] T035 Security hardening for localStorage usage
+- [ ] T036 Execute quality gates: `npm run lint`, `npm run lint:tsc`, `npm run test:ci`
 
 ---
 
@@ -157,7 +158,7 @@ description: 'Task list template for feature implementation'
 
 ### Within Each User Story
 
-- **TDD ENFORCED**: Tests MUST be written and FAIL before implementation (no exceptions)
+- **TEST-FIRST ENFORCED**: Tests MUST be written and validated before implementation (no exceptions)
 - Utilities before hooks
 - Hooks before components
 - Components before integration
@@ -223,7 +224,7 @@ With multiple developers:
 
 - [P] tasks = different files, no dependencies
 - [Story] label maps task to specific user story for traceability
-- **TDD ENFORCED**: Tests MUST be written first and verified to FAIL before implementation
+- **Test-First ENFORCED**: Tests MUST be written first and validated before implementation
 - Each user story should be independently completable and testable
 - No exceptions to TDD rule for behavior changes
 - Commit after each task or logical group

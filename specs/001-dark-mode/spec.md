@@ -61,23 +61,24 @@ User wants the application to automatically match their operating system's theme
 
 ### Edge Cases
 
-- What happens when localStorage is disabled or full?
-- How does system handle theme switching during page load? System must wait for stored theme before showing content
-- What happens when system theme changes while application is open?
-- How does system handle high contrast mode accessibility settings? System must respect high contrast over dark mode
+- **localStorage disabled**: System MUST default to system theme preference and continue functioning
+- **localStorage quota exceeded**: System MUST gracefully fall back to system theme preference
+- **Theme switching during page load**: System MUST wait for stored theme before showing content (FR-008)
+- **System theme changes while app open**: System MUST automatically update theme when following system preference
+- **High contrast mode activation**: System MUST respect high contrast over dark mode when detected
 
 ## Requirements _(mandatory)_
 
 ### Constitution Alignment _(mandatory)_
 
 - **Comprehension Outcome**: Dark mode reduces eye strain in low-light conditions, improving reading comfort and potentially extending reading sessions without fatigue.
-- **Deterministic Behavior**: Theme changes must apply instantly and consistently across all UI elements, with no flickering or partial updates.
+- **Deterministic Behavior**: Theme changes must apply within 100ms consistently across all UI elements, with no flickering or partial updates.
 - **Accessibility Coverage**: Theme toggle must be keyboard accessible, properly labeled for screen readers, and maintain sufficient color contrast ratios in both modes.
 
 ### Functional Requirements
 
 - **FR-001**: System MUST provide a bottom right floating SVG toggle with sun/moon icons to switch between light and dark themes
-- **FR-002**: System MUST apply theme changes immediately to all UI elements
+- **FR-002**: System MUST apply theme changes within 100ms to all UI elements with no flickering or partial updates
 - **FR-003**: System MUST persist user's theme preference across sessions
 - **FR-004**: System MUST detect and respect user's operating system theme preference on first visit and automatically follow system changes
 - **FR-005**: System MUST maintain proper color contrast ratios for accessibility in both themes
@@ -94,7 +95,7 @@ User wants the application to automatically match their operating system's theme
 
 ### Measurable Outcomes
 
-- **SC-001**: Users can toggle between themes instantly with immediate visual feedback
+- **SC-001**: Users can toggle between themes within 100ms with immediate visual feedback and no layout shifts
 - **SC-002**: Theme preference persists across 100% of browser sessions when localStorage is available
 - **SC-003**: Both light and dark themes maintain WCAG AA contrast ratios (4.5:1 for normal text)
 - **SC-004**: 95% of users successfully find and use the theme toggle without assistance

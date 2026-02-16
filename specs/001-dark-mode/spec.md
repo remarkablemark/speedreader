@@ -91,7 +91,7 @@ User wants the application to automatically match their operating system's theme
 - **FR-004**: System MUST detect and respect user's operating system theme preference on first visit
 - **FR-005**: System MUST maintain proper color contrast ratios for accessibility in both themes
 - **FR-006**: System MUST provide smooth transitions between theme changes without flickering
-- **FR-007**: System MUST handle localStorage unavailability gracefully [NEEDS CLARIFICATION: fallback behavior when storage unavailable]
+- **FR-007**: System MUST handle localStorage unavailability gracefully by defaulting to system theme preference
 
 ### Key Entities _(include if feature involves data)_
 

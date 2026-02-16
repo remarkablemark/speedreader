@@ -13,6 +13,7 @@
 - Q: Theme Transition Animation Duration → A: 300ms smooth transition
 - Q: System Theme Change Behavior → A: Automatically follow system changes
 - Q: High Contrast Mode Interaction → A: Respect high contrast over dark mode
+- Q: Theme Loading State Behavior → A: Wait for stored theme before showing content
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -75,7 +76,7 @@ User wants the application to automatically match their operating system's theme
 ### Edge Cases
 
 - What happens when localStorage is disabled or full?
-- How does system handle theme switching during page load?
+- How does system handle theme switching during page load? System must wait for stored theme before showing content
 - What happens when system theme changes while application is open?
 - How does system handle high contrast mode accessibility settings? System must respect high contrast over dark mode
 
@@ -102,6 +103,7 @@ User wants the application to automatically match their operating system's theme
 - **FR-006**: System MUST provide 300ms smooth transitions between theme changes without flickering
 - **FR-007**: System MUST handle localStorage unavailability gracefully by defaulting to system theme preference
 - **FR-008**: System MUST respect high contrast mode over dark mode when detected
+- **FR-009**: System MUST wait for stored theme before showing content during page load
 
 ### Key Entities _(include if feature involves data)_
 

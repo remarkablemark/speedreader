@@ -57,12 +57,9 @@ src/
 │       └── index.ts
 ├── main.tsx
 └── index.css
-
-test/
-└── setupFiles.ts
 ```
 
-**Structure Decision**: Use the existing single-project React SPA structure under `src/`, implementing feature logic inside `src/components/App/` and validating behavior via colocated component tests plus shared test setup in `test/setupFiles.ts`.
+**Structure Decision**: Use the existing single-project React SPA structure under `src/`, implementing feature logic inside `src/components/App/` and validating behavior via colocated component tests.
 
 ## Complexity Tracking
 

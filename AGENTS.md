@@ -24,9 +24,8 @@ You're an expert engineer for this React app.
   - Prettier with Tailwind plugin
   - React Compiler (babel-plugin-react-compiler)
 - **File Structure:**
-  - `public/` – app assets
-  - `src/` – app code
-  - `test/` – test setup
+  - `public/` – assets
+  - `src/` – features, types, tests
 
 ## Commands you can use
 
@@ -116,7 +115,7 @@ import type { User } from './types';
 - **Mock external dependencies** - mock API calls, browser APIs, etc.
 - **Descriptive test names** - should clearly state what is being tested
 - **Vitest globals** - use `vi.fn()`, `vi.mock()`, `vi.clearAllMocks()`
-- **Test setup** - global test environment configured in `vite.config.mts` with `globals: true`
+- **Test setup** - global test environment configured in `vite.config.mts` with `globals: true` and `src/setupTests.ts`
 - **Coverage exclusions** - Use `/* v8 ignore next -- @preserve */` for lines that are not testable
 
 ### Code Quality Rules

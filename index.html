@@ -32,6 +32,26 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Apply theme before React loads to prevent flash
+      (function () {
+        switch (localStorage.getItem('speedreader.theme')) {
+          case 'light':
+            break;
+
+          case 'dark':
+            document.documentElement.classList.add('dark');
+            break;
+
+          case 'system':
+          default:
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+              document.documentElement.classList.add('dark');
+            }
+            break;
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -17,14 +17,34 @@ This quickstart guide provides the step-by-step approach to implement dark mode 
 
 ## Step 1: Configure Tailwind CSS Dark Mode
 
-Update `tailwind.config.js` to enable dark mode with class strategy:
+**Tailwind CSS v4** uses CSS-based configuration. Add dark mode variant to `src/index.css`:
 
-```javascript
-module.exports = {
-  darkMode: 'class', // Enable class-based dark mode
-  // ... existing config
-};
+```css
+@import 'tailwindcss';
+
+@theme {
+  --color-*: initial;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-700: #334155;
+  --color-slate-900: #0f172a;
+}
+
+@variant dark (&:where(.dark, .dark *));
 ```
+
+This enables class-based dark mode where styles are applied when `.dark` class is present on an element or its ancestors.
 
 ## Step 2: Create Theme Types
 

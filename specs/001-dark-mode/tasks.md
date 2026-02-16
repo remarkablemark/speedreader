@@ -28,9 +28,9 @@ description: 'Task list template for feature implementation'
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Configure Tailwind CSS dark mode with class strategy in tailwind.config.js
-- [ ] T002 [P] Create theme types in src/types/theme.ts
-- [ ] T003 [P] Establish accessibility and responsive test checklist for dark mode feature
+- [x] T001 Configure Tailwind CSS v4 dark mode with @variant directive in src/index.css
+- [x] T002 [P] Create theme types in src/types/theme.ts
+- [x] T003 [P] Establish accessibility and responsive test checklist for dark mode feature
 
 ---
 
@@ -40,10 +40,10 @@ description: 'Task list template for feature implementation'
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 [P] Implement theme utility functions in src/utils/theme.ts
-- [ ] T005 [P] Create useTheme hook in src/hooks/useTheme.ts
-- [ ] T006 Create ThemeToggle component structure in src/components/ThemeToggle/
-- [ ] T007 [P] Create ThemeToggle types in src/components/ThemeToggle/ThemeToggle.types.ts
+- [x] T004 [P] Implement theme utility functions in src/utils/theme.ts
+- [x] T005 [P] Create useTheme hook in src/hooks/useTheme.ts
+- [x] T006 Create ThemeToggle component structure in src/components/ThemeToggle/
+- [x] T007 [P] Create ThemeToggle types in src/components/ThemeToggle/ThemeToggle.types.ts
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -59,18 +59,18 @@ description: 'Task list template for feature implementation'
 
 > **⚠️ TEST-FIRST ENFORCED**: Write tests FIRST, ensure they PASS validation before implementation
 
-- [ ] T008 [P] [US1] Write FAILING useTheme hook tests in src/hooks/useTheme.test.ts
-- [ ] T009 [P] [US1] Write FAILING theme utility tests in src/utils/theme.test.ts
-- [ ] T010 [P] [US1] Write FAILING ThemeToggle component tests in src/components/ThemeToggle/ThemeToggle.test.tsx
+- [x] T008 [P] [US1] Write FAILING useTheme hook tests in src/hooks/useTheme.test.ts
+- [x] T009 [P] [US1] Write FAILING theme utility tests in src/utils/theme.test.ts
+- [x] T010 [P] [US1] Write FAILING ThemeToggle component tests in src/components/ThemeToggle/ThemeToggle.test.tsx
 
 ### Implementation for User Story 1
 
-- [ ] T011 [US1] Implement ThemeToggle component in src/components/ThemeToggle/ThemeToggle.tsx
-- [ ] T012 [US1] Create ThemeToggle barrel export in src/components/ThemeToggle/index.ts
-- [ ] T013 [US1] Integrate useTheme hook in src/components/App/App.tsx
-- [ ] T014 [US1] Apply theme classes to existing components in src/components/App/App.tsx
-- [ ] T015 [US1] Add theme transition styles to src/index.css
-- [ ] T016 [US1] Implement theme loading state management in src/components/App/App.tsx to wait for stored theme before showing content
+- [x] T011 [US1] Implement ThemeToggle component in src/components/ThemeToggle/ThemeToggle.tsx
+- [x] T012 [US1] Create ThemeToggle barrel export in src/components/ThemeToggle/index.ts
+- [x] T013 [US1] Integrate useTheme hook in src/components/App/App.tsx
+- [x] T014 [US1] Apply theme classes to existing components in src/components/App/App.tsx
+- [x] T015 [US1] Add theme transition styles to src/index.css
+- [x] T016 [US1] Implement theme loading state management in src/components/App/App.tsx to wait for stored theme before showing content
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -86,15 +86,15 @@ description: 'Task list template for feature implementation'
 
 > **⚠️ TEST-FIRST ENFORCED**: Write tests FIRST, ensure they PASS validation before implementation
 
-- [ ] T017 [P] [US2] Write FAILING localStorage persistence tests in src/hooks/useTheme.test.ts
-- [ ] T018 [P] [US2] Write FAILING localStorage error handling tests in src/utils/theme.test.ts
+- [x] T017 [P] [US2] Write FAILING localStorage persistence tests in src/hooks/useTheme.test.ts
+- [x] T018 [P] [US2] Write FAILING localStorage error handling tests in src/utils/theme.test.ts
 
 ### Implementation for User Story 2
 
-- [ ] T019 [US2] Implement localStorage save functionality in src/utils/theme.ts
-- [ ] T020 [US2] Implement localStorage load functionality in src/utils/theme.ts
-- [ ] T021 [US2] Add localStorage error handling in src/hooks/useTheme.ts
-- [ ] T022 [US2] Test theme persistence across browser sessions
+- [x] T019 [US2] Implement localStorage save functionality in src/utils/theme.ts
+- [x] T020 [US2] Implement localStorage load functionality in src/utils/theme.ts
+- [x] T021 [US2] Add localStorage error handling in src/hooks/useTheme.ts
+- [x] T022 [US2] Test theme persistence across browser sessions
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -110,16 +110,16 @@ description: 'Task list template for feature implementation'
 
 > **⚠️ TEST-FIRST ENFORCED**: Write tests FIRST, ensure they PASS validation before implementation
 
-- [ ] T023 [P] [US3] Write FAILING system theme detection tests in src/utils/theme.test.ts
-- [ ] T024 [P] [US3] Write FAILING system theme change listener tests in src/hooks/useTheme.test.ts
+- [x] T023 [P] [US3] Write FAILING system theme detection tests in src/utils/theme.test.ts
+- [x] T024 [P] [US3] Write FAILING system theme change listener tests in src/hooks/useTheme.test.ts
 
 ### Implementation for User Story 3
 
-- [ ] T025 [US3] Implement system theme detection in src/utils/theme.ts
-- [ ] T026 [US3] Add system theme change listeners in src/hooks/useTheme.ts
-- [ ] T027 [US3] Implement high contrast mode detection in src/utils/theme.ts
-- [ ] T028 [US3] Add high contrast mode handling in src/hooks/useTheme.ts
-- [ ] T029 [US3] Update ThemeToggle to show system preference state
+- [x] T025 [US3] Implement system theme detection in src/utils/theme.ts
+- [x] T026 [US3] Add system theme change listeners in src/hooks/useTheme.ts
+- [x] T027 [US3] Implement high contrast mode detection in src/utils/theme.ts
+- [x] T028 [US3] Add high contrast mode handling in src/hooks/useTheme.ts
+- [x] T029 [US3] Update ThemeToggle to show system preference state
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -129,12 +129,12 @@ description: 'Task list template for feature implementation'
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T030 Code cleanup and refactoring for theme implementation
-- [ ] T031 Performance optimization for theme transitions
-- [ ] T032 [P] Accessibility verification across keyboard, semantics, and responsive breakpoints
-- [ ] T033 [P] Additional regression tests for theme functionality
-- [ ] T034 Security hardening for localStorage usage
-- [ ] T035 Execute quality gates: `npm run lint`, `npm run lint:tsc`, `npm run test:ci`
+- [x] T030 Code cleanup and refactoring for theme implementation
+- [x] T031 Performance optimization for theme transitions
+- [x] T032 [P] Accessibility verification across keyboard, semantics, and responsive breakpoints
+- [x] T033 [P] Additional regression tests for theme functionality
+- [x] T034 Security hardening for localStorage usage
+- [x] T035 Execute quality gates: `npm run lint`, `npm run lint:tsc`, `npm run test:ci`
 
 ---
 

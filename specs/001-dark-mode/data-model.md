@@ -108,24 +108,20 @@ flowchart TD
 ### localStorage Key
 
 ```typescript
-const THEME_STORAGE_KEY = 'speedreader-theme-preference';
+const THEME_STORAGE_KEY = 'speedreader.theme';
 ```
 
 ### Stored Data Format
 
-```json
-{
-  "theme": "dark",
-  "persist": true,
-  "lastChanged": 1739644800000
-}
+```typescript
+// Simple string value
+'light' | 'dark' | 'system';
 ```
 
 ### Storage Validation
 
-- Parse JSON safely, handle corruption gracefully
-- Validate structure against ThemePreference interface
-- Default to system preference on validation failure
+- Validate string against allowed theme values
+- Handle invalid values gracefully by using system preference
 
 ## Performance Considerations
 
@@ -137,6 +133,6 @@ const THEME_STORAGE_KEY = 'speedreader-theme-preference';
 ## Error Handling
 
 - localStorage quota exceeded: fall back to system preference
-- JSON parsing errors: clear corrupted data, use system preference
+- Invalid string values: fall back to system preference
 - Media query not supported: assume 'no-preference'
-- Theme toggle errors: maintain current theme, log error
+- Theme toggle errors: maintain current theme, use simple try-catch

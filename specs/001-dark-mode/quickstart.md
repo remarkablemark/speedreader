@@ -33,15 +33,9 @@ Create `src/types/theme.ts`:
 ```typescript
 export type Theme = 'light' | 'dark' | 'system';
 
-export interface ThemePreference {
-  theme: Theme;
-  persist: boolean;
-  lastChanged: number;
-}
-
 export interface ThemeState {
   effectiveTheme: 'light' | 'dark';
-  userPreference: ThemePreference;
+  userPreference: Theme;
   systemPreference: 'light' | 'dark' | 'no-preference';
   highContrastMode: boolean;
 }
@@ -52,9 +46,9 @@ export interface ThemeState {
 Create `src/utils/theme.ts`:
 
 ```typescript
-import type { ThemePreference } from 'src/types/theme';
+import type { Theme } from 'src/types/theme';
 
-const THEME_STORAGE_KEY = 'speedreader-theme-preference';
+const THEME_STORAGE_KEY = 'speedreader.theme';
 
 export const getSystemTheme = (): 'light' | 'dark' | 'no-preference' => {
   if (!window.matchMedia) return 'no-preference';
@@ -70,40 +64,28 @@ export const getHighContrastMode = (): boolean => {
   return window.matchMedia('(prefers-contrast: high)').matches;
 };
 
-export const saveThemePreference = (preference: ThemePreference): boolean => {
+export const saveThemePreference = (theme: Theme): boolean => {
   try {
-    localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(preference));
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
     return true;
   } catch {
     return false;
   }
 };
 
-export const loadThemePreference = (): ThemePreference | null => {
+export const loadThemePreference = (): Theme | null => {
   try {
     const stored = localStorage.getItem(THEME_STORAGE_KEY);
     if (!stored) return null;
 
-    const parsed = JSON.parse(stored);
-    return validateThemePreference(parsed) ? parsed : null;
+    return validateThemePreference(stored) ? stored : null;
   } catch {
     return null;
   }
 };
 
-export const validateThemePreference = (
-  data: unknown,
-): data is ThemePreference => {
-  return (
-    typeof data === 'object' &&
-    data !== null &&
-    'theme' in data &&
-    ['light', 'dark', 'system'].includes((data as any).theme) &&
-    'persist' in data &&
-    typeof (data as any).persist === 'boolean' &&
-    'lastChanged' in data &&
-    typeof (data as any).lastChanged === 'number'
-  );
+export const validateThemePreference = (data: unknown): data is Theme => {
+  return typeof data === 'string' && ['light', 'dark', 'system'].includes(data);
 };
 ```
 
@@ -121,11 +103,7 @@ import {
   loadThemePreference,
 } from 'src/utils/theme';
 
-const DEFAULT_PREFERENCE = {
-  theme: 'system' as Theme,
-  persist: true,
-  lastChanged: Date.now(),
-};
+const DEFAULT_PREFERENCE: Theme = 'system';
 
 export const useTheme = () => {
   const [themeState, setThemeState] = useState<ThemeState>(() => {
@@ -136,9 +114,9 @@ export const useTheme = () => {
     const preference = stored || DEFAULT_PREFERENCE;
     const effectiveTheme = highContrast
       ? 'light'
-      : preference.theme === 'system'
+      : preference === 'system'
         ? systemTheme
-        : preference.theme;
+        : preference;
 
     return {
       effectiveTheme,
@@ -154,7 +132,7 @@ export const useTheme = () => {
 
     const handleChange = () => {
       setThemeState((prev) => {
-        if (prev.userPreference.theme !== 'system') return prev;
+        if (prev.userPreference !== 'system') return prev;
 
         const newSystemTheme = mediaQuery.matches ? 'dark' : 'light';
         const effectiveTheme = prev.highContrastMode ? 'light' : newSystemTheme;
@@ -180,9 +158,9 @@ export const useTheme = () => {
         const highContrast = mediaQuery.matches;
         const effectiveTheme = highContrast
           ? 'light'
-          : prev.userPreference.theme === 'system'
+          : prev.userPreference === 'system'
             ? prev.systemPreference
-            : prev.userPreference.theme;
+            : prev.userPreference;
 
         return {
           ...prev,
@@ -199,31 +177,20 @@ export const useTheme = () => {
   const toggleTheme = useCallback(() => {
     setThemeState((prev) => {
       const newTheme = prev.effectiveTheme === 'light' ? 'dark' : 'light';
-      const newPreference = {
-        theme: newTheme,
-        persist: true,
-        lastChanged: Date.now(),
-      };
 
-      saveThemePreference(newPreference);
+      saveThemePreference(newTheme);
 
       return {
         ...prev,
         effectiveTheme: newTheme,
-        userPreference: newPreference,
+        userPreference: newTheme,
       };
     });
   }, []);
 
   const setTheme = useCallback((theme: Theme) => {
     setThemeState((prev) => {
-      const newPreference = {
-        theme,
-        persist: true,
-        lastChanged: Date.now(),
-      };
-
-      saveThemePreference(newPreference);
+      saveThemePreference(theme);
 
       const effectiveTheme = prev.highContrastMode
         ? 'light'
@@ -234,15 +201,15 @@ export const useTheme = () => {
       return {
         ...prev,
         effectiveTheme,
-        userPreference: newPreference,
+        userPreference: theme,
       };
     });
   }, []);
 
   return {
     theme: themeState.effectiveTheme,
-    preference: themeState.userPreference.theme,
-    followingSystem: themeState.userPreference.theme === 'system',
+    preference: themeState.userPreference,
+    followingSystem: themeState.userPreference === 'system',
     toggleTheme,
     setTheme,
     highContrastMode: themeState.highContrastMode,
@@ -369,7 +336,7 @@ export const App = () => {
 
 Create `src/hooks/useTheme.test.ts`:
 
-```typescript
+````typescript
 import { renderHook, act } from '@testing-library/react';
 import { useTheme } from './useTheme';
 
@@ -421,13 +388,9 @@ describe('useTheme', () => {
   });
 
   it('should load saved preference from localStorage', () => {
-    const savedPreference = {
-      theme: 'dark',
-      persist: true,
-      lastChanged: Date.now(),
-    };
+    const savedPreference = 'dark';
 
-    localStorageMock.getItem.mockReturnValue(JSON.stringify(savedPreference));
+    localStorageMock.getItem.mockReturnValue(savedPreference);
 
     const { result } = renderHook(() => useTheme());
 
@@ -477,3 +440,4 @@ html {
 ## Next Steps
 
 After implementation, run `/speckit.tasks` to generate the detailed task breakdown for development.
+````

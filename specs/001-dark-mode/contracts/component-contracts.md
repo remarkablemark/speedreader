@@ -111,7 +111,7 @@ interface UseThemeReturn {
 interface ErrorHandling {
   /** Fallback behavior when localStorage fails */
   localStorageFallback: 'system-preference';
-  /** Behavior when JSON parsing fails */
+  /** Behavior when string validation fails */
   parseErrorFallback: 'use-system-preference';
   /** Behavior when media queries not supported */
   mediaQueryFallback: 'assume-no-preference';
@@ -131,11 +131,13 @@ interface ThemeUtils {
   /** Check if high contrast mode is active */
   getHighContrastMode: () => boolean;
   /** Save theme preference to localStorage */
-  saveThemePreference: (preference: ThemePreference) => boolean;
+  saveThemePreference: (theme: 'light' | 'dark' | 'system') => boolean;
   /** Load theme preference from localStorage */
-  loadThemePreference: () => ThemePreference | null;
-  /** Validate theme preference object */
-  validateThemePreference: (data: unknown) => data is ThemePreference;
+  loadThemePreference: () => 'light' | 'dark' | 'system' | null;
+  /** Validate theme preference string */
+  validateThemePreference: (
+    data: unknown,
+  ) => data is 'light' | 'dark' | 'system';
 }
 ```
 
@@ -146,15 +148,11 @@ interface ThemeUtils {
 ```typescript
 interface StorageContract {
   /** Storage key for theme preference */
-  key: 'speedreader-theme-preference';
+  key: 'speedreader.theme';
   /** Data format stored */
-  format: {
-    theme: 'light' | 'dark' | 'system';
-    persist: boolean;
-    lastChanged: number;
-  };
+  format: 'light' | 'dark' | 'system';
   /** Maximum storage size */
-  maxSize: 1024; // bytes
+  maxSize: 32; // bytes (string)
 }
 ```
 

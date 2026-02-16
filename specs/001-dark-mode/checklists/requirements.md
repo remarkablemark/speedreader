@@ -1,7 +1,7 @@
 # Specification Quality Checklist: Dark Mode
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
-**Created**: 2025-06-17
+**Created**: 2026-02-15
 **Feature**: [Dark Mode](spec.md)
 
 ## Content Quality

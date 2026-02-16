@@ -129,13 +129,12 @@ description: 'Task list template for feature implementation'
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T030 [P] Update README.md with dark mode feature documentation
-- [ ] T031 Code cleanup and refactoring for theme implementation
-- [ ] T032 Performance optimization for theme transitions
-- [ ] T033 [P] Accessibility verification across keyboard, semantics, and responsive breakpoints
-- [ ] T034 [P] Additional regression tests for theme functionality
-- [ ] T035 Security hardening for localStorage usage
-- [ ] T036 Execute quality gates: `npm run lint`, `npm run lint:tsc`, `npm run test:ci`
+- [ ] T030 Code cleanup and refactoring for theme implementation
+- [ ] T031 Performance optimization for theme transitions
+- [ ] T032 [P] Accessibility verification across keyboard, semantics, and responsive breakpoints
+- [ ] T033 [P] Additional regression tests for theme functionality
+- [ ] T034 Security hardening for localStorage usage
+- [ ] T035 Execute quality gates: `npm run lint`, `npm run lint:tsc`, `npm run test:ci`
 
 ---
 

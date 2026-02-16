@@ -23,7 +23,7 @@ export const ThemeToggle = ({
       <span className="sr-only">{ariaLabel}</span>
       {isDark ? (
         <svg
-          className="h-6 w-6 rotate-180 transition-transform duration-300"
+          className="h-6 w-6 rotate-180 text-yellow-400 transition-transform duration-300 dark:text-yellow-300"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -37,7 +37,7 @@ export const ThemeToggle = ({
         </svg>
       ) : (
         <svg
-          className="h-6 w-6 transition-transform duration-300"
+          className="h-6 w-6 text-orange-500 transition-transform duration-300 dark:text-orange-400"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

@@ -45,11 +45,11 @@ export function ControlPanel({
 
   return (
     <div
-      className="flex w-full items-end justify-center gap-1.5 overflow-x-visible"
+      className="flex w-full flex-col gap-4 sm:flex-row sm:items-end sm:justify-center sm:gap-1.5 sm:overflow-x-visible"
       role="group"
       aria-label="Reading controls"
     >
-      <div className="mr-4 shrink-0">
+      <div className="sm:mr-4 sm:shrink-0">
         <label
           className="block text-xs font-medium text-slate-700"
           htmlFor={speedInputId}
@@ -67,10 +67,11 @@ export function ControlPanel({
           aria-valuemin={READER_MIN_WPM}
           aria-valuemax={READER_MAX_WPM}
           aria-valuenow={selectedWpm}
+          className="w-full sm:w-auto"
         />
       </div>
 
-      <div className="mr-4 shrink-0">
+      <div className="sm:mr-4 sm:shrink-0">
         <label
           className="block text-xs font-medium text-slate-700"
           htmlFor={wordCountInputId}
@@ -91,37 +92,58 @@ export function ControlPanel({
         </select>
       </div>
 
-      {isIdle ? (
-        <Button
-          variant="primary"
-          disabled={!isInputValid}
-          onClick={onStartReading}
-        >
-          ▶ Read
-        </Button>
-      ) : (
-        <>
-          {isRunning && (
-            <Button variant="secondary" onClick={onPauseReading} autoFocus>
-              ⏸ Pause
-            </Button>
-          )}
-
-          {isPaused && (
-            <Button variant="primary" onClick={onResumeReading} autoFocus>
-              ▶ Play
-            </Button>
-          )}
-
-          <Button variant="secondary" onClick={onRestartReading}>
-            Restart
+      <div className="flex flex-wrap gap-2 sm:flex-nowrap sm:gap-1.5">
+        {isIdle ? (
+          <Button
+            variant="primary"
+            disabled={!isInputValid}
+            onClick={onStartReading}
+            className="w-full sm:w-auto"
+          >
+            ▶ Read
           </Button>
+        ) : (
+          <>
+            {isRunning && (
+              <Button
+                variant="secondary"
+                onClick={onPauseReading}
+                autoFocus
+                className="flex-1 sm:flex-initial"
+              >
+                ⏸ Pause
+              </Button>
+            )}
 
-          <Button variant="secondary" onClick={onEditText}>
-            Edit Text
-          </Button>
-        </>
-      )}
+            {isPaused && (
+              <Button
+                variant="primary"
+                onClick={onResumeReading}
+                autoFocus
+                className="flex-1 sm:flex-initial"
+              >
+                ▶ Play
+              </Button>
+            )}
+
+            <Button
+              variant="secondary"
+              onClick={onRestartReading}
+              className="flex-1 sm:flex-initial"
+            >
+              Restart
+            </Button>
+
+            <Button
+              variant="secondary"
+              onClick={onEditText}
+              className="flex-1 sm:flex-initial"
+            >
+              Edit Text
+            </Button>
+          </>
+        )}
+      </div>
     </div>
   );
 }

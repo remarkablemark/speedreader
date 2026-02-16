@@ -92,7 +92,6 @@ export const useTheme = () => {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
-      root.className = ''; // Ensure all classes are removed when switching to light
     }
   }, [themeState.effectiveTheme]);
 

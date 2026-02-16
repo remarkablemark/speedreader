@@ -82,7 +82,7 @@ export function ControlPanel({
           id={wordCountInputId}
           value={wordsPerChunk}
           onChange={handleWordsPerChunkChange}
-          className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-900 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none sm:text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+          className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-900 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none sm:text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         >
           <option value={1}>1</option>
           <option value={2}>2</option>

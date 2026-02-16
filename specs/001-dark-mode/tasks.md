@@ -7,8 +7,7 @@ description: 'Task list template for feature implementation'
 **Input**: Design documents from `/specs/001-dark-mode/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), data-model.md, contracts/
 
-**Tests**: Include test tasks for behavior changes and bug fixes. Tests may be omitted only for
-documentation-only or non-functional chores, and the omission MUST be justified in tasks.md.
+**Tests**: TDD approach enforced - tests MUST be written and FAIL before implementation for all behavior changes.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -56,11 +55,13 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 **Independent Test**: Can be fully tested by toggling the theme switch and verifying the UI changes between light and dark modes.
 
-### Tests for User Story 1
+### Tests for User Story 1 (TDD REQUIRED)
 
-- [ ] T008 [P] [US1] Create useTheme hook tests in src/hooks/useTheme.test.ts
-- [ ] T009 [P] [US1] Create theme utility tests in src/utils/theme.test.ts
-- [ ] T010 [P] [US1] Create ThemeToggle component tests in src/components/ThemeToggle/ThemeToggle.test.tsx
+> **⚠️ TDD ENFORCED**: Write these tests FIRST, ensure they FAIL before implementation
+
+- [ ] T008 [P] [US1] Write FAILING useTheme hook tests in src/hooks/useTheme.test.ts
+- [ ] T009 [P] [US1] Write FAILING theme utility tests in src/utils/theme.test.ts
+- [ ] T010 [P] [US1] Write FAILING ThemeToggle component tests in src/components/ThemeToggle/ThemeToggle.test.tsx
 
 ### Implementation for User Story 1
 
@@ -80,10 +81,12 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 **Independent Test**: Can be tested by setting a theme, closing/reopening the application, and verifying the theme persists.
 
-### Tests for User Story 2
+### Tests for User Story 2 (TDD REQUIRED)
 
-- [ ] T016 [P] [US2] Test localStorage persistence in src/hooks/useTheme.test.ts
-- [ ] T017 [P] [US2] Test localStorage error handling in src/utils/theme.test.ts
+> **⚠️ TDD ENFORCED**: Write these tests FIRST, ensure they FAIL before implementation
+
+- [ ] T016 [P] [US2] Write FAILING localStorage persistence tests in src/hooks/useTheme.test.ts
+- [ ] T017 [P] [US2] Write FAILING localStorage error handling tests in src/utils/theme.test.ts
 
 ### Implementation for User Story 2
 
@@ -102,10 +105,12 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 **Independent Test**: Can be tested by changing OS theme settings and verifying the application responds accordingly.
 
-### Tests for User Story 3
+### Tests for User Story 3 (TDD REQUIRED)
 
-- [ ] T022 [P] [US3] Test system theme detection in src/utils/theme.test.ts
-- [ ] T023 [P] [US3] Test system theme change listeners in src/hooks/useTheme.test.ts
+> **⚠️ TDD ENFORCED**: Write these tests FIRST, ensure they FAIL before implementation
+
+- [ ] T022 [P] [US3] Write FAILING system theme detection tests in src/utils/theme.test.ts
+- [ ] T023 [P] [US3] Write FAILING system theme change listener tests in src/hooks/useTheme.test.ts
 
 ### Implementation for User Story 3
 
@@ -152,7 +157,7 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 ### Within Each User Story
 
-- Tests MUST be written and FAIL before implementation
+- **TDD ENFORCED**: Tests MUST be written and FAIL before implementation (no exceptions)
 - Utilities before hooks
 - Hooks before components
 - Components before integration
@@ -168,15 +173,15 @@ documentation-only or non-functional chores, and the omission MUST be justified 
 
 ---
 
-## Parallel Example: User Story 1
+## Parallel Example: User Story 1 (TDD APPROACH)
 
 ```bash
-# Launch all tests for User Story 1 together:
-Task: "Create useTheme hook tests in src/hooks/useTheme.test.ts"
-Task: "Create theme utility tests in src/utils/theme.test.ts"
-Task: "Create ThemeToggle component tests in src/components/ThemeToggle/ThemeToggle.test.tsx"
+# Step 1: Write all FAILING tests for User Story 1:
+Task: "Write FAILING useTheme hook tests in src/hooks/useTheme.test.ts"
+Task: "Write FAILING theme utility tests in src/utils/theme.test.ts"
+Task: "Write FAILING ThemeToggle component tests in src/components/ThemeToggle/ThemeToggle.test.tsx"
 
-# Launch all utilities for User Story 1 together:
+# Step 2: Verify all tests FAIL, then implement to make them pass
 Task: "Implement ThemeToggle component in src/components/ThemeToggle/ThemeToggle.tsx"
 Task: "Create ThemeToggle barrel export in src/components/ThemeToggle/index.ts"
 ```
@@ -218,9 +223,9 @@ With multiple developers:
 
 - [P] tasks = different files, no dependencies
 - [Story] label maps task to specific user story for traceability
+- **TDD ENFORCED**: Tests MUST be written first and verified to FAIL before implementation
 - Each user story should be independently completable and testable
-- Verify tests fail before implementing behavior changes
-- Document justification for any omitted tests
+- No exceptions to TDD rule for behavior changes
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence

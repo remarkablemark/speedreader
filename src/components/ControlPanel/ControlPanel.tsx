@@ -45,11 +45,11 @@ export function ControlPanel({
 
   return (
     <div
-      className="flex w-full items-end justify-center gap-4 overflow-x-visible pb-1 sm:gap-6"
+      className="flex w-full items-end justify-center gap-1.5 overflow-x-visible"
       role="group"
       aria-label="Reading controls"
     >
-      <div className="shrink-0">
+      <div className="mr-4 shrink-0">
         <label
           className="block text-xs font-medium text-slate-700"
           htmlFor={speedInputId}
@@ -70,7 +70,7 @@ export function ControlPanel({
         />
       </div>
 
-      <div className="shrink-0">
+      <div className="mr-4 shrink-0">
         <label
           className="block text-xs font-medium text-slate-700"
           htmlFor={wordCountInputId}

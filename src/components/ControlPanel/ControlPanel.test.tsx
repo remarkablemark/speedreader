@@ -220,15 +220,6 @@ describe('ControlPanel', () => {
     expect(slider).toHaveAttribute('aria-valuenow', '250');
   });
 
-  it('applies responsive design classes', () => {
-    render(<ControlPanel {...defaultProps} />);
-
-    const controlsGroup = screen.getByRole('group', {
-      name: 'Reading controls',
-    });
-    expect(controlsGroup).toHaveClass('gap-4', 'sm:gap-6');
-  });
-
   it('renders conditional buttons correctly for all states', () => {
     const { rerender } = render(
       <ControlPanel {...defaultProps} status="idle" />,

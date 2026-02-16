@@ -1,4 +1,4 @@
-import type { ReadingSessionState } from './readerTypes';
+import type { ReadingSessionState } from 'src/types/readerTypes';
 
 export interface SessionReducerState extends ReadingSessionState {
   startCount: number;

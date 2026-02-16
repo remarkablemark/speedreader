@@ -8,16 +8,18 @@
 
 ### Theme Management Approach
 
-**Decision**: Use React Context + localStorage + system preference detection  
+**Decision**: Use custom hook + localStorage + system preference detection
 **Rationale**:
 
-- React Context provides global theme state management
+- Custom `useTheme` hook follows existing codebase pattern (like `useReadingSession`)
 - localStorage ensures persistence across sessions
 - `prefers-color-scheme` media query enables system theme detection
+- Simple prop passing to ThemeToggle component (no deep component tree)
 - No additional dependencies required beyond existing React/Tailwind
 
 **Alternatives considered**:
 
+- React Context (rejected: over-engineering for simple use case with shallow component tree)
 - CSS-only solution with `prefers-color-scheme` (rejected: lacks user preference persistence)
 - Third-party theme libraries (rejected: adds unnecessary dependencies for simple use case)
 
@@ -43,7 +45,7 @@
 
 - Leverages existing Tailwind setup
 - Provides explicit control over theme application
-- Works well with React Context state management
+- Works well with custom hook state management
 - Maintains design system consistency
 
 **Alternatives considered**:

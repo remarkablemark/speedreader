@@ -400,18 +400,7 @@ describe('useTheme', () => {
 });
 ```
 
-## Step 8: Configure Tailwind for Theme Support
-
-Add theme support to your CSS:
-
-```css
-/* Add to src/index.css after @import 'tailwindcss' */
-
-/* Prevent flash of incorrect theme */
-html {
-  color-scheme: light dark;
-}
-```
+## Step 8: Apply Theme Classes to Components
 
 **Apply theme classes to components**:
 

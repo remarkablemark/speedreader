@@ -17,8 +17,8 @@ Add dark mode functionality to the speed reader application with a floating togg
 **Testing**: Vitest 4, React Testing Library  
 **Target Platform**: Web browser  
 **Project Type**: Web application  
-**Performance Goals**: <1s theme toggle, 300ms transitions, no layout shifts  
-**Constraints**: Must work with localStorage disabled, respect high contrast mode  
+**Performance Goals**: Instant theme toggle, no layout shifts
+**Constraints**: Must work with localStorage disabled, respect high contrast mode
 **Scale/Scope**: Single page application with theme-aware components
 
 ## Constitution Check
@@ -36,7 +36,7 @@ _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 ### Post-Design Evaluation ✅
 
 - [x] **Reader Comprehension**: Dark mode reduces eye strain in low-light conditions, improving reading comfort and potentially extending reading sessions without fatigue (measurable through user session duration).
-- [x] **Deterministic Behavior**: Theme changes apply instantly with 300ms CSS transitions, state management through custom useTheme hook ensures predictable behavior, localStorage persistence provides reliable session-to-session consistency.
+- [x] **Deterministic Behavior**: Theme changes apply instantly, state management through custom useTheme hook ensures predictable behavior, localStorage persistence provides reliable session-to-session consistency.
 - [x] **Accessibility**: ThemeToggle component includes keyboard navigation, ARIA labels, proper focus management, respects high contrast mode and reduced motion preferences.
 - [x] **Test Strategy**: Comprehensive test coverage including unit tests for hooks, component tests for ThemeToggle, integration tests for theme persistence, and required quality gates.
 - [x] **Scope Minimal**: Uses existing React/Tailwind stack, no new dependencies required, leverages browser native APIs (localStorage, matchMedia).

@@ -28,7 +28,7 @@ interface ThemeToggleProps {
 1. **Click Action**
    - **Trigger**: User clicks the toggle button
    - **Action**: Calls `onThemeToggle()` callback
-   - **Visual Feedback**: Shows sun/moon icon transition with 300ms animation
+   - **Visual Feedback**: Shows sun/moon icon change
 
 2. **Keyboard Navigation**
    - **Tab Order**: Toggle must be focusable and included in tab sequence
@@ -45,8 +45,7 @@ interface ThemeToggleProps {
 1. **Position**: Fixed position, bottom-right corner
 2. **Size**: 48px × 48px minimum touch target
 3. **Icons**: Sun icon for light mode, moon icon for dark mode
-4. **Animation**: 300ms smooth rotation and color transition
-5. **Hover State**: Slight scale increase (1.05) and background color change
+4. **Hover State**: Slight scale increase and background color change
 
 ### Accessibility Contract
 
@@ -56,8 +55,6 @@ interface AccessibilityRequirements {
   minTouchTarget: 48;
   /** Minimum color contrast ratio for normal text */
   minContrastRatio: 4.5;
-  /** Animation duration in milliseconds */
-  maxAnimationDuration: 300;
   /** Keyboard support required */
   keyboardSupport: true;
   /** Screen reader support required */
@@ -182,14 +179,12 @@ interface ErrorHandling {
 
 ```typescript
 interface AppThemeIntegration {
-  /** Theme provider must wrap entire app */
+  /** Theme must be applied to entire app */
   providerLocation: 'root';
   /** Theme must be applied before first render */
   initializationTiming: 'before-render';
   /** Theme changes must not cause layout shifts */
   layoutStability: 'no-shift';
-  /** Theme transitions must respect motion preferences */
-  motionRespect: 'honor-prefers-reduced-motion';
 }
 ```
 
@@ -201,9 +196,5 @@ interface CSSIntegration {
   tailwindStrategy: 'class';
   /** Custom properties for theme colors */
   cssVariables: boolean;
-  /** Transition duration */
-  transitionDuration: '300ms';
-  /** Transition easing */
-  transitionEasing: 'ease-in-out';
 }
 ```

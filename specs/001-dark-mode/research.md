@@ -70,15 +70,13 @@
 
 ## Performance Considerations
 
-- Theme transitions will use CSS transitions (300ms) for optimal performance
-- No layout shifts expected - theme changes only affect colors, not layout
+- Theme changes apply instantly, no layout shifts expected - theme changes only affect colors, not layout
 - Theme detection happens once on app initialization
 - localStorage access is synchronous and fast
 
 ## Accessibility Strategy
 
 - Toggle button will have proper ARIA labels and keyboard support
-- Theme changes will respect `prefers-reduced-motion` for users who disable animations
 - Color contrast ratios will be validated for both light and dark themes
 - High contrast mode detection will override dark mode when detected
 

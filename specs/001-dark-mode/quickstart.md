@@ -400,9 +400,9 @@ describe('useTheme', () => {
 });
 ```
 
-## Step 8: Configure Tailwind for Theme Transitions
+## Step 8: Configure Tailwind for Theme Support
 
-Since this project uses Tailwind CSS 4, add theme transition support to your CSS:
+Add theme support to your CSS:
 
 ```css
 /* Add to src/index.css after @import 'tailwindcss' */
@@ -411,27 +411,31 @@ Since this project uses Tailwind CSS 4, add theme transition support to your CSS
 html {
   color-scheme: light dark;
 }
-
-/* Tailwind CSS 4: Enable smooth transitions for theme changes */
-* {
-  transition-colors duration-300 ease-in-out;
-}
-
-/* Respect reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    transition-duration: 0ms !important;
-  }
-}
 ```
 
-**Alternative**: You can also apply transitions per-component using Tailwind classes:
+**Apply theme classes to components**:
 
 ```tsx
-// In your components, use transition classes
-<div className="bg-white text-gray-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
-  {/* Content */}
-</div>
+// Main App container
+<main className="mx-auto flex min-h-screen w-full max-w-5xl min-w-80 flex-col gap-8 bg-white p-4 text-center text-gray-900 sm:p-6 md:p-10 dark:bg-gray-900 dark:text-gray-100">
+  {/* Header text */}
+  <header className="space-y-2">
+    <h1 className="text-3xl font-semibold text-balance text-slate-900 sm:text-4xl dark:text-slate-100">
+      Speed Reader
+    </h1>
+    <p className="text-sm text-slate-700 sm:text-base dark:text-slate-300">
+      Paste text, choose your pace, and read one word at a time.
+    </p>
+  </header>
+
+  {/* Card section */}
+  <section className="space-y-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6 dark:border-slate-700 dark:bg-gray-800 dark:shadow-lg">
+    {/* Content */}
+  </section>
+
+  {/* ThemeToggle */}
+  <button className="hover:scale-105">{/* Toggle content */}</button>
+</main>
 ```
 
 ## Verification Steps

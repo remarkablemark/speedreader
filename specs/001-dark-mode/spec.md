@@ -10,7 +10,6 @@
 ### Session 2026-02-15
 
 - Q: Toggle Control Location and Type → A: Bottom right floating SVG toggle with sun/moon icons
-- Q: Theme Transition Animation Duration → A: 300ms smooth transition
 - Q: System Theme Change Behavior → A: Automatically follow system changes
 - Q: High Contrast Mode Interaction → A: Respect high contrast over dark mode
 - Q: Theme Loading State Behavior → A: Wait for stored theme before showing content
@@ -82,10 +81,9 @@ User wants the application to automatically match their operating system's theme
 - **FR-003**: System MUST persist user's theme preference across sessions
 - **FR-004**: System MUST detect and respect user's operating system theme preference on first visit and automatically follow system changes
 - **FR-005**: System MUST maintain proper color contrast ratios for accessibility in both themes
-- **FR-006**: System MUST provide 300ms smooth transitions between theme changes without flickering
-- **FR-007**: System MUST handle localStorage unavailability gracefully by defaulting to system theme preference
-- **FR-008**: System MUST respect high contrast mode over dark mode when detected
-- **FR-009**: System MUST wait for stored theme before showing content during page load
+- **FR-006**: System MUST handle localStorage unavailability gracefully by defaulting to system theme preference
+- **FR-007**: System MUST respect high contrast mode over dark mode when detected
+- **FR-008**: System MUST wait for stored theme before showing content during page load
 
 ### Key Entities _(include if feature involves data)_
 
@@ -96,7 +94,7 @@ User wants the application to automatically match their operating system's theme
 
 ### Measurable Outcomes
 
-- **SC-001**: Users can toggle between themes in under 1 second with immediate visual feedback
+- **SC-001**: Users can toggle between themes instantly with immediate visual feedback
 - **SC-002**: Theme preference persists across 100% of browser sessions when localStorage is available
 - **SC-003**: Both light and dark themes maintain WCAG AA contrast ratios (4.5:1 for normal text)
 - **SC-004**: 95% of users successfully find and use the theme toggle without assistance

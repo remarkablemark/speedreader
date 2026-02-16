@@ -11,7 +11,7 @@ describe('ThemeToggle', () => {
     render(<ThemeToggle currentTheme="light" onThemeToggle={onThemeToggle} />);
 
     const button = screen.getByRole('button', {
-      name: /toggle dark mode, currently light mode/i,
+      name: /toggle theme, currently light mode.*dark mode/i,
     });
 
     expect(button).toBeInTheDocument();
@@ -23,7 +23,7 @@ describe('ThemeToggle', () => {
     render(<ThemeToggle currentTheme="dark" onThemeToggle={onThemeToggle} />);
 
     const button = screen.getByRole('button', {
-      name: /toggle dark mode, currently dark mode/i,
+      name: /toggle theme, currently dark mode.*system mode/i,
     });
 
     expect(button).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('ThemeToggle', () => {
     render(<ThemeToggle currentTheme="system" onThemeToggle={onThemeToggle} />);
 
     const button = screen.getByRole('button', {
-      name: /toggle dark mode, currently system mode/i,
+      name: /toggle theme, currently system mode.*light mode/i,
     });
 
     expect(button).toBeInTheDocument();
@@ -119,7 +119,7 @@ describe('ThemeToggle', () => {
     render(<ThemeToggle currentTheme="light" onThemeToggle={onThemeToggle} />);
 
     const button = screen.getByRole('button', {
-      name: /toggle dark mode, currently light mode/i,
+      name: /toggle theme, currently light mode.*dark mode/i,
     });
 
     expect(button).toHaveAttribute('aria-label');

@@ -98,14 +98,24 @@ export const useTheme = () => {
 
   const toggleTheme = useCallback(() => {
     setThemeState((prev) => {
-      const newTheme = prev.effectiveTheme === 'light' ? 'dark' : 'light';
+      const cycleMap: Record<Theme, Theme> = {
+        light: 'dark',
+        dark: 'system',
+        system: 'light',
+      };
+      const newPreference = cycleMap[prev.userPreference];
 
-      saveThemePreference(newTheme);
+      saveThemePreference(newPreference);
+
+      const effectiveTheme =
+        prev.highContrastMode || newPreference === 'system'
+          ? resolveEffectiveTheme(prev.systemPreference)
+          : newPreference;
 
       return {
         ...prev,
-        effectiveTheme: newTheme,
-        userPreference: newTheme,
+        effectiveTheme,
+        userPreference: newPreference,
       };
     });
   }, []);

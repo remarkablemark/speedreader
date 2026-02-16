@@ -15,7 +15,7 @@ import { useReadingSession } from './useReadingSession';
 
 export default function App() {
   const [rawText, setRawText] = useState('');
-  const { theme, toggleTheme } = useTheme();
+  const { preference, toggleTheme } = useTheme();
 
   const {
     currentWordIndex,
@@ -113,7 +113,7 @@ export default function App() {
         )}
       </section>
 
-      <ThemeToggle currentTheme={theme} onThemeToggle={toggleTheme} />
+      <ThemeToggle currentTheme={preference} onThemeToggle={toggleTheme} />
     </main>
   );
 }

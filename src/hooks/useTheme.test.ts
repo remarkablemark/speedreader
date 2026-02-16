@@ -105,10 +105,27 @@ describe('useTheme', () => {
     expect(result.current.preference).toBe('system');
   });
 
-  it('should toggle theme from light to dark', () => {
+  it('should cycle theme from system to light when system is light', () => {
     const { result } = renderHook(() => useTheme());
 
     expect(result.current.theme).toBe('light');
+    expect(result.current.preference).toBe('system');
+
+    act(() => {
+      result.current.toggleTheme();
+    });
+
+    expect(result.current.theme).toBe('light');
+    expect(result.current.preference).toBe('light');
+    expect(result.current.followingSystem).toBe(false);
+  });
+
+  it('should cycle theme from light to dark', () => {
+    localStorageMock.setItem('speedreader.theme', 'light');
+
+    const { result } = renderHook(() => useTheme());
+
+    expect(result.current.preference).toBe('light');
 
     act(() => {
       result.current.toggleTheme();
@@ -119,25 +136,32 @@ describe('useTheme', () => {
     expect(result.current.followingSystem).toBe(false);
   });
 
-  it('should toggle theme from dark to light', () => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: vi.fn().mockImplementation((query: string) => {
-        if (query === '(prefers-color-scheme: dark)') {
-          return createMatchMediaMock(true);
-        }
-        return createMatchMediaMock(false);
-      }),
-    });
+  it('should cycle theme from dark to system', () => {
+    localStorageMock.setItem('speedreader.theme', 'dark');
 
     const { result } = renderHook(() => useTheme());
+
+    expect(result.current.preference).toBe('dark');
 
     act(() => {
       result.current.toggleTheme();
     });
 
-    expect(result.current.theme).toBe('light');
+    expect(result.current.preference).toBe('system');
+    expect(result.current.followingSystem).toBe(true);
+  });
+
+  it('should cycle theme from system to light', () => {
+    const { result } = renderHook(() => useTheme());
+
+    expect(result.current.preference).toBe('system');
+
+    act(() => {
+      result.current.toggleTheme();
+    });
+
     expect(result.current.preference).toBe('light');
+    expect(result.current.followingSystem).toBe(false);
   });
 
   it('should set specific theme preference', () => {

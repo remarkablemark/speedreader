@@ -9,7 +9,7 @@
 
 ### Session 2026-02-15
 
-- Q: Toggle Control Location and Type → A: Bottom right floating SVG toggle with sun/moon icons
+- Q: Toggle Control Location and Type → A: Bottom right floating SVG toggle with sun/moon/monitor icons cycling through light/dark/system
 - Q: System Theme Change Behavior → A: Automatically follow system changes
 - Q: High Contrast Mode Interaction → A: Respect high contrast over dark mode
 - Q: Theme Loading State Behavior → A: Wait for stored theme before showing content
@@ -18,16 +18,18 @@
 
 ### User Story 1 - Toggle Dark Mode (Priority: P1)
 
-User wants to switch between light and dark themes to reduce eye strain during reading in low-light conditions.
+User wants to cycle between light, dark, and system themes to reduce eye strain during reading in low-light conditions.
 
 **Why this priority**: Core functionality that provides immediate user value and accessibility benefits.
 
-**Independent Test**: Can be fully tested by toggling the theme switch and verifying the UI changes between light and dark modes.
+**Independent Test**: Can be fully tested by cycling through the theme states and verifying the UI changes between light, dark, and system modes.
 
 **Acceptance Scenarios**:
 
-1. **Given** the application is in light mode, **When** user clicks the dark mode toggle, **Then** the interface switches to dark theme with appropriate colors
-2. **Given** the application is in dark mode, **When** user clicks the dark mode toggle, **Then** the interface switches to light theme
+1. **Given** the application is in light mode, **When** user clicks the theme toggle, **Then** the interface switches to dark theme with appropriate colors
+2. **Given** the application is in dark mode, **When** user clicks the theme toggle, **Then** the interface switches to system theme (following OS preference)
+3. **Given** the application is in system mode, **When** user clicks the theme toggle, **Then** the interface switches to light theme
+4. **Given** the application is in system mode following dark OS preference, **When** OS theme changes to light, **Then** the interface automatically updates to light theme
 
 ---
 
@@ -77,7 +79,7 @@ User wants the application to automatically match their operating system's theme
 
 ### Functional Requirements
 
-- **FR-001**: System MUST provide a bottom right floating SVG toggle with sun/moon icons to switch between light and dark themes
+- **FR-001**: System MUST provide a bottom right floating SVG toggle with sun/moon/monitor icons to cycle between light, dark, and system themes
 - **FR-002**: System MUST apply theme changes within 100ms to all UI elements with no flickering or partial updates
 - **FR-003**: System MUST persist user's theme preference across sessions
 - **FR-004**: System MUST detect and respect user's operating system theme preference on first visit and automatically follow system changes

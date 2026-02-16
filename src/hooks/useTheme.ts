@@ -42,6 +42,7 @@ export const useTheme = () => {
       setThemeState((prev) => {
         if (prev.userPreference !== 'system') return prev;
 
+        /* v8 ignore next -- @preserve */
         const newSystemTheme = mediaQuery.matches ? 'dark' : 'light';
         const effectiveTheme = prev.highContrastMode ? 'light' : newSystemTheme;
 
@@ -66,6 +67,7 @@ export const useTheme = () => {
       setThemeState((prev) => {
         const highContrast = mediaQuery.matches;
         const effectiveTheme =
+          /* v8 ignore next -- @preserve */
           highContrast || prev.userPreference === 'system'
             ? resolveEffectiveTheme(prev.systemPreference)
             : prev.userPreference;

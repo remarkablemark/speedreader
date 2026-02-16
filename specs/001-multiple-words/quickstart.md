@@ -52,7 +52,7 @@ export function ControlPanel({
           id="word-count"
           value={wordCount}
           onChange={(e) => handleWordCountChange(parseInt(e.target.value, 10))}
-          className="w-full rounded-md border border-slate-300 bg-white p-2"
+          className="w-full rounded-md border border-slate-300 p-2"
         >
           <option value="1">1 word</option>
           <option value="2">2 words</option>

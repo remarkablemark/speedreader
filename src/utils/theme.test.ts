@@ -68,6 +68,15 @@ describe('getSystemTheme', () => {
 
     expect(getSystemTheme()).toBe('dark');
   });
+
+  it('should return "light" when media query returns no-preference (not dark)', () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation(() => createMatchMediaMock(false)),
+    });
+
+    expect(getSystemTheme()).toBe('light');
+  });
 });
 
 describe('getHighContrastMode', () => {

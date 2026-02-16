@@ -15,7 +15,7 @@ export const ThemeToggle = ({
   return (
     <button
       type="button"
-      className="fixed right-6 bottom-6 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg transition-all duration-300 hover:scale-105 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:bg-gray-800"
+      className="fixed right-6 bottom-6 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-all duration-300 hover:scale-105 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:bg-gray-800"
       onClick={onThemeToggle}
       disabled={disabled}
       aria-label={ariaLabel}

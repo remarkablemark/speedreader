@@ -21,7 +21,7 @@ export const Button = ({
     primary:
       'border-sky-600 bg-sky-600 text-white hover:border-sky-700 hover:bg-sky-700',
     secondary:
-      'border-slate-300 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50',
+      'border-slate-300 text-slate-800 hover:border-slate-400 hover:bg-slate-50',
   };
 
   const classes = `${baseClasses} ${variantClasses[variant]} ${className}`;

@@ -4,6 +4,9 @@ Auto-generated from all feature plans. Last updated: 2026-02-14
 
 ## Active Technologies
 
+- TypeScript 5 (React 19) + React 19, Tailwind CSS 4 (001-dark-mode)
+- localStorage for theme persistence (001-dark-mode)
+
 - TypeScript 5 (React 19) + React 19, Vite 7, Vitest 4, Tailwind CSS 4 (001-multiple-words)
 - localStorage for user preferences (001-multiple-words)
 
@@ -30,11 +33,11 @@ TypeScript 5 (strict) with React 19: Follow standard conventions
 
 ## Recent Changes
 
+- 001-dark-mode: Added TypeScript 5 (React 19) + React 19, Tailwind CSS 4
+
 - 001-multiple-words: Added TypeScript 5 (React 19) + React 19, Vite 7, Vitest 4, Tailwind CSS 4
 
 - 001-component-refactor: Added TypeScript 5 (strict mode) with React 19 + React 19, Vite 7, Vitest 4, Tailwind CSS 4
-
-- 001-speed-reading-app: Added TypeScript 5 (strict) with React 19 + React 19, React DOM 19, Vite 7, Tailwind CSS 4
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

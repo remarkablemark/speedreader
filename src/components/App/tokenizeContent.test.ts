@@ -1,5 +1,5 @@
+import { hasReadableText, tokenizeContent } from '../TextInput/tokenizeContent';
 import { SESSION_TEXT } from './__fixtures__/sessionText';
-import { hasReadableText, tokenizeContent } from './tokenizeContent';
 
 describe('tokenizeContent', () => {
   it('returns false for empty or whitespace text', () => {

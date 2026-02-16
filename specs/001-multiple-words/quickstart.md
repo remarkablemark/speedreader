@@ -1,6 +1,6 @@
 # Quickstart Guide: Multiple Words Display
 
-**Date**: 2025-02-15  
+**Date**: 2026-02-15  
 **Feature**: Multiple Words Display
 
 ## Overview

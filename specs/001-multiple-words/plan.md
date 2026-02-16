@@ -1,6 +1,6 @@
 # Implementation Plan: Multiple Words Display
 
-**Branch**: `001-multiple-words` | **Date**: 2025-02-15 | **Spec**: [spec.md](spec.md)
+**Branch**: `001-multiple-words` | **Date**: 2026-02-15 | **Spec**: [spec.md](spec.md)
 **Input**: Feature specification from `/specs/001-multiple-words/spec.md`
 
 **Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.

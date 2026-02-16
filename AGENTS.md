@@ -139,8 +139,7 @@ src/components/ComponentName/
 
 ### Import Aliases
 
-- `src/` maps to absolute imports (`src/components/App` → `src/components/App`)
-- `test/` maps to test utilities (`test/mocks/api` → `test/mocks/api`)
+- `src/` maps to absolute imports
 
 ## Boundaries
 

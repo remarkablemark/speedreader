@@ -11,12 +11,6 @@ Add dark mode functionality to the speed reader application with a floating togg
 
 ## Technical Context
 
-<!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
--->
-
 **Language/Version**: TypeScript 5 (React 19)  
 **Primary Dependencies**: React 19, Tailwind CSS 4  
 **Storage**: localStorage for theme persistence  
@@ -63,13 +57,6 @@ specs/[###-feature]/
 
 ### Source Code (repository root)
 
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
-
 ```text
 src/
 ├── components/
@@ -90,12 +77,6 @@ src/
 │   └── theme.test.ts
 └── types/
     └── index.ts
-
-tests/
-├── integration/
-│   └── theme.integration.test.tsx
-└── unit/
-    └── theme.test.tsx
 ```
 
 **Structure Decision**: Single web application using React 19 with TypeScript. Theme functionality will be encapsulated in custom hooks and utility functions, with a dedicated ThemeToggle component. The existing component structure will be extended rather than restructured.

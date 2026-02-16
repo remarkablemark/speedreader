@@ -17,19 +17,6 @@
 
 ## User Scenarios & Testing _(mandatory)_
 
-<!--
-  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
-  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
-  you should still have a viable MVP (Minimum Viable Product) that delivers value.
-
-  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
-  Think of each story as a standalone slice of functionality that can be:
-  - Developed independently
-  - Tested independently
-  - Deployed independently
-  - Demonstrated to users independently
--->
-
 ### User Story 1 - Toggle Dark Mode (Priority: P1)
 
 User wants to switch between light and dark themes to reduce eye strain during reading in low-light conditions.
@@ -82,11 +69,6 @@ User wants the application to automatically match their operating system's theme
 
 ## Requirements _(mandatory)_
 
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right functional requirements.
--->
-
 ### Constitution Alignment _(mandatory)_
 
 - **Comprehension Outcome**: Dark mode reduces eye strain in low-light conditions, improving reading comfort and potentially extending reading sessions without fatigue.
@@ -111,11 +93,6 @@ User wants the application to automatically match their operating system's theme
 - **System Theme**: Operating system's current theme preference for automatic detection
 
 ## Success Criteria _(mandatory)_
-
-<!--
-  ACTION REQUIRED: Define measurable success criteria.
-  These must be technology-agnostic and measurable.
--->
 
 ### Measurable Outcomes
 

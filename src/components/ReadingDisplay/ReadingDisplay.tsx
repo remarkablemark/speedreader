@@ -15,7 +15,7 @@ export function ReadingDisplay({
         : '';
 
   return (
-    <div className="flex min-h-40 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-[48px] leading-[1.1] font-semibold tracking-wide text-slate-900 max-[480px]:min-h-[8.5rem] max-[480px]:text-[2rem]">
+    <div className="flex min-h-40 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-[48px] leading-[1.1] font-semibold tracking-wide text-slate-900 max-[480px]:min-h-[8.5rem] max-[480px]:text-[2rem] dark:border-slate-700 dark:bg-slate-700 dark:text-slate-50">
       <p
         aria-live="polite"
         aria-atomic="true"

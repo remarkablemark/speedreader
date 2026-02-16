@@ -12,10 +12,13 @@ export function SessionDetails({
 }: SessionDetailsProps) {
   return (
     <details className="m-0">
-      <summary className="mx-auto list-item w-fit cursor-pointer text-sm text-slate-400">
+      <summary className="mx-auto list-item w-fit cursor-pointer text-sm text-slate-400 dark:text-slate-300">
         Session details
       </summary>
-      <div className="mt-2 space-y-2" aria-live="polite">
+      <div
+        className="mt-2 space-y-2 text-slate-600 dark:text-slate-200"
+        aria-live="polite"
+      >
         <p>
           Progress: <strong>{wordsRead}</strong> / <strong>{totalWords}</strong>{' '}
           ({Math.round(progressPercent)}%)

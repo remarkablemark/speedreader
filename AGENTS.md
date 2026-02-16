@@ -19,7 +19,7 @@ You're an expert engineer for this React app.
   - Vite 7 (build tool)
   - Vitest 4 (testing framework)
   - Node.js 24
-  - Tailwind CSS 4
+  - Tailwind CSS 4 (with dark mode support)
   - ESLint 9 with TypeScript support
   - Prettier with Tailwind plugin
   - React Compiler (babel-plugin-react-compiler)
@@ -108,6 +108,7 @@ import type { User } from './types';
 
 ### Testing Standards
 
+- **TDD** - tests MUST be written first and validated before implementation (red, green, refactor)
 - **100% coverage required** - all statements, branches, functions, and lines (except for barrel exports)
 - **Do not test barrel exports** - index.ts files are barrel exports and should not have dedicated tests
 - **Testing Library** - use @testing-library/react for component testing

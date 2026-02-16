@@ -7,12 +7,15 @@ import {
   TextInput,
   tokenizeContent,
 } from 'src/components/TextInput';
+import { ThemeToggle } from 'src/components/ThemeToggle';
+import { useTheme } from 'src/hooks/useTheme';
 
 import { SessionCompletion } from '../SessionCompletion';
 import { useReadingSession } from './useReadingSession';
 
 export default function App() {
   const [rawText, setRawText] = useState('');
+  const { preference, toggleTheme } = useTheme();
 
   const {
     currentWordIndex,
@@ -53,17 +56,17 @@ export default function App() {
   };
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-5xl min-w-80 flex-col gap-8 p-4 text-center sm:p-6 md:p-10">
+    <main className="mx-auto flex min-h-screen w-full max-w-5xl min-w-80 flex-col gap-8 p-4 text-center text-gray-900 transition-colors duration-300 sm:p-6 md:p-10">
       <header className="space-y-2">
-        <h1 className="text-3xl font-semibold text-balance text-slate-900 sm:text-4xl">
+        <h1 className="text-3xl font-semibold text-balance text-slate-900 sm:text-4xl dark:text-slate-100">
           Speed Reader
         </h1>
-        <p className="text-sm text-slate-700 sm:text-base">
+        <p className="text-sm text-slate-700 sm:text-base dark:text-slate-300">
           Paste text, choose your pace, and read one word at a time.
         </p>
       </header>
 
-      <section className="space-y-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+      <section className="space-y-6 rounded-2xl border border-slate-200 p-4 shadow-sm sm:p-6 dark:border-slate-700 dark:bg-gray-800 dark:shadow-lg">
         {isSetupMode ? (
           <TextInput
             value={rawText}
@@ -109,6 +112,8 @@ export default function App() {
           <SessionCompletion wordsRead={wordsRead} elapsedMs={elapsedMs} />
         )}
       </section>
+
+      <ThemeToggle currentTheme={preference} onThemeToggle={toggleTheme} />
     </main>
   );
 }

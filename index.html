@@ -10,6 +10,30 @@
     <meta name="description" content="Speed reading app." />
     <title>Speed Reader</title>
 
+    <!-- Apply theme before React loads to prevent flash -->
+    <script>
+      (function () {
+        switch (localStorage.getItem('speedreader.theme')) {
+          case 'light':
+            break;
+          case 'dark':
+            document.documentElement.classList.add('dark');
+            break;
+          case 'system':
+          default:
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+              document.documentElement.classList.add('dark');
+            }
+        }
+      })();
+    </script>
+    <style>
+      .dark body {
+        background-color: #111827; /* bg-slate-900 */
+        color: #f9fafb; /* text-slate-50 */
+      }
+    </style>
+
     <!--
       GitHub Corners. See https://github.com/remarkablemark/github-corners
     -->

@@ -12,16 +12,16 @@ export interface WordChunk {
 
 // Reading session data
 export interface ReadingSessionState {
-  currentWordIndex: number;
-  elapsedMs: number;
-  msPerWord: number;
-  progressPercent: number;
-  restartCount: number;
-  selectedWpm: number;
-  startCount: number;
   status: ReadingSessionStatus;
-  totalWords: number;
-  wordsRead: number;
+  currentWordIndex: number;
+  selectedWpm: number;
+  elapsedMs: number;
+  // Multiple words display support
+  currentChunkIndex: number;
+  totalChunks: number;
+  wordsPerChunk: number;
+  // Store the actual words for chunk generation
+  words: string[];
 }
 
 // Reading session actions

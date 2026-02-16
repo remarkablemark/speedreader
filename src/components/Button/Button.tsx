@@ -19,9 +19,9 @@ export const Button = ({
 
   const variantClasses: Record<'primary' | 'secondary', string> = {
     primary:
-      'border-sky-600 bg-sky-600 text-white hover:border-sky-700 hover:bg-sky-700',
+      'border-sky-600 bg-sky-600 text-white hover:border-sky-700 hover:bg-sky-700 dark:border-sky-500 dark:bg-sky-500 dark:hover:border-sky-600 dark:hover:bg-sky-600',
     secondary:
-      'border-slate-300 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50',
+      'border-slate-300 text-slate-800 hover:border-slate-400 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:border-slate-500 dark:hover:bg-slate-700',
   };
 
   const classes = `${baseClasses} ${variantClasses[variant]} ${className}`;

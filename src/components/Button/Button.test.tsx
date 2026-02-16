@@ -16,11 +16,7 @@ describe('Button', () => {
     render(<Button variant="secondary">Click me</Button>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
-    expect(button).toHaveClass(
-      'border-slate-300',
-      'bg-white',
-      'text-slate-800',
-    );
+    expect(button).toHaveClass('border-slate-300', 'text-slate-800');
   });
 
   it('handles click events', async () => {

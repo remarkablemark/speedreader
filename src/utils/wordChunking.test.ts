@@ -1,5 +1,3 @@
-import { describe, expect } from 'vitest';
-
 import { generateWordChunks } from './wordChunking';
 
 describe('wordChunking', () => {

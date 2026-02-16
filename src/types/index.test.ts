@@ -1,5 +1,3 @@
-import { expect } from 'vitest';
-
 import * as TypesModule from './index';
 
 describe('types index', () => {

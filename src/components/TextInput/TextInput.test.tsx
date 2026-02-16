@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, vi } from 'vitest';
+import { vi } from 'vitest';
 
 import { TextInput } from './TextInput';
 

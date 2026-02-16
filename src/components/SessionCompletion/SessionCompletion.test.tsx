@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect } from 'vitest';
 
 import { SessionCompletion } from './SessionCompletion';
 import type { SessionCompletionProps } from './SessionCompletion.types';

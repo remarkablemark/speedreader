@@ -1,4 +1,4 @@
-import { describe, expect, vi } from 'vitest';
+import { vi } from 'vitest';
 
 import {
   DEFAULT_WORD_COUNT,

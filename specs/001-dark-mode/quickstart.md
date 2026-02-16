@@ -336,7 +336,7 @@ export const App = () => {
 
 Create `src/hooks/useTheme.test.ts`:
 
-````typescript
+```typescript
 import { renderHook, act } from '@testing-library/react';
 import { useTheme } from './useTheme';
 
@@ -400,21 +400,21 @@ describe('useTheme', () => {
 });
 ```
 
-## Step 8: Update CSS for Theme Transitions
+## Step 8: Configure Tailwind for Theme Transitions
 
-Add to `src/index.css`:
+Since this project uses Tailwind CSS 4, add theme transition support to your CSS:
 
 ```css
+/* Add to src/index.css after @import 'tailwindcss' */
+
 /* Prevent flash of incorrect theme */
 html {
   color-scheme: light dark;
 }
 
-/* Smooth theme transitions */
+/* Tailwind CSS 4: Enable smooth transitions for theme changes */
 * {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+  transition-colors duration-300 ease-in-out;
 }
 
 /* Respect reduced motion preferences */
@@ -423,6 +423,15 @@ html {
     transition-duration: 0ms !important;
   }
 }
+```
+
+**Alternative**: You can also apply transitions per-component using Tailwind classes:
+
+```tsx
+// In your components, use transition classes
+<div className="bg-white text-gray-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
+  {/* Content */}
+</div>
 ```
 
 ## Verification Steps
@@ -440,4 +449,3 @@ html {
 ## Next Steps
 
 After implementation, run `/speckit.tasks` to generate the detailed task breakdown for development.
-````

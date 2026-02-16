@@ -1,0 +1,479 @@
+# Quickstart: Dark Mode Implementation
+
+**Feature**: Dark Mode  
+**Date**: 2026-02-15  
+**Phase**: 1 - Design
+
+## Implementation Overview
+
+This quickstart guide provides the step-by-step approach to implement dark mode functionality in the speed reader application. The implementation follows the React 19 + TypeScript 5 + Tailwind CSS 4 stack.
+
+## Prerequisites
+
+- React 19 with TypeScript 5 strict mode
+- Tailwind CSS 4 configured with `class` dark mode strategy
+- Vitest 4 for testing
+- Existing component structure in `src/components/`
+
+## Step 1: Configure Tailwind CSS Dark Mode
+
+Update `tailwind.config.js` to enable dark mode with class strategy:
+
+```javascript
+module.exports = {
+  darkMode: 'class', // Enable class-based dark mode
+  // ... existing config
+};
+```
+
+## Step 2: Create Theme Types
+
+Create `src/types/theme.ts`:
+
+```typescript
+export type Theme = 'light' | 'dark' | 'system';
+
+export interface ThemePreference {
+  theme: Theme;
+  persist: boolean;
+  lastChanged: number;
+}
+
+export interface ThemeState {
+  effectiveTheme: 'light' | 'dark';
+  userPreference: ThemePreference;
+  systemPreference: 'light' | 'dark' | 'no-preference';
+  highContrastMode: boolean;
+}
+```
+
+## Step 3: Implement Theme Utilities
+
+Create `src/utils/theme.ts`:
+
+```typescript
+import type { ThemePreference } from 'src/types/theme';
+
+const THEME_STORAGE_KEY = 'speedreader-theme-preference';
+
+export const getSystemTheme = (): 'light' | 'dark' | 'no-preference' => {
+  if (!window.matchMedia) return 'no-preference';
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
+};
+
+export const getHighContrastMode = (): boolean => {
+  if (!window.matchMedia) return false;
+
+  return window.matchMedia('(prefers-contrast: high)').matches;
+};
+
+export const saveThemePreference = (preference: ThemePreference): boolean => {
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(preference));
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+export const loadThemePreference = (): ThemePreference | null => {
+  try {
+    const stored = localStorage.getItem(THEME_STORAGE_KEY);
+    if (!stored) return null;
+
+    const parsed = JSON.parse(stored);
+    return validateThemePreference(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+};
+
+export const validateThemePreference = (
+  data: unknown,
+): data is ThemePreference => {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    'theme' in data &&
+    ['light', 'dark', 'system'].includes((data as any).theme) &&
+    'persist' in data &&
+    typeof (data as any).persist === 'boolean' &&
+    'lastChanged' in data &&
+    typeof (data as any).lastChanged === 'number'
+  );
+};
+```
+
+## Step 4: Create useTheme Hook
+
+Create `src/hooks/useTheme.ts`:
+
+```typescript
+import { useState, useEffect, useCallback } from 'react';
+import type { Theme, ThemeState } from 'src/types/theme';
+import {
+  getSystemTheme,
+  getHighContrastMode,
+  saveThemePreference,
+  loadThemePreference,
+} from 'src/utils/theme';
+
+const DEFAULT_PREFERENCE = {
+  theme: 'system' as Theme,
+  persist: true,
+  lastChanged: Date.now(),
+};
+
+export const useTheme = () => {
+  const [themeState, setThemeState] = useState<ThemeState>(() => {
+    const stored = loadThemePreference();
+    const systemTheme = getSystemTheme();
+    const highContrast = getHighContrastMode();
+
+    const preference = stored || DEFAULT_PREFERENCE;
+    const effectiveTheme = highContrast
+      ? 'light'
+      : preference.theme === 'system'
+        ? systemTheme
+        : preference.theme;
+
+    return {
+      effectiveTheme,
+      userPreference: preference,
+      systemPreference: systemTheme,
+      highContrastMode: highContrast,
+    };
+  });
+
+  // Listen for system theme changes
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const handleChange = () => {
+      setThemeState((prev) => {
+        if (prev.userPreference.theme !== 'system') return prev;
+
+        const newSystemTheme = mediaQuery.matches ? 'dark' : 'light';
+        const effectiveTheme = prev.highContrastMode ? 'light' : newSystemTheme;
+
+        return {
+          ...prev,
+          systemPreference: newSystemTheme,
+          effectiveTheme,
+        };
+      });
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // Listen for high contrast mode changes
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-contrast: high)');
+
+    const handleChange = () => {
+      setThemeState((prev) => {
+        const highContrast = mediaQuery.matches;
+        const effectiveTheme = highContrast
+          ? 'light'
+          : prev.userPreference.theme === 'system'
+            ? prev.systemPreference
+            : prev.userPreference.theme;
+
+        return {
+          ...prev,
+          highContrastMode: highContrast,
+          effectiveTheme,
+        };
+      });
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    setThemeState((prev) => {
+      const newTheme = prev.effectiveTheme === 'light' ? 'dark' : 'light';
+      const newPreference = {
+        theme: newTheme,
+        persist: true,
+        lastChanged: Date.now(),
+      };
+
+      saveThemePreference(newPreference);
+
+      return {
+        ...prev,
+        effectiveTheme: newTheme,
+        userPreference: newPreference,
+      };
+    });
+  }, []);
+
+  const setTheme = useCallback((theme: Theme) => {
+    setThemeState((prev) => {
+      const newPreference = {
+        theme,
+        persist: true,
+        lastChanged: Date.now(),
+      };
+
+      saveThemePreference(newPreference);
+
+      const effectiveTheme = prev.highContrastMode
+        ? 'light'
+        : theme === 'system'
+          ? prev.systemPreference
+          : theme;
+
+      return {
+        ...prev,
+        effectiveTheme,
+        userPreference: newPreference,
+      };
+    });
+  }, []);
+
+  return {
+    theme: themeState.effectiveTheme,
+    preference: themeState.userPreference.theme,
+    followingSystem: themeState.userPreference.theme === 'system',
+    toggleTheme,
+    setTheme,
+    highContrastMode: themeState.highContrastMode,
+  };
+};
+```
+
+## Step 5: Create ThemeToggle Component
+
+Create `src/components/ThemeToggle/ThemeToggle.tsx`:
+
+```typescript
+import { buttonVariants } from 'src/components/Button';
+import type { ThemeToggleProps } from './ThemeToggle.types';
+
+export const ThemeToggle = ({
+  currentTheme,
+  onThemeToggle,
+  className,
+  disabled = false
+}: ThemeToggleProps) => {
+  const isDark = currentTheme === 'dark';
+  const isSystem = currentTheme === 'system';
+
+  const ariaLabel = `Toggle dark mode, currently ${
+    isDark ? 'dark' : isSystem ? 'system' : 'light'
+  } mode`;
+
+  return (
+    <button
+      type="button"
+      className={buttonVariants({
+        variant: "ghost",
+        size: "icon",
+        className: `fixed bottom-6 right-6 w-12 h-12 rounded-full shadow-lg transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${className || ''}`
+      })}
+      onClick={onThemeToggle}
+      disabled={disabled}
+      aria-label={ariaLabel}
+    >
+      <span className="sr-only">{ariaLabel}</span>
+      {isDark ? (
+        // Moon icon for dark mode
+        <svg
+          className="w-6 h-6 transition-transform duration-300 rotate-180"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+          />
+        </svg>
+      ) : (
+        // Sun icon for light mode
+        <svg
+          className="w-6 h-6 transition-transform duration-300"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+          />
+        </svg>
+      )}
+    </button>
+  );
+};
+```
+
+Create `src/components/ThemeToggle/ThemeToggle.types.ts`:
+
+```typescript
+export interface ThemeToggleProps {
+  currentTheme: 'light' | 'dark' | 'system';
+  onThemeToggle: () => void;
+  className?: string;
+  disabled?: boolean;
+}
+```
+
+## Step 6: Integrate with App Component
+
+Update `src/components/App/App.tsx`:
+
+```typescript
+import { useTheme } from 'src/hooks/useTheme';
+import { ThemeToggle } from 'src/components/ThemeToggle';
+import './App.css';
+
+export const App = () => {
+  const { theme, toggleTheme } = useTheme();
+
+  // Apply theme to document root
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+      {/* Your existing app content */}
+
+      <ThemeToggle
+        currentTheme={theme}
+        onThemeToggle={toggleTheme}
+      />
+    </div>
+  );
+};
+```
+
+## Step 7: Add Tests
+
+Create `src/hooks/useTheme.test.ts`:
+
+```typescript
+import { renderHook, act } from '@testing-library/react';
+import { useTheme } from './useTheme';
+
+// Mock localStorage
+const localStorageMock = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+  clear: vi.fn(),
+};
+Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+
+// Mock matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+});
+
+describe('useTheme', () => {
+  beforeEach(() => {
+    localStorageMock.getItem.mockReturnValue(null);
+  });
+
+  it('should initialize with system preference', () => {
+    const { result } = renderHook(() => useTheme());
+
+    expect(result.current.theme).toBe('light');
+    expect(result.current.preference).toBe('system');
+  });
+
+  it('should toggle theme', () => {
+    const { result } = renderHook(() => useTheme());
+
+    act(() => {
+      result.current.toggleTheme();
+    });
+
+    expect(result.current.theme).toBe('dark');
+    expect(result.current.preference).toBe('dark');
+  });
+
+  it('should load saved preference from localStorage', () => {
+    const savedPreference = {
+      theme: 'dark',
+      persist: true,
+      lastChanged: Date.now(),
+    };
+
+    localStorageMock.getItem.mockReturnValue(JSON.stringify(savedPreference));
+
+    const { result } = renderHook(() => useTheme());
+
+    expect(result.current.theme).toBe('dark');
+    expect(result.current.preference).toBe('dark');
+  });
+});
+```
+
+## Step 8: Update CSS for Theme Transitions
+
+Add to `src/index.css`:
+
+```css
+/* Prevent flash of incorrect theme */
+html {
+  color-scheme: light dark;
+}
+
+/* Smooth theme transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0ms !important;
+  }
+}
+```
+
+## Verification Steps
+
+1. **Build and Test**: Run `npm run build` and `npm run test:ci`
+2. **Manual Testing**:
+   - Toggle between themes
+   - Refresh browser to verify persistence
+   - Change system theme to verify automatic detection
+3. **Accessibility Testing**:
+   - Test keyboard navigation
+   - Verify screen reader announcements
+   - Check color contrast ratios
+
+## Next Steps
+
+After implementation, run `/speckit.tasks` to generate the detailed task breakdown for development.

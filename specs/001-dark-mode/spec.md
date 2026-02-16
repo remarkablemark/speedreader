@@ -9,7 +9,7 @@
 
 ### Session 2026-02-15
 
-- Q: Toggle Control Location and Type → A: Header toggle switch with sun/moon icons
+- Q: Toggle Control Location and Type → A: Bottom right floating SVG toggle with sun/moon icons
 - Q: Theme Transition Animation Duration → A: 300ms smooth transition
 - Q: System Theme Change Behavior → A: Automatically follow system changes
 - Q: High Contrast Mode Interaction → A: Respect high contrast over dark mode
@@ -95,7 +95,7 @@ User wants the application to automatically match their operating system's theme
 
 ### Functional Requirements
 
-- **FR-001**: System MUST provide a header toggle switch with sun/moon icons to switch between light and dark themes
+- **FR-001**: System MUST provide a bottom right floating SVG toggle with sun/moon icons to switch between light and dark themes
 - **FR-002**: System MUST apply theme changes immediately to all UI elements
 - **FR-003**: System MUST persist user's theme preference across sessions
 - **FR-004**: System MUST detect and respect user's operating system theme preference on first visit and automatically follow system changes

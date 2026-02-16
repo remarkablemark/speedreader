@@ -10,6 +10,7 @@
 ### Session 2026-02-15
 
 - Q: Toggle Control Location and Type → A: Header toggle switch with sun/moon icons
+- Q: Theme Transition Animation Duration → A: 300ms smooth transition
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -96,7 +97,7 @@ User wants the application to automatically match their operating system's theme
 - **FR-003**: System MUST persist user's theme preference across sessions
 - **FR-004**: System MUST detect and respect user's operating system theme preference on first visit
 - **FR-005**: System MUST maintain proper color contrast ratios for accessibility in both themes
-- **FR-006**: System MUST provide smooth transitions between theme changes without flickering
+- **FR-006**: System MUST provide 300ms smooth transitions between theme changes without flickering
 - **FR-007**: System MUST handle localStorage unavailability gracefully by defaulting to system theme preference
 
 ### Key Entities _(include if feature involves data)_

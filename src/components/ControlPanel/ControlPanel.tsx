@@ -67,7 +67,7 @@ export function ControlPanel({
           aria-valuemin={READER_MIN_WPM}
           aria-valuemax={READER_MAX_WPM}
           aria-valuenow={selectedWpm}
-          className="w-full sm:w-auto"
+          className="w-full md:w-48 lg:w-64"
         />
       </div>
 

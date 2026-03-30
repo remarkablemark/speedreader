@@ -67,7 +67,8 @@ export function ControlPanel({
           aria-valuemin={READER_MIN_WPM}
           aria-valuemax={READER_MAX_WPM}
           aria-valuenow={selectedWpm}
-          className="w-full md:w-48 lg:w-64"
+          disabled={isRunning}
+          className="w-full disabled:cursor-not-allowed disabled:opacity-50 md:w-48 lg:w-64"
         />
       </div>
 
@@ -82,6 +83,7 @@ export function ControlPanel({
           id={wordCountInputId}
           value={wordsPerChunk}
           onChange={handleWordsPerChunkChange}
+          disabled={isRunning}
           className="block w-full rounded-md border border-slate-300 px-3 py-2 font-medium text-slate-900 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         >
           <option value={1}>1</option>

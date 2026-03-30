@@ -51,7 +51,7 @@ export function ControlPanel({
     >
       <div className="sm:mr-4 sm:shrink-0">
         <label
-          className="block text-xs font-medium text-slate-700 dark:text-slate-300"
+          className="block text-sm font-medium text-slate-700 dark:text-slate-300"
           htmlFor={speedInputId}
         >
           Speed ({selectedWpm} WPM)
@@ -73,7 +73,7 @@ export function ControlPanel({
 
       <div className="sm:mr-4 sm:shrink-0">
         <label
-          className="block text-xs font-medium text-slate-700 dark:text-slate-300"
+          className="block text-sm font-medium text-slate-700 dark:text-slate-300"
           htmlFor={wordCountInputId}
         >
           Word Count

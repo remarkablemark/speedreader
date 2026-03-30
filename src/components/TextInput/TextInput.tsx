@@ -39,13 +39,13 @@ export const TextInput = ({
         Session Text
       </label>
       <textarea
+        className="min-h-56 w-full rounded-md border border-slate-300 bg-white p-3 text-slate-900 shadow-sm transition outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-400"
         id={textAreaId}
         value={value}
         onChange={(event) => {
           onChange(event.target.value);
         }}
         disabled={disabled}
-        className="min-h-56 w-full rounded-md border border-slate-300 p-3 text-slate-900 shadow-sm transition outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-400"
         placeholder="Paste text to begin your speed reading session."
         rows={10}
       />

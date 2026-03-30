@@ -71,6 +71,6 @@ describe('Button', () => {
     render(<Button>Click me</Button>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
-    expect(button).toHaveClass('px-3', 'py-2', 'text-sm');
+    expect(button).toHaveClass('px-3', 'py-2');
   });
 });

@@ -12,7 +12,7 @@ export function SessionDetails({
 }: SessionDetailsProps) {
   return (
     <details className="m-0">
-      <summary className="mx-auto list-item w-fit cursor-pointer text-sm text-slate-400 dark:text-slate-300">
+      <summary className="mx-auto list-item w-fit cursor-pointer text-slate-400 dark:text-slate-300">
         Session details
       </summary>
       <div

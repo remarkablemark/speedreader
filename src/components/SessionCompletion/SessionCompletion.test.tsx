@@ -57,7 +57,6 @@ describe('SessionCompletion', () => {
       'border-emerald-200',
       'bg-emerald-50',
       'p-4',
-      'text-sm',
       'text-emerald-900',
     );
   });

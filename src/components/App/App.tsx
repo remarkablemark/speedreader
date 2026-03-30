@@ -66,7 +66,7 @@ export default function App() {
         </p>
       </header>
 
-      <section className="space-y-6 rounded-2xl border border-slate-200 p-4 shadow-sm sm:p-6 dark:border-slate-700 dark:bg-gray-800 dark:shadow-lg">
+      <section className="space-y-4 rounded-2xl border border-slate-200 p-4 shadow-sm sm:p-6 dark:border-slate-700 dark:bg-gray-800 dark:shadow-lg">
         {isSetupMode ? (
           <TextInput
             value={rawText}

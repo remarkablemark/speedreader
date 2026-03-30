@@ -164,7 +164,7 @@ describe('TextInput', () => {
       />,
     );
 
-    const label = screen.getByText('Session text');
+    const label = screen.getByText('Session Text');
     expect(label).toBeInTheDocument();
     expect(label.tagName).toBe('LABEL');
   });

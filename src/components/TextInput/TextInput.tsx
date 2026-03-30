@@ -33,10 +33,10 @@ export const TextInput = ({
       }}
     >
       <label
-        className="block font-medium text-slate-900 dark:text-slate-100"
+        className="block font-medium text-slate-600 dark:text-slate-200"
         htmlFor={textAreaId}
       >
-        Session text
+        Session Text
       </label>
       <textarea
         id={textAreaId}

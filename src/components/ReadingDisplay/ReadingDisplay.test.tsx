@@ -108,7 +108,7 @@ describe('ReadingDisplay', () => {
     expect(displayContainer).toBeInTheDocument();
 
     // Check mobile responsive classes
-    expect(displayContainer).toHaveClass('max-[480px]:min-h-[8.5rem]');
+    expect(displayContainer).toHaveClass('max-sm:min-h-34');
   });
 
   it('has proper typography styling', () => {
@@ -123,12 +123,12 @@ describe('ReadingDisplay', () => {
 
     const displayContainer = document.querySelector('.flex.min-h-40');
     expect(displayContainer).toHaveClass(
-      'text-[48px]',
-      'leading-[1.1]',
+      'text-5xl',
+      'leading-tight',
       'font-semibold',
       'tracking-wide',
       'text-slate-900',
-      'max-[480px]:text-[2rem]',
+      'max-sm:text-3xl',
     );
   });
 

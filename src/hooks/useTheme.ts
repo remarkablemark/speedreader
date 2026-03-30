@@ -44,8 +44,9 @@ export const useTheme = () => {
       setThemeState((prev) => {
         if (prev.userPreference !== 'system') return prev;
 
-        /* v8 ignore next -- @preserve */
+        /* v8 ignore start */
         const newSystemTheme = mediaQuery.matches ? 'dark' : 'light';
+        /* v8 ignore stop */
         const effectiveTheme = prev.highContrastMode ? 'light' : newSystemTheme;
 
         return {
@@ -69,9 +70,10 @@ export const useTheme = () => {
       setThemeState((prev) => {
         const highContrast = mediaQuery.matches;
         const effectiveTheme =
-          /* v8 ignore next -- @preserve */
+          /* v8 ignore start */
           highContrast || prev.userPreference === 'system'
-            ? resolveEffectiveTheme(prev.systemPreference)
+            ? /* v8 ignore stop */
+              resolveEffectiveTheme(prev.systemPreference)
             : prev.userPreference;
 
         return {

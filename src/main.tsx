@@ -6,7 +6,7 @@ import { createRoot } from 'react-dom/client';
 import App from './components/App';
 
 // Add transitions after page load to prevent flash
-/* v8 ignore next -- @preserve */
+/* v8 ignore start */
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     const style = document.createElement('style');
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(style);
   }, 300);
 });
+/* v8 ignore stop */
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 createRoot(document.getElementById('root')!).render(

@@ -15,7 +15,7 @@ export const Button = ({
   ...props
 }: ButtonProps & { ref?: React.Ref<HTMLButtonElement> }) => {
   const baseClasses =
-    'inline-flex shrink-0 items-center justify-center rounded-md border px-3 py-2 font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50';
+    'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md border px-3 py-2 font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-50';
 
   const variantClasses: Record<'primary' | 'secondary', string> = {
     primary:

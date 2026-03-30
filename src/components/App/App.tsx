@@ -61,8 +61,8 @@ export default function App() {
         <h1 className="text-3xl font-semibold text-balance text-slate-900 sm:text-4xl dark:text-slate-100">
           Speed Reader
         </h1>
-        <p className="text-sm text-slate-700 sm:text-base dark:text-slate-300">
-          Paste text, choose your pace, and read one word at a time.
+        <p className="text-slate-700 sm:text-base dark:text-slate-300">
+          Paste the text, choose your pace, and read the words.
         </p>
       </header>
 

@@ -14,7 +14,7 @@ describe('SessionDetails', () => {
   it('renders collapsible details with summary', () => {
     render(<SessionDetails {...defaultProps} />);
 
-    const summary = screen.getByText('Session details');
+    const summary = screen.getByText('Session Details');
     expect(summary).toBeInTheDocument();
     expect(summary.tagName).toBe('SUMMARY');
   });

@@ -298,7 +298,7 @@ describe('App component', () => {
       await user.click(startButton);
 
       // Should show SessionDetails component
-      expect(screen.getByText('Session details')).toBeInTheDocument();
+      expect(screen.getByText('Session Details')).toBeInTheDocument();
       expect(screen.getByText(/Progress:/)).toBeInTheDocument();
       expect(screen.getByText(/Tempo:/)).toBeInTheDocument();
     });
@@ -341,7 +341,7 @@ describe('App component', () => {
       render(<App />);
 
       // Should not show SessionDetails in setup mode
-      expect(screen.queryByText('Session details')).not.toBeInTheDocument();
+      expect(screen.queryByText('Session Details')).not.toBeInTheDocument();
       expect(screen.queryByText(/Progress:/)).not.toBeInTheDocument();
       expect(screen.queryByText(/Tempo:/)).not.toBeInTheDocument();
     });
@@ -361,7 +361,7 @@ describe('App component', () => {
       // Should have proper accessibility attributes
       const detailsElements = screen.getAllByRole('group');
       const sessionDetailsElement = detailsElements.find((el) =>
-        el.textContent.includes('Session details'),
+        el.textContent.includes('Session Details'),
       );
       expect(sessionDetailsElement).toBeInTheDocument();
       if (sessionDetailsElement) {
